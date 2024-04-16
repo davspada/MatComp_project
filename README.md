@@ -1,2 +1,1 @@
-# MatCompo_project
-"Sparabola"
+# "SPARABOLA"
