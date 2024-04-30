@@ -10,16 +10,141 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[       821,         34]
-NotebookOptionsPosition[       561,         21]
-NotebookOutlinePosition[       961,         37]
-CellTagsIndexPosition[       918,         34]
+NotebookDataLength[      7615,        178]
+NotebookOptionsPosition[      6078,        146]
+NotebookOutlinePosition[      6480,        162]
+CellTagsIndexPosition[      6437,        159]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
 Notebook[{
+
+Cell[CellGroupData[{
+Cell["Guess The Function", "Title",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.},
+ CellChangeTimes->{{3.9226067729135513`*^9, 3.9226067852178745`*^9}, 
+   3.922606933733614*^9, {3.9228625810261993`*^9, 3.9228625815882835`*^9}},
+ TextAlignment->Center,ExpressionUUID->"63089ab6-e53e-1b4e-b6b2-2e29cf3021c6"],
+
+Cell[TextData[StyleBox["Nome del gruppo",
+ FontVariations->{"Underline"->True}]], "Chapter",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.},
+ CellChangeTimes->{{3.9226067729135513`*^9, 3.9226068033475113`*^9}, {
+   3.922606842535715*^9, 3.9226068656244297`*^9}, 3.922606933733614*^9},
+ TextAlignment->Center,ExpressionUUID->"b4a7d940-5297-a945-9b80-539b97fa6e53"],
+
+Cell[TextData[StyleBox["Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, \
+Davide Spada",
+ FontSize->24]], "Chapter",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.},
+ CellChangeTimes->{{3.9226067729135513`*^9, 3.9226068033475113`*^9}, {
+   3.922606842535715*^9, 3.922606933733614*^9}, 3.922606992014269*^9, 
+   3.922860195356987*^9},
+ TextAlignment->Center,ExpressionUUID->"1ea57c85-88db-f64a-94a1-b047477fde9e"],
+
+Cell[TextData[StyleBox["",
+ FontSize->24]], "Chapter",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.},
+ CellChangeTimes->{{3.9226067729135513`*^9, 3.9226068033475113`*^9}, {
+   3.922606842535715*^9, 3.922606933733614*^9}, 3.922606992014269*^9},
+ TextAlignment->Center,ExpressionUUID->"ae0a513c-0bd6-1f46-aa63-96a19cdc9a29"],
+
+Cell[TextData[StyleBox["A.A. 2023-2024 - 5898 LM Informatica ",
+ FontSize->24]], "Subtitle",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.},
+ CellChangeTimes->{{3.9226067729135513`*^9, 3.9226068033475113`*^9}, {
+  3.922606842535715*^9, 3.922606933733614*^9}, {3.922606998330328*^9, 
+  3.922607035732577*^9}},
+ TextAlignment->Center,ExpressionUUID->"49a8f94e-ac43-8549-b5a2-f0a3cd058de7"]
+}, Open  ]],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"NotebookDirectory", "[", "]"}], "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"Get", "[", "\"\<Package.wl\>\"", "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.922523492456673*^9, 3.922523518036743*^9}, 
+   3.922860684222404*^9},
+ CellLabel->
+  "In[501]:=",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"ButtonBox", "[", 
+   RowBox[{"\"\<Inizia\>\"", ",", 
+    RowBox[{"Appearance", "->", "Automatic"}], ",", 
+    RowBox[{"ButtonFunction", ":>", 
+     RowBox[{"FrontEndExecute", "[", 
+      RowBox[{"FrontEndToken", "[", "\"\<EvaluateNotebook\>\"", "]"}], 
+      "]"}]}], ",", 
+    RowBox[{"Evaluator", "->", "Automatic"}], ",", 
+    RowBox[{"Method", "->", "\"\<Preemptive\>\""}]}], "]"}], "//", 
+  "DisplayForm"}]], "Input",
+ CellChangeTimes->{{3.922523492456673*^9, 3.922523518036743*^9}, {
+   3.922860684222404*^9, 3.922860706254389*^9}, {3.922860861809234*^9, 
+   3.9228609351433306`*^9}, {3.922860967185098*^9, 3.922860999151977*^9}, {
+   3.922861064058958*^9, 3.922861157342438*^9}, 3.9228611981115913`*^9, 
+   3.922861305153114*^9},
+ CellLabel->
+  "In[503]:=",ExpressionUUID->"0cd77527-376c-6644-aa8e-d4d11f8fefa4"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox["Inizia",
+   Appearance->Automatic,
+   ButtonFunction:>FrontEndExecute[
+     FrontEndToken["EvaluateNotebook"]],
+   Evaluator->Automatic,
+   Method->"Preemptive"],
+  DisplayForm]], "Output",
+ CellChangeTimes->{{3.9228611135379543`*^9, 3.9228611620156994`*^9}, {
+   3.9228611928796673`*^9, 3.922861198419948*^9}, 3.922861305514145*^9, 
+   3.9231315200568333`*^9, 3.9231318606242676`*^9, 3.9231319109696503`*^9, 
+   3.923131982011738*^9, {3.923133216608343*^9, 3.923133275570938*^9}, 
+   3.9231334117627697`*^9, 3.923133487280279*^9, 3.923140124197548*^9, 
+   3.9231422965324802`*^9, {3.9231424816847363`*^9, 3.923142503231636*^9}, 
+   3.923143211743437*^9, 3.923143312768358*^9, 3.9231435083824253`*^9, {
+   3.923143551744673*^9, 3.923143589462366*^9}, {3.9231436323624153`*^9, 
+   3.9231436564492416`*^9}, {3.923194241733513*^9, 3.9231942563994007`*^9}, 
+   3.9231948129450665`*^9, 3.9231948552375393`*^9, 3.9231948867288933`*^9, {
+   3.9231949580194283`*^9, 3.9231949878320904`*^9}, {3.9231950475361423`*^9, 
+   3.923195061061613*^9}, 3.9231953763506184`*^9, 3.9231954263056183`*^9, 
+   3.923195456886553*^9, {3.923195491379034*^9, 3.9231955189747753`*^9}, 
+   3.923195550978052*^9, {3.9231958433915977`*^9, 3.923195876648926*^9}, {
+   3.92319590854405*^9, 3.923195920756481*^9}, 3.9231959724275*^9, 
+   3.9231960881229534`*^9, 3.923196119532629*^9, 3.923196283841732*^9, 
+   3.9231963909102135`*^9},
+ CellLabel->
+  "Out[503]//DisplayForm=",ExpressionUUID->"d224b4da-571c-354a-bf1c-\
+8bf8bfa8636f"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"GuessTheFunctionGUI", "[", "]"}], ";"}], "*)"}]], "Input",
+ CellChangeTimes->{{3.922862221156011*^9, 3.922862229677065*^9}, {
+   3.9231320281342144`*^9, 3.923132030341078*^9}, 3.923132076439476*^9, {
+   3.923142474589155*^9, 3.9231424774542904`*^9}, {3.9231433215942554`*^9, 
+   3.923143323977806*^9}},
+ CellLabel->
+  "In[504]:=",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CreateDynamicWindow", "[", "]"}], ";"}]], "Input",
+ CellChangeTimes->{
+  3.9231315148830967`*^9, {3.9231320335557423`*^9, 3.9231320803944798`*^9}, {
+   3.923196156282036*^9, 3.9231961563848915`*^9}, {3.923196281998104*^9, 
+   3.923196282091877*^9}},
+ CellLabel->
+  "In[505]:=",ExpressionUUID->"5498a56f-5094-544d-b05f-b380115dba14"]
 },
-WindowSize->{949, 472},
+WindowSize->{478, 447.5},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
 FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->"Default.nb",
@@ -36,9 +161,26 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 315, 4, 98, "Title",ExpressionUUID->"63089ab6-e53e-1b4e-b6b2-2e29cf3021c6",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
+Cell[898, 28, 370, 5, 69, "Chapter",ExpressionUUID->"b4a7d940-5297-a945-9b80-539b97fa6e53",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
+Cell[1271, 35, 424, 7, 91, "Chapter",ExpressionUUID->"1ea57c85-88db-f64a-94a1-b047477fde9e",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
+Cell[1698, 44, 330, 5, 56, "Chapter",ExpressionUUID->"ae0a513c-0bd6-1f46-aa63-96a19cdc9a29",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
+Cell[2031, 51, 394, 6, 53, "Subtitle",ExpressionUUID->"49a8f94e-ac43-8549-b5a2-f0a3cd058de7",
+ CellGroupingRules->{"GroupTogetherGrouping", 10000.}]
+}, Open  ]],
+Cell[2440, 60, 395, 10, 48, "Input",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
+Cell[CellGroupData[{
+Cell[2860, 74, 854, 18, 124, "Input",ExpressionUUID->"0cd77527-376c-6644-aa8e-d4d11f8fefa4"],
+Cell[3717, 94, 1534, 28, 54, "Output",ExpressionUUID->"d224b4da-571c-354a-bf1c-8bf8bfa8636f"]
+}, Open  ]],
+Cell[5266, 125, 438, 9, 28, "Input",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd"],
+Cell[5707, 136, 367, 8, 28, "Input",ExpressionUUID->"5498a56f-5094-544d-b05f-b380115dba14"]
 }
 ]
 *)
-
-(* End of internal cache information *)
 
