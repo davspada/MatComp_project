@@ -31,31 +31,17 @@ SetDirectory[NotebookDirectory[]];
 (*Codice per creare un interfaccia grafica esterna*)
 
 
-GuessTheFunctionGUI[] := DynamicModule[{f=x^2,g=Sin[x],a,b},
-	DialogInput[
-		DialogNotebook[
-			Column[{
-				"Enter a function to plot:",
-				InputField[Dynamic[f],String,FieldSize->20],
-				"Enter a function for the points:",
-				InputField[Dynamic[g],String,FieldSize->20],
-				"Enter the range for x:",
-				InputField[Dynamic[a],Number,FieldSize->5],
-				InputField[Dynamic[b],Number,FieldSize->5],
-				Dynamic[
-					Show[
-						Plot[ToExpression[f],{x,a,b}],
-						Plot[ToExpression[g],{x,a,b},PlotStyle->Red],
-						ImageSize->Medium
-					]
-				]
-			}],
-			WindowTitle -> "Interactive Plot", WindowSize -> {500, 500}, 
-			WindowMargins -> {{Automatic, 0}, {0, Automatic}}, 
-			WindowElements -> {"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
-		]
-	]
-]
+GuessTheFunctionGUI[] := DynamicModule[{func = ""},
+  DialogInput[
+  Column[{
+    InputField[Dynamic[func], String, FieldHint -> "Inserisci la tua funzione qui"],
+    Dynamic@Plot[ToExpression[func], {x, -10, 10}, PlotStyle -> Blue, 
+      AxesLabel -> {"x", "y"}, PlotLabel -> "Plot della funzione", ImageSize -> Medium]
+    }],
+  WindowTitle -> "Interactive Plot", WindowSize -> {500, 500}, 
+	WindowMargins -> {{Automatic, 0}, {0, Automatic}}, 
+	WindowElements -> {"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
+  ]]
 
 
 (* ::Text:: *)
