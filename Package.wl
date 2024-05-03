@@ -23,7 +23,7 @@ GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] permette di creare l'interfa
 CreateDynamicWindow::usage = "CreateDynamicWindow[]";
 CreateInfoWindow::usage = "CreateInfoWindow[]"
 
-Begin["`Private`"];
+Begin["`Private`"]; 
 SetDirectory[NotebookDirectory[]];
 
 
@@ -31,17 +31,26 @@ SetDirectory[NotebookDirectory[]];
 (*Codice per creare un interfaccia grafica esterna*)
 
 
-GuessTheFunctionGUI[] := DynamicModule[{func = ""},
-  DialogInput[
-  Column[{
-    InputField[Dynamic[func], String, FieldHint -> "Inserisci la tua funzione qui"],
-    Dynamic@Plot[ToExpression[func], {x, -10, 10}, PlotStyle -> Blue, 
-      AxesLabel -> {"x", "y"}, PlotLabel -> "Plot della funzione", ImageSize -> Medium]
-    }],
-  WindowTitle -> "Interactive Plot", WindowSize -> {500, 500}, 
-	WindowMargins -> {{Automatic, 0}, {0, Automatic}}, 
-	WindowElements -> {"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
-  ]]
+(*
+GuessTheFunctionGUI[] := DynamicModule[{x},
+  Column[{ InputField[Dynamic[a], Number],
+    TextCell["x^2"],
+    InputField[Dynamic[b], Integer],
+    TextCell["x"],
+    InputField[Dynamic[c], Integer],
+    funzione[x] = a*x^2 + b*x + c
+    Dynamic@Plot[funzione, {x, -10, 10}, PlotStyle -> Blue, 
+      AxesLabel -> {"x", "y"}, PlotLabel -> "Plot della funzione", ImageSize -> Medium],
+    Dynamic@DisplayForm[ToExpression[func]]}
+    ]
+  ];
+ *)
+GuessTheFunctionGUI[x_] := DynamicModule[{f},
+	Column[{
+		InputField[Dynamic[f]],
+		Dynamic[Plot[f,{x,-5,5}]]
+      }]
+];
 
 
 (* ::Text:: *)
