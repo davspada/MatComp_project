@@ -45,12 +45,47 @@ GuessTheFunctionGUI[] := DynamicModule[{x},
     ]
   ];
  *)
-GuessTheFunctionGUI[x_] := DynamicModule[{f},
+ (*
+GuessTheFunctionGUI[] := DynamicModule[{f="x^2", fun={2x}, x},
 	Column[{
-		InputField[Dynamic[f]],
-		Dynamic[Plot[f,{x,-5,5}]]
+		Row[
+			{
+				InputField[Dynamic[f], String, FieldHint->"sas"], 
+				Button["Plot", {fun = Dynamic@ToExpression[f],
+								Dynamic@Plot[fun,{x,-5,5}],
+								Print[Dynamic[fun]]
+								}]
+			}
+		],
+		Dynamic@Plot[fun,{x,-5,5}]
       }]
 ];
+*)
+GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x},
+	CreateDialog[
+		Column[{
+			Row[
+				{
+					InputField[Dynamic[a], Number, FieldHint->"", FieldSize->2],
+					DisplayForm[ToExpression["x^2"]],
+					DisplayForm[" + "],
+					InputField[Dynamic[b], Number, FieldHint->"", FieldSize->2],
+					DisplayForm[ToExpression["x"]],
+					DisplayForm[" + "],
+					InputField[Dynamic[c], Number, FieldHint->"", FieldSize->2],
+					Button["Plot", {fun = a*x^2 + b*x + c}]
+				}
+			],
+			Dynamic@Plot[fun,{x,-10,10}, AspectRatio->1, PlotRange->{-10,10}]
+	      }],
+	      WindowSize -> {400, 400},
+	      WindowTitle -> "PORCODIO"
+	  ]
+];
+
+
+
+
 
 
 (* ::Text:: *)
