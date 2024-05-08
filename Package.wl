@@ -12,11 +12,15 @@
 (* :Sources: \\*)
 (* :Discussion: \\*)
 
+
+
 (* ::Text:: *)
 (*Dichiarazione di inizio del package*)
 
 
 BeginPackage["Package`"];
+SetDirectory[NotebookDirectory[]];
+Get["Backend.wl"];
 
 GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il gioco";
 CreateDynamicWindow::usage = "CreateDynamicWindow[]";
@@ -62,7 +66,11 @@ GuessTheFunctionGUI[] := DynamicModule[{f="x^2", fun={2x}, x},
       }]
 ];
 *)
-GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x},
+
+GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x, message="", expr},
+	{expr, realA, realB, realC} = Backend`myGenerateEquation[2];
+	Print[expr];
+	points = Backend`myGeneratePointsOnLineOrParabola[3];
 	CreateDialog[
 		Column[{
 			Row[
@@ -74,18 +82,23 @@ GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x},
 					DisplayForm[ToExpression["x"]],
 					DisplayForm[" + "],
 					InputField[Dynamic[c], Number, FieldHint->"", FieldSize->2],
-					Button["Plot", {fun = a*x^2 + b*x + c}]
+					Button["Plot", {
+						fun = a*x^2 + b*x + c,
+						condition = MatchQ[{realA, realB, realC}, {IntegerPart@a, IntegerPart@b, IntegerPart@c}],
+						If[condition, message="Bravo dio merda", message = "HAI SBAGLIATO CRISTACCIO"]
+					}]
 				}
 			],
-			Dynamic@Plot[fun,{x,-10,10}, AspectRatio->1, PlotRange->{-10,10}]
+			Dynamic@Show[
+				ListPlot[points, ImageSize->Full],
+				Plot[fun,{x,-10,10}]
+			],
+			Dynamic@DisplayForm[message]
 	      }],
 	      WindowSize -> {400, 400},
 	      WindowTitle -> "PORCODIO"
 	  ]
 ];
-
-
-
 
 
 (* ::Text:: *)

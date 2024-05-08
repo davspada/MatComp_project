@@ -15,6 +15,7 @@ x::usage = "x rappresenta la variabile indipendente";
 
 Begin["Private`"];
 (* Set seed for random number generator *)
+expr = None;
 SeedRandom[1234];
 
 
@@ -22,7 +23,7 @@ myGenerateEquation[1] := Module[{a, b},
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     expr = a*x + b;
-    Return[expr];
+    Return[{expr, a, b}];
 ]
 
 myGenerateEquation[2] := Module[{a, b, c},
@@ -30,7 +31,7 @@ myGenerateEquation[2] := Module[{a, b, c},
     b = RandomInteger[{-5, 5}];
     c = RandomInteger[{-10, 10}];
     expr = a*x^2 + b*x + c;
-    Return[expr];
+    Return[{expr, a, b, c}];
 ]
 
 myGenerateEquation[_] := (Print["Grade must be 1 or 2"]; Return[])
