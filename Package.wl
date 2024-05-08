@@ -1,8 +1,16 @@
 (* ::Package:: *)
 
-
-<<<<<<< Updated upstream
-=======
+(* :Title: Guess the function*)
+(* :Context: Gioco matematico che .. *)
+(* :Author: Leonardi Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada *)
+(* :Summary: Package per giocare con Mathematica ... *)
+(* :Copyright: Alma Mater Studiorum - Universit\[AGrave] di Bologna 2023 *)
+(* :Package Version: 0.0.1*)
+(* :Mathematica Version: 14*)
+(* :History: \\ *)
+(* :Keywords: funzioni, punti, parabole*)
+(* :Sources: \\*)
+(* :Discussion: \\*)
 
 (* ::Text:: *)
 (*Dichiarazione di inizio del package*)
@@ -14,9 +22,9 @@ GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] permette di creare l'interfa
 CreateDynamicWindow::usage = "CreateDynamicWindow[]";
 CreateInfoWindow::usage = "CreateInfoWindow[]"
 
-Get["Backend.wl"];
 
-Begin["`Private`"];
+Begin["`Private`"]; 
+
 SetDirectory[NotebookDirectory[]];
 
 
@@ -130,4 +138,3 @@ CreateInfoWindow[infoTitle_, infoText_] :=
 
 End[];
 EndPackage[];
->>>>>>> Stashed changes
