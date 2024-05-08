@@ -12,7 +12,6 @@
 (* :Sources: \\*)
 (* :Discussion: \\*)
 
-
 (* ::Text:: *)
 (*Dichiarazione di inizio del package*)
 
@@ -23,7 +22,9 @@ GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] permette di creare l'interfa
 CreateDynamicWindow::usage = "CreateDynamicWindow[]";
 CreateInfoWindow::usage = "CreateInfoWindow[]"
 
+
 Begin["`Private`"]; 
+
 SetDirectory[NotebookDirectory[]];
 
 
@@ -82,7 +83,6 @@ GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x},
 	      WindowTitle -> "PORCODIO"
 	  ]
 ];
-
 
 
 

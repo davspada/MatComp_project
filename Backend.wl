@@ -6,26 +6,26 @@
 (* :Summary: Questo package contiene le funzioni per la generazione di espressioni, punti e sistemi di equazioni. *)
 
 
-BeginPackage["Backend`"]
+BeginPackage["Backend`"];
 
-GenerateEquation::usage = "GenerateEquation[grade] genera un'equazione di grado grade";
-GeneratePointsOnLineOrParabola::usage = "GeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
-GenerateVandermondeMatrix::usage = "GenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
+myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
+myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
+myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
 x::usage = "x rappresenta la variabile indipendente";
-Begin["Private`"]
 
+Begin["Private`"];
 (* Set seed for random number generator *)
 SeedRandom[1234];
 
 
-GenerateEquation[1] := Module[{a, b},
+myGenerateEquation[1] := Module[{a, b},
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     expr = a*x + b;
     Return[expr];
 ]
 
-GenerateEquation[2] := Module[{a, b, c},
+myGenerateEquation[2] := Module[{a, b, c},
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     c = RandomInteger[{-10, 10}];
@@ -33,10 +33,10 @@ GenerateEquation[2] := Module[{a, b, c},
     Return[expr];
 ]
 
-GenerateEquation[_] := (Print["Grade must be 1 or 2"]; Return[])
+myGenerateEquation[_] := (Print["Grade must be 1 or 2"]; Return[])
 
 
-GeneratePointsOnLineOrParabola[nPoints_] := Module[{points},
+myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points},
     xList = RandomInteger[{-10, 10}, nPoints];
 
     While[Length[xList] != Length[DeleteDuplicates[xList] ],
@@ -47,7 +47,8 @@ GeneratePointsOnLineOrParabola[nPoints_] := Module[{points},
     Return[points];
 ]
 
-GenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector},
+
+myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector},
     (* generate matrix *)
     coefficentMatrix = Table[points[[i, 1]]^j, {i, 1, Length[points], 1}, {j, 0, Length[points]-1, 1}];
     
@@ -57,5 +58,6 @@ GenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector},
     Return[{coefficentMatrix, rhsVector}];
 ]
 
-End[]
-EndPackage[]
+
+End[];
+EndPackage[];
