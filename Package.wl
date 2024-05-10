@@ -29,6 +29,7 @@ CreateInfoWindow::usage = "CreateInfoWindow[]"
 
 Begin["`Private`"]; 
 
+myCounterErrori = 0;
 SetDirectory[NotebookDirectory[]];
 
 
@@ -66,12 +67,42 @@ GuessTheFunctionGUI[] := DynamicModule[{f="x^2", fun={2x}, x},
       }]
 ];
 *)
+CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = ""},
+	condition = MatchQ[{realA, realB, realC}, {IntegerPart@a, IntegerPart@b, IntegerPart@c}];
+	If[condition, 
+		{message="Bravo";
+		myCounterErrori=0;}, 
+		{message = "Hai sbagliato";
+		myCounterErrori++;}];
+	Return[message];
+]
 
-GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x, message="", expr},
+myCheckMatrix[matrix_, points_] := Module[{message, coefficentMatrix, rhsVector},
+	message = "";
+	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
+	Print[coefficentMatrix];
+	If[coefficentMatrix === matrix,
+		message = "Matrice corretta",
+		message = "Matrice sbagliata"
+	];
+	Return[message]
+]
+
+GuessTheFunctionGUI[] := DynamicModule[{a, b, c, x, message, message2, expr},
 	{expr, realA, realB, realC} = Backend`myGenerateEquation[2];
 	Print[expr];
 	points = Backend`myGeneratePointsOnLineOrParabola[3];
+	message := "";
+	message2 := "";
+	a:=1;
+	dims = {3, 3};
+	mat = ConstantArray[Null, dims];
+	fieldH = Array ["Hint " <> ToString@# &, dims[[2]]];
+	fieldS = Array [ 10 # &, dims[[2]]];
+
 	CreateDialog[
+		DialogNotebook[
+		Pane[
 		Column[{
 			Row[
 				{
@@ -83,20 +114,32 @@ GuessTheFunctionGUI[] := DynamicModule[{a=0, b=0, c=0, x, message="", expr},
 					DisplayForm[" + "],
 					InputField[Dynamic[c], Number, FieldHint->"", FieldSize->2],
 					Button["Plot", {
-						fun = a*x^2 + b*x + c,
-						condition = MatchQ[{realA, realB, realC}, {IntegerPart@a, IntegerPart@b, IntegerPart@c}],
-						If[condition, message="Bravo dio merda", message = "HAI SBAGLIATO CRISTACCIO"]
+					fun = a*x^2 + b*x + c;
+					message = CheckInput[realA, realB, realC, a,  b,  c];
 					}]
 				}
 			],
 			Dynamic@Show[
-				ListPlot[points, ImageSize->Full],
+				ListPlot[points, ImageSize->Large],
 				Plot[fun,{x,-10,10}]
 			],
-			Dynamic@DisplayForm[message]
+			Dynamic@DisplayForm[message],
+			Dynamic@DisplayForm[myCounterErrori],
+			Row[{
+				Framed@Grid@Array[InputField[Dynamic@mat[[##]], 
+			                   FieldSize -> 2,
+			                   FieldHint -> fieldH[[#2]]] &, 
+			                   dims],
+			    Button["Controlla", {message2 = myCheckMatrix[mat, points]}]
+		                   }],
+		    Dynamic@DisplayForm[message2],
+		    Dynamic@MatrixForm[mat]
 	      }],
-	      WindowSize -> {400, 400},
-	      WindowTitle -> "PORCODIO"
+	       Scrollbars -> {False, True}
+	      ] 
+	      ],
+	      WindowSize -> {Scaled[1],Scaled[1]},
+	      WindowTitle -> "Plot area"
 	  ]
 ];
 
