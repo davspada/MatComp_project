@@ -42,38 +42,8 @@ SetDirectory[NotebookDirectory[]];
 (*Codice per creare un interfaccia grafica esterna*)
 
 
-(*
-GuessTheFunctionGUI[] := DynamicModule[{x},
-  Column[{ InputField[Dynamic[a], Number],
-    TextCell["x^2"],
-    InputField[Dynamic[b], Integer],
-    TextCell["x"],
-    InputField[Dynamic[c], Integer],
-    funzione[x] = a*x^2 + b*x + c
-    Dynamic@Plot[funzione, {x, -10, 10}, PlotStyle -> Blue, 
-      AxesLabel -> {"x", "y"}, PlotLabel -> "Plot della funzione", ImageSize -> Medium],
-    Dynamic@DisplayForm[ToExpression[func]]}
-    ]
-  ];
- *)
- (*
-GuessTheFunctionGUI[] := DynamicModule[{f="x^2", fun={2x}, x},
-	Column[{
-		Row[
-			{
-				InputField[Dynamic[f], String, FieldHint->"sas"], 
-				Button["Plot", {fun = Dynamic@ToExpression[f],
-								Dynamic@Plot[fun,{x,-5,5}],
-								Print[Dynamic[fun]]
-								}]
-			}
-		],
-		Dynamic@Plot[fun,{x,-5,5}]
-      }]
-];
-*)
-CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = ""},
-	condition = MatchQ[{realA, realB, realC}, {IntegerPart@a, IntegerPart@b, IntegerPart@c}];
+CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condition},
+	condition = {realA, realB, realC} ==={IntegerPart@a, IntegerPart@b, IntegerPart@c};
 	If[condition, 
 		{message="Bravo";
 		myCounterErrori=0;}, 
@@ -82,25 +52,35 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = ""},
 	Return[message];
 ]
 
-myCheckMatrix[matrix_, points_] := Module[{message, coefficentMatrix, rhsVector},
-	message = "";
+myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector},
 	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
-	Print[coefficentMatrix];
-	If[coefficentMatrix === matrix,
+	(* Print[coefficentMatrix];*);
+	Print[rhsVector];
+	Print[constantVector];
+	If[matrix === coefficentMatrix && constantVector === rhsVector,
 		message = "Matrice corretta",
 		message = "Matrice sbagliata"
 	];
+	Print[matrix === coefficentMatrix && constantVector === rhsVector];
 	Return[message]
 ]
 
-GuessTheFunctionGUI[] := DynamicModule[{a, b, c, x, message, message2, expr, fieldH},
+GuessTheFunctionGUI[] := DynamicModule[{
+		a, b, c, 
+		x, 
+		message, message2, 
+		expr, 
+		coefficentMatrix,
+		constantVector
+		},
 	{expr, realA, realB, realC} = Backend`myGenerateEquation[2];
 	Print[expr];
 	points = Backend`myGeneratePointsOnLineOrParabola[3];
 	message := "";
 	message2 := "";
+	
 	dims = {3, 3};
-	mat = ConstantArray[Null, dims];
+	
 	fieldH = Array ["x" <> ToString@# &, dims[[1]]];
 
 	CreateDialog[
@@ -124,7 +104,7 @@ GuessTheFunctionGUI[] := DynamicModule[{a, b, c, x, message, message2, expr, fie
 									message = CheckInput[realA, realB, realC, a,  b,  c];
 								}]
 							}
-						], {"KeyDown", "."} :> Null,
+						], {{"KeyDown", "."} :> Null},
 							PassEventsDown -> False
 					],
 					TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
@@ -132,20 +112,32 @@ GuessTheFunctionGUI[] := DynamicModule[{a, b, c, x, message, message2, expr, fie
 						ListPlot[points, ImageSize->Large],
 						Plot[fun,{x,-10,10}]
 					],
-					Dynamic@DisplayForm[message],
+					DisplayForm[Dynamic@message],
 					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]],
 					Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
+						coefficentMatrix = ConstantArray[Null, dims];
+						constantVector =  ConstantArray[Null, {3, 1}];
 						Row[{
-							Framed@Grid@Array[InputField[Dynamic@mat[[##]], 
-						                   FieldSize -> 2,
-						                   FieldHint -> fieldH[[#2]]] &, 
-						                   dims],
-						    Button["Controlla", {message2 = myCheckMatrix[mat, points]}]
+							Framed@Grid[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2]],
+							     {i, 3}, {j, 3}]
+							    ],
+							 DisplayForm[" * "],
+							 MatrixForm[{"c","b","a"}],
+							 DisplayForm[" = "],
+							 Framed@Grid[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
+							     {i, 3}, {j, 1}]
+							    ],
+						    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
 					    }],
-					    Dynamic@DisplayForm[message2],
-					    Dynamic@MatrixForm[mat]
+					    DisplayForm[Dynamic@message2],
+					    Dynamic@MatrixForm[coefficentMatrix],
+					    Dynamic@MatrixForm[constantVector]
 					    }],
-						{}
+						""
 					]
 			   }, Alignment->Center
 			   ],
