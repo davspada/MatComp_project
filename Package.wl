@@ -55,13 +55,15 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", conditio
 myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector},
 	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
 	(* Print[coefficentMatrix];*);
+	Print[coefficentMatrix];
+	Print[matrix];
 	Print[rhsVector];
-	Print[constantVector];
-	If[matrix === coefficentMatrix && constantVector === rhsVector,
+	Print[Transpose[constantVector][[1]]];
+	If[matrix === coefficentMatrix && Transpose[constantVector][[1]] === rhsVector,
 		message = "Matrice corretta",
 		message = "Matrice sbagliata"
 	];
-	Print[matrix === coefficentMatrix && constantVector === rhsVector];
+	Print[matrix === coefficentMatrix && Transpose[constantVector][[1]] === rhsVector];
 	Return[message]
 ]
 
@@ -109,7 +111,8 @@ GuessTheFunctionGUI[] := DynamicModule[{
 					],
 					TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
 					Framed@Dynamic@Show[
-						ListPlot[points, ImageSize->Large],
+						callouts = Callout[#, "(" <> ToString[#[[1]]] <> ", " <> ToString[#[[2]]] <> ")", Background->LightBlue, Frame->True, RoundingRadius->5,FrameMargins->5] &/@ points;
+						ListPlot[callouts, ImageSize->Large, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
 						Plot[fun,{x,-10,10}]
 					],
 					DisplayForm[Dynamic@message],
@@ -143,10 +146,10 @@ GuessTheFunctionGUI[] := DynamicModule[{
 			   ],
 			   Alignment->{Center},
 		       ImageSizeAction->"Scrollable",
-		       ImageSize->Full
+		       ImageSize->Full,
+		       ImageMargins->20
 		      ] 
 	      ],
-	      WindowSize -> {Scaled[0.9],Scaled[0.9]},
 	      WindowTitle -> "Plot area",
 	      WindowElements->{"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
 	  ]
