@@ -34,6 +34,7 @@ CreateInfoWindow::usage = "CreateInfoWindow[]"
 Begin["`Private`"];
 
 myCounterErrori = 0;
+seed = 0;
 
 SetDirectory[NotebookDirectory[]];
 
@@ -43,7 +44,7 @@ SetDirectory[NotebookDirectory[]];
 
 
 CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condition},
-	condition = {realA, realB, realC} ==={IntegerPart@a, IntegerPart@b, IntegerPart@c};
+	condition = {realA, realB, realC} === {IntegerPart@a, IntegerPart@b, IntegerPart@c};
 	If[condition, 
 		{message="Bravo";
 		myCounterErrori=0;}, 
@@ -52,22 +53,25 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", conditio
 	Return[message];
 ]
 
-myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector},
+myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector, solution, tmpSol},
 	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
 	(* Print[coefficentMatrix];*);
+	solution = LinearSolve[coefficentMatrix, rhsVector];
+	tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
 	Print[coefficentMatrix];
 	Print[matrix];
 	Print[rhsVector];
 	Print[Transpose[constantVector][[1]]];
-	If[matrix === coefficentMatrix && Transpose[constantVector][[1]] === rhsVector,
+	If[solution === tmpSol,
 		message = "Matrice corretta",
 		message = "Matrice sbagliata"
 	];
-	Print[matrix === coefficentMatrix && Transpose[constantVector][[1]] === rhsVector];
+	Print[solution];
+	Print[tmpSol];
 	Return[message]
 ]
 
-GuessTheFunctionGUI[] := DynamicModule[{
+GuessTheFunctionGUI[2] := DynamicModule[{
 		a, b, c, 
 		x, 
 		message, message2, 
@@ -75,8 +79,8 @@ GuessTheFunctionGUI[] := DynamicModule[{
 		coefficentMatrix,
 		constantVector
 		},
-	{expr, realA, realB, realC} = Backend`myGenerateEquation[2];
-	Print[expr];
+	myCounterErrori = 0;
+	{expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed];
 	points = Backend`myGeneratePointsOnLineOrParabola[3];
 	message := "";
 	message2 := "";
@@ -155,25 +159,122 @@ GuessTheFunctionGUI[] := DynamicModule[{
 	  ]
 ];
 
+GuessTheFunctionGUI[1] := DynamicModule[{
+		m, q,
+		x, 
+		message, message2, 
+		expr, 
+		coefficentMatrix,
+		constantVector
+		},
+	myCounterErrori = 0;
+	{expr, realM, realQ} = Backend`myGenerateEquation[1, seed];
+	points = Backend`myGeneratePointsOnLineOrParabola[2];
+	message := "";
+	message2 := "";
+	
+	dims = {2, 2};
+	
+	fieldH = Array ["x" <> ToString@# &, dims[[1]]];
+
+	CreateDialog[
+		DialogNotebook[
+			Pane[
+				Column[{
+					TextCell["Inserire i coefficenti dell'equazione di secondo grado nelle celle:", "Subsection"],
+					EventHandler[
+						Row[
+							{
+								InputField[Dynamic[m], Number, FieldHint->"m", FieldSize->2],
+								DisplayForm[ToExpression["x"]],
+								DisplayForm[" + "],
+								InputField[Dynamic[q], Number, FieldHint->"q", FieldSize->2],
+								Spacer[30],
+								Button["Inserisci funzione nel grafico", {
+									fun = m*x + q;
+									message = CheckInput[0, realM, realQ, 0,  m,  q];
+								}]
+							}
+						], {{"KeyDown", "."} :> Null},
+							PassEventsDown -> False
+					],
+					TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
+					Framed@Dynamic@Show[
+						callouts = Callout[#, "(" <> ToString[#[[1]]] <> ", " <> ToString[#[[2]]] <> ")", Background->LightBlue, Frame->True, RoundingRadius->5,FrameMargins->5] &/@ points;
+						ListPlot[callouts, ImageSize->Large, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
+						Plot[fun,{x,-10,10}]
+					],
+					DisplayForm[Dynamic@message],
+					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]],
+					Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
+						coefficentMatrix = ConstantArray[Null, dims];
+						constantVector =  ConstantArray[Null, {2, 1}];
+						Row[{
+							Framed@Grid[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2]],
+							     {i, 2}, {j, 2}]
+							    ],
+							 DisplayForm[" * "],
+							 MatrixForm[{"q","m"}],
+							 DisplayForm[" = "],
+							 Framed@Grid[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
+							     {i, 2}, {j, 1}]
+							    ],
+						    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
+					    }],
+					    DisplayForm[Dynamic@message2],
+					    Dynamic@MatrixForm[coefficentMatrix],
+					    Dynamic@MatrixForm[constantVector]
+					    }],
+						""
+					]
+			   }, Alignment->Center
+			   ],
+			   Alignment->{Center},
+		       ImageSizeAction->"Scrollable",
+		       ImageSize->Full,
+		       ImageMargins->20
+		      ] 
+	      ],
+	      WindowTitle -> "Plot area",
+	      WindowElements->{"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
+	  ]
+];
+
 
 (* ::Text:: *)
 (*Codice per creare un'interfaccia grafica che permetta di scegliere la modalit\[AGrave] di gioco*)
 
 
 CreateDynamicWindow[] :=
-  DynamicModule[
-    {buttonText = "", infoWindow}
-    ,
+  DynamicModule[{
+	buttonText = "", 
+    infoWindow
+    },
+  
     infoTitle = "How to play";
-    infoText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-      ;
-    CreateDialog[Column[{EventHandler[Tooltip[Style["\:2139", FontSize -> 
-      16], "Click for info"], {"MouseClicked" :> CreateInfoWindow[infoTitle,
-       infoText]}], Row[{Button["Easy", buttonText = "Easy"], Button["Medium",
-       buttonText = "Medium"], Button["Difficult", buttonText = "Difficult"
-      ]}, Frame -> True], Dynamic @ TextCell[buttonText, "Text", FontSize ->
-       12]}, Center, Frame -> All], WindowSize -> {400, 400}, WindowTitle ->
-       "Dynamic Window"];
+    infoText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+    CreateDialog[
+		Column[{
+			EventHandler[
+				Tooltip[Style["\:2139", FontSize -> 16], "Click for info"], {"MouseClicked" :> CreateInfoWindow[infoTitle, infoText]}], 
+			Row[{
+				TextCell["Inserire Seed"],
+				EventHandler[
+					InputField[Dynamic[seed], Number, ContinuousAction->True],
+					 {{"KeyDown", "."} :> Null},
+					PassEventsDown -> False]
+					}],
+			Row[{
+				Button["Retta", {Dynamic@Backend`setSeed[seed]; GuessTheFunctionGUI[1]}], 
+				Button["Parabola", {Dynamic@Backend`setSeed[seed]; GuessTheFunctionGUI[2]}]
+				}, Frame -> True], 
+			Dynamic@TextCell[buttonText, "Text", FontSize ->12]}, Center, Frame -> All], 
+       WindowSize-> {400, 400}, 
+       WindowTitle-> "Dynamic Window"];
     displayText[] := buttonText;
   ]
 

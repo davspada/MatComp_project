@@ -16,17 +16,23 @@ x::usage = "x rappresenta la variabile indipendente";
 Begin["Private`"];
 (* Set seed for random number generator *)
 expr = None;
-SeedRandom[1234];
+
+setSeed[seed_] := Module[{},
+	Print[seed];
+	SeedRandom[seed];
+]
 
 
-myGenerateEquation[1] := Module[{a, b},
+myGenerateEquation[1, seed_] := Module[{a, b},
+	SeedRandom[seed];
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     expr = a*x + b;
     Return[{expr, a, b}];
 ]
 
-myGenerateEquation[2] := Module[{a, b, c},
+myGenerateEquation[2, seed_] := Module[{a, b, c},
+	SeedRandom[seed];
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     c = RandomInteger[{-10, 10}];
@@ -38,6 +44,7 @@ myGenerateEquation[_] := (Print["Grade must be 1 or 2"]; Return[])
 
 
 myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points},
+   
     xList = RandomInteger[{-10, 10}, nPoints];
 
     While[Length[xList] != Length[DeleteDuplicates[xList] ],
@@ -49,9 +56,12 @@ myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points},
 ]
 
 
-myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector},
+myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector, myPow},
     (* generate matrix *)
-    coefficentMatrix = Table[points[[i, 1]]^j, {i, 1, Length[points], 1}, {j, 0, Length[points]-1, 1}];
+    myPow[0, 0] = 1;
+	myPow[a_, b_] := a^b;
+	
+    coefficentMatrix = Table[myPow[points[[i, 1]], j], {i, 1, Length[points], 1}, {j, 0, Length[points]-1, 1}];
     
     (* generate right hand side *)
     rhsVector = Table[points[[i, 2]], {i, 1, Length[points], 1}];
