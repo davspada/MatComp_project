@@ -55,7 +55,6 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", conditio
 
 myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector, solution, tmpSol},
 	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
-	(* Print[coefficentMatrix];*);
 	solution = LinearSolve[coefficentMatrix, rhsVector];
 	tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
 	Print[coefficentMatrix];
@@ -92,7 +91,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 		a, b, c, 
 		realA, realB, realC,
 		x, 
-		message, message2, 
+		message, message2, message3, 
 		expr, 
 		coefficentMatrix,
 		constantVector
@@ -102,6 +101,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 		points = Backend`myGeneratePointsOnLineOrParabola[3];
 		message = "";
 		message2 = "";
+		message3 = "";
 		dims = {3, 3};
 		Style[
 		Pane[
@@ -121,19 +121,29 @@ GuessTheFunctionGUI[2] := CreateDialog[
 							DisplayForm[" + "],
 							InputField[Dynamic[c], Number, FieldHint->"c", FieldSize->2],
 							Spacer[30],
-							Button["Inserisci funzione nel grafico", {
-								fun = a*x^2 + b*x + c,
-								{expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed];
-								message = CheckInput[realA, realB, realC, a,  b,  c];
-							}]
+							Button["Inserisci funzione nel grafico", 
+								{
+									If[
+										Head[a] === Integer && Head[b] === Integer && Head[c] === Integer,
+										{
+											fun = a*x^2 + b*x + c,
+											{expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed];
+											message = CheckInput[realA, realB, realC, a,  b,  c];
+											message3 = "";
+										},
+										message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!";
+									]
+								}
+							]
 						}
 					], {{"KeyDown", "."} :> Null},
 						PassEventsDown -> False
 				],
+				TextForm@Dynamic@Style[message3, FontColor -> Red],
 				TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
 				Framed@Dynamic@Show[
 					callouts = Callout[#, "(" <> ToString[#[[1]]] <> ", " <> ToString[#[[2]]] <> ")", Background->LightBlue, Frame->True, RoundingRadius->5,FrameMargins->5] &/@ points;
-					ListPlot[callouts, ImageSize->Large, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
+					ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
 					Plot[fun,{x,-10,10}]
 				],
 				TextForm[Dynamic@message],
@@ -157,9 +167,9 @@ GuessTheFunctionGUI[2] := CreateDialog[
 						    ],
 					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
 				    }],
-				    DisplayForm[Dynamic@message2],
-				    Dynamic@MatrixForm[coefficentMatrix],
-				    Dynamic@MatrixForm[constantVector]
+				    DisplayForm[Dynamic@message2]
+				    (*Dynamic@MatrixForm[coefficentMatrix],
+				    Dynamic@MatrixForm[constantVector]*)
 				    }],
 					""
 				]
@@ -172,7 +182,8 @@ GuessTheFunctionGUI[2] := CreateDialog[
 	], FontSize->16
 	]],
 	WindowTitle -> "Plot area",
-	WindowElements->{"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
+	WindowSize -> {Scaled[1],Scaled[1]},
+	WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
 
 
@@ -186,7 +197,7 @@ GuessTheFunctionGUI[1] := CreateDialog[
 	m, q,
 	realM, realQ,
 	x, 
-	message, message2, 
+	message, message2, message3,
 	expr, 
 	coefficentMatrix,
 	constantVector
@@ -196,7 +207,7 @@ GuessTheFunctionGUI[1] := CreateDialog[
 	points = Backend`myGeneratePointsOnLineOrParabola[2];
 	message = "";
 	message2 = "";
-	
+	message3= "";
 	dims = {2, 2};
 	Style[
 		Pane[
@@ -213,18 +224,28 @@ GuessTheFunctionGUI[1] := CreateDialog[
 							DisplayForm[" + "],
 							InputField[Dynamic[q], Number, FieldHint->"q", FieldSize->2],
 							Spacer[30],
-							Button["Inserisci funzione nel grafico", {
-								fun = m*x + q;
-								message = CheckInput[0, realM, realQ, 0,  m,  q];
-							}]
+							Button["Inserisci funzione nel grafico", 
+								{
+									If[
+										Head[m] === Integer && Head[q] === Integer,
+										{
+											fun = m*x + q;
+											message = CheckInput[0, realM, realQ, 0,  m,  q];
+											message3 = "";
+										},
+										message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!";
+									]
+								}
+							]
 						}
 					], {{"KeyDown", "."} :> Null},
 						PassEventsDown -> False
 				],
+				TextForm@Dynamic@Style[message3, FontColor -> Red],
 				TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
 				Framed@Dynamic@Show[
 					callouts = Callout[#, "(" <> ToString[#[[1]]] <> ", " <> ToString[#[[2]]] <> ")", Background->LightBlue, Frame->True, RoundingRadius->5,FrameMargins->5] &/@ points;
-					ListPlot[callouts, ImageSize->Large, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
+					ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
 					Plot[fun,{x,-10,10}]
 				],
 				Dynamic@TextForm[message],
@@ -248,9 +269,9 @@ GuessTheFunctionGUI[1] := CreateDialog[
 						    ],
 					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
 				    }],
-				    DisplayForm[Dynamic@message2],
-				    Dynamic@MatrixForm[coefficentMatrix],
-				    Dynamic@MatrixForm[constantVector]
+				    DisplayForm[Dynamic@message2]
+				    (*Dynamic@MatrixForm[coefficentMatrix],
+				    Dynamic@MatrixForm[constantVector]*)
 				    }],
 					""
 				]
@@ -263,7 +284,8 @@ GuessTheFunctionGUI[1] := CreateDialog[
 	      ], FontSize->16]
 	  ],
 	WindowTitle -> "Plot area",
-	WindowElements->{"VerticalScrollBar", "HorizontalScrollBar", "StatusArea"}
+	WindowSize -> {Scaled[1],Scaled[1]},
+	WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
 
 
@@ -315,9 +337,18 @@ CreateDynamicWindow[] :=
 
 
 CreateInfoWindow[infoTitle_, infoText_] :=
-  CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Button[
-    "Close", NotebookDelete[SelectedNotebook[]]]}], WindowSize -> {400, 400
-    }, WindowTitle -> infoTitle]
+  CreateDialog[
+     Column[{
+        TextCell[
+           infoText, 
+           "Text", 
+           FontSize -> 12], 
+        Button[
+           "Close", 
+           NotebookDelete[SelectedNotebook[]]]}], 
+     WindowSize -> {400, 400}, 
+     WindowTitle -> infoTitle
+  ]
 
 
 (* ::Text:: *)
