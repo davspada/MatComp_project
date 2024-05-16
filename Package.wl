@@ -165,6 +165,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
 						     {i, 3}, {j, 1}]
 						    ],
+						Spacer[20],
 					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
 				    }],
 				    DisplayForm[Dynamic@message2]
@@ -267,6 +268,7 @@ GuessTheFunctionGUI[1] := CreateDialog[
 						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
 						     {i, 2}, {j, 1}]
 						    ],
+						Spacer[20],
 					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
 				    }],
 				    DisplayForm[Dynamic@message2]
@@ -295,31 +297,53 @@ GuessTheFunctionGUI[1] := CreateDialog[
 
 CreateDynamicWindow[] :=
   DynamicModule[{
+    seedMessage,
     infoWindow
     },
   
-    infoTitle = "How to play";
-    infoText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+    seedMessage = "";
+    infoText = "Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.";
+    
     CreateDialog[
 		DialogNotebook[
 			Pane[
 				Column[{
-					EventHandler[
-						Tooltip[Style["\:2139", FontSize -> 16], "Click for info"], {"MouseClicked" :> CreateInfoWindow[infoTitle, infoText]}], 
 					Row[{
-						TextCell["Inserire Seed"],
-						Spacer[20],
+						EventHandler[ 
+							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[infoText]}],
+						Spacer[1],
+						TextCell["Inserire Seed:"],
+						Spacer[5],
 						EventHandler[
 							InputField[Dynamic[seed], Number, ContinuousAction->True, FieldSize->Tiny],
 							 {{"KeyDown", "."} :> Null},
 							PassEventsDown -> False]
 							}],
+					Spacer[20],
 					Row[{
-						Button["Retta", {Dynamic@Backend`setSeed[seed]; GuessTheFunctionGUI[1]}], 
+						Button["Retta", {If[
+							Head[seed] === Integer,
+							{
+								Dynamic@Backend`setSeed[seed];
+								GuessTheFunctionGUI[1];
+								DialogReturn[];
+								seedMessage = "";
+							},
+							seedMessage = "Attenzione!\nIl seed non pu\[OGrave] essere vuoto\no un numero non intero!";
+							]}], 
 						Spacer[20],
-						Button["Parabola", {Dynamic@Backend`setSeed[seed]; GuessTheFunctionGUI[2]}]
-						}] 
-					}, Center], 
+						Button["Parabola", {If[
+							Head[seed] === Integer,
+							{
+								Dynamic@Backend`setSeed[seed];
+								GuessTheFunctionGUI[2];
+								DialogReturn[];
+								seedMessage = "";
+							},
+							seedMessage = "Attenzione!\nIl seed non pu\[OGrave] essere vuoto\no un numero non intero!";
+							]}]
+						}], Spacer[20], TextForm@Dynamic@Style[seedMessage, FontColor -> Red]
+					}, Center],
 			    Alignment->{Center},
 				ImageSizeAction->"Scrollable",
 				ImageSize->Full,
@@ -336,19 +360,10 @@ CreateDynamicWindow[] :=
 (*Codice che gestisce l'apertura di una finestra di informazione per l'utente.*)
 
 
-CreateInfoWindow[infoTitle_, infoText_] :=
-  CreateDialog[
-     Column[{
-        TextCell[
-           infoText, 
-           "Text", 
-           FontSize -> 12], 
-        Button[
-           "Close", 
-           NotebookDelete[SelectedNotebook[]]]}], 
-     WindowSize -> {400, 400}, 
-     WindowTitle -> infoTitle
-  ]
+CreateInfoWindow[infoText_] :=
+  CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Spacer[20], Button[
+    "Close", DialogReturn[]]}], WindowSize -> {400, 150
+    }, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
 (* ::Text:: *)
