@@ -24,7 +24,7 @@ setSeed[seed_] := Module[{},
 
 
 myGenerateEquation[1, seed_] := Module[{a, b},
-	SeedRandom[seed];
+	SeedRandom[seed];	
     a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     expr = a*x + b;
@@ -33,7 +33,7 @@ myGenerateEquation[1, seed_] := Module[{a, b},
 
 myGenerateEquation[2, seed_] := Module[{a, b, c},
 	SeedRandom[seed];
-    a = RandomChoice[{1, -1}];
+	a = RandomChoice[{1, -1}];
     b = RandomInteger[{-5, 5}];
     c = RandomInteger[{-10, 10}];
     expr = a*x^2 + b*x + c;
