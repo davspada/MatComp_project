@@ -166,12 +166,20 @@ GuessTheFunctionGUI[2] := CreateDialog[
 						     {i, 3}, {j, 1}]
 						    ],
 						Spacer[20],
-					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
+					    Button["Controlla", 
+							{
+								If[
+									AllTrue[Flatten[coefficentMatrix], NumericQ] && AllTrue[Flatten[constantVector], NumericQ],
+									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
+									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
+								]
+							}
+						]
 				    }],
-				    DisplayForm[Dynamic@message2]
+					TextForm@Dynamic@Style[message2, FontColor -> Red]
 				    (*Dynamic@MatrixForm[coefficentMatrix],
 				    Dynamic@MatrixForm[constantVector]*)
-				    }],
+				    }, Center],
 					""
 				]
 		   }, Alignment->Center
@@ -228,13 +236,13 @@ GuessTheFunctionGUI[1] := CreateDialog[
 							Button["Inserisci funzione nel grafico", 
 								{
 									If[
-										Head[m] === Integer && Head[q] === Integer,
+										m === Null || Head[m] =!= Integer || q === Null || Head[q] =!= Integer,
+										message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!",
 										{
 											fun = m*x + q;
 											message = CheckInput[0, realM, realQ, 0,  m,  q];
 											message3 = "";
-										},
-										message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!";
+										}
 									]
 								}
 							]
@@ -269,12 +277,20 @@ GuessTheFunctionGUI[1] := CreateDialog[
 						     {i, 2}, {j, 1}]
 						    ],
 						Spacer[20],
-					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points];}]
+					    Button["Controlla", 
+							{
+								If[
+									AllTrue[Flatten[coefficentMatrix], NumericQ] && AllTrue[Flatten[constantVector], NumericQ],
+									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
+									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
+								]
+							}
+						]
 				    }],
-				    DisplayForm[Dynamic@message2]
+					TextForm@Dynamic@Style[message2, FontColor -> Red]
 				    (*Dynamic@MatrixForm[coefficentMatrix],
 				    Dynamic@MatrixForm[constantVector]*)
-				    }],
+				    }, Center],
 					""
 				]
 		   }, Alignment->Center
@@ -289,7 +305,6 @@ GuessTheFunctionGUI[1] := CreateDialog[
 	WindowSize -> {Scaled[1],Scaled[1]},
 	WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
-
 
 (* ::Text:: *)
 (*Codice per creare un'interfaccia grafica che permetta di scegliere la modalit\[AGrave] di gioco*)
