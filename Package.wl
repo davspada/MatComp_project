@@ -169,7 +169,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 					    Button["Controlla", 
 							{
 								If[
-									AllTrue[Flatten[coefficentMatrix], NumericQ] && AllTrue[Flatten[constantVector], NumericQ],
+									AllTrue[Flatten[coefficentMatrix], Head[#] === Integer &] && AllTrue[Flatten[constantVector], Head[#] === Integer &],
 									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
 									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
 								]
@@ -280,7 +280,7 @@ GuessTheFunctionGUI[1] := CreateDialog[
 					    Button["Controlla", 
 							{
 								If[
-									AllTrue[Flatten[coefficentMatrix], NumericQ] && AllTrue[Flatten[constantVector], NumericQ],
+									AllTrue[Flatten[coefficentMatrix], Head[#] === Integer &] && AllTrue[Flatten[constantVector], Head[#] === Integer &],
 									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
 									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
 								]
