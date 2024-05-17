@@ -4,6 +4,13 @@
 (* :Title: Backend *)
 (* :Context: Backend` *)
 (* :Summary: Questo package contiene le funzioni per la generazione di espressioni, punti e sistemi di equazioni. *)
+(* :Copyright: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
+(* :Package Version: 1.0.0*)
+(* :Mathematica Version: 14 *)
+(* :History: \\ *)
+(* :Keywords: funzioni, punti, parabole *)
+(* :Sources: \\ *)
+(* :Discussion: \\ *)
 
 BeginPackage["Backend`"];
 
