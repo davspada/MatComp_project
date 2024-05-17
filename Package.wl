@@ -21,7 +21,7 @@ SetDirectory[NotebookDirectory[]];
 Get["Backend.wl"];
 
 (* Definisce l'uso delle funzioni definite nel pacchetto *)
-GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio";
+myGuessTheFunctionGUI::usage = "myGuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio";
 CreateDynamicWindow::usage = "CreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma";
 CreateInfoWindow::usage = "CreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori";
 
@@ -35,7 +35,7 @@ seed = 0;
 SetDirectory[NotebookDirectory[]];
 
 (* Dichiarazione di una funzione per controllare l'input *)
-CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condition},
+myCheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condition},
 	(*Controlla che i punti generati dal kernel siano uguali a quelli dati in input dall'utente*)
     condition = {realA, realB, realC} === {IntegerPart@a, IntegerPart@b, IntegerPart@c};
     If[condition, 
@@ -46,21 +46,27 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", conditio
 
 (* Dichiarazione di una funzione per controllare una matrice *)
 myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector, solution, tmpSol},
-    If[
-        AllTrue[Flatten[matrix], Head[#] === Integer || Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer || Head[#] =!= Null &],
-        message = "",
-        {message = "Attenzione! Campi vuoti o numeri non interi inseriti!", Return[message]}
-    ];
-    
+    (* Invocazione della funzione per la generazione dei coefficienti della matrice di Vandermonde e del vettore dei termini noti *)
     {coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
+    
+    (* Risoluzione della matrice *)
     solution = LinearSolve[coefficentMatrix, rhsVector];
+    (* Calcolo della matrice con i dati inseriti dall'utente *)
     tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
     
+    (* Verifica dell'uguaglianza delle soluzioni *)
     If[solution === tmpSol,
         message = "Congratulazioni, la matrice \[EGrave] corretta, ora risolvila ed inserisci i coefficienti in alto.",
         message = "\|01f6ab Matrice sbagliata \|01f6ab"
     ];
     
+    (* Verifica se la matrice inserita dall'utente \[EGrave] composta da valori interi non nulli *)
+    If[
+        AllTrue[Flatten[matrix], Head[#] === Integer || Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer || Head[#] =!= Null &],,
+        message = "Attenzione! Campi vuoti o numeri non interi inseriti!"
+    ];
+    
+    (* Restituisce il messaggio da stampare a schermo *)
     Return[message]
 ]
 
@@ -81,7 +87,7 @@ myGeneratePointDisplay[points_] := Module[{},
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la parabola passante per 3 punti*)
 
 
-GuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
+myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
     DynamicModule[{
         a, b, c, (* Variabili per i coefficienti dell'equazione *)
         realA, realB, realC, (* Coefficienti reali dell'equazione *)
@@ -89,8 +95,8 @@ GuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per 
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector (* Vettore dei termini noti per il sistema lineare *)
-    },
+        constantVector}, (* Vettore dei termini noti per il sistema lineare *)
+    
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
         (* Genera l'equazione e i coefficienti reali *)
@@ -100,7 +106,7 @@ GuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per 
             {seed = RandomInteger[9999], {expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed]}
         ];
             
-			
+		
       points = Backend`myGeneratePointsOnLineOrParabola[3]; (* Genera tre punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
@@ -128,34 +134,27 @@ GuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per 
                 TextCell["Cliccando sul bottone \[EGrave] possibile visualizzare la parabola nell'asse cartesiano:"],
                 Spacer[10],
                 EventHandler[
-                    Row[
-                        {
-                            DisplayForm["y ="],
-                            Spacer[10],
-                            InputField[Dynamic[a], Number, FieldHint->"a", FieldSize->3, Alignment->Center],
-                            DisplayForm[ToExpression["x^2"]],
-                            DisplayForm[" + "],
-                            InputField[Dynamic[b], Number, FieldHint->"b", FieldSize->3, Alignment->Center],
-                            DisplayForm["x  +  "],
-                            InputField[Dynamic[c], Number, FieldHint->"c", FieldSize->3, Alignment->Center],
-                            Spacer[30],
-                            Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], 
-                                {
-                                    If[
-                                        Head[a] === Integer && Head[b] === Integer && Head[c] === Integer,
-                                        {
-                                            fun = a*x^2 + b*x + c, (* Definisce la funzione inserita dall'utente con i coefficienti*)
-                                            message = CheckInput[realA, realB, realC, a,  b,  c]; (* Controlla se la funzione è corretta *)
-                                            message3 = ""; (* Azzera eventuali messaggi precedenti *)
-                                        },
-                                        message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!"; (* Visualizza un messaggio di errore *)
-                                    ]
-                                }
-                            ]
-                        }
-                    ], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
+                    Row[{
+                        DisplayForm["y ="],
+                        Spacer[10],
+                        InputField[Dynamic[a], Number, FieldHint->"a", FieldSize->3, Alignment->Center],
+                        DisplayForm[ToExpression["x^2"]],
+                        DisplayForm[" + "],
+                        InputField[Dynamic[b], Number, FieldHint->"b", FieldSize->3, Alignment->Center],
+                        DisplayForm["x  +  "],
+                        InputField[Dynamic[c], Number, FieldHint->"c", FieldSize->3, Alignment->Center],
+                        Spacer[30],
+                        Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], {
+                            If[Head[a] === Integer && Head[b] === Integer && Head[c] === Integer, {
+                                fun = a*x^2 + b*x + c, (* Definisce la funzione inserita dall'utente con i coefficienti*)
+                                message = myCheckInput[realA, realB, realC, a,  b,  c]; (* Controlla se la funzione \[EGrave] corretta *)
+                                message3 = ""; (* Azzera eventuali messaggi precedenti *)
+                                }, message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!"; (* Visualizza un messaggio di errore *)
+                    ]}]}], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                 ],
+                
                 TextForm@Dynamic@Style[message3, FontColor -> Red], (* Visualizza eventuali messaggi di errore *)
+                
                 (* Grafico dell'equazione inserita *)
                 TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
                 Framed@Dynamic@Show[
@@ -164,64 +163,65 @@ GuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per 
                     Plot[fun,{x,-10,10}]
                 ],
                 TextForm[Dynamic@message], (* Visualizza messaggi di feedback *)
+                
                 Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]], (* Visualizza il numero di errori *)
                 Spacer[20],
+                
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
-					(*l'event handler impedisce all'utente di inserire un punto nell'input field*)
+				(*l'event handler impedisce all'utente di inserire un punto nell'input field*)
                     EventHandler[
                         Row[{
 							(*display e formattazione della matrice delle x e degli input field relativi ad essa*)
-                            MatrixForm[
-								(*crea la tabella i,j*)
-                                Table[With[{i = i, j = j},
+                             MatrixForm[
+							(*crea la tabella i,j*)
+                                 Table[With[{i = i, j = j},
 								(*input field relativi alla matrice i,j*)
-                                  InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
-                                 {i, 3}, {j, 3}]
-                                ],
+                                 InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]], {i, 3}, {j, 3}
+                         ]],
+                             
                              Style[DisplayForm[" \[Times] "], FontSize->16],
                              Style[MatrixForm[{"c", "b", "a"}], FontSize->16],
                              Style[DisplayForm[" = "], FontSize->16],
+                             
                              (*vettore dei termini noti*)
-							 MatrixForm[
-                                Table[With[{i = i, j = j},
-                                  InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
-                                 {i, 3}, {j, 1}]
-                                ],
-                            Spacer[20],
-							(*premendo il bottone chiama la funzione per il controllo dei coefficienti della matrice*)
-                            Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
-							(*event handler che non permette di inserire "."*)
-					    }], {{"KeyDown", "."} :> Null},
-							PassEventsDown -> False
-					],
-				    Spacer[10],
-					If[StringContainsQ[message2, "Congratulazioni"],
-						TextForm@Dynamic@Style[message2, FontColor->RGBColor[0, 0.741, 0]],
-						TextForm@Dynamic@Style[message2, FontColor->Red]]
-				    }, Alignment->Center],
-					""
-				]
-		   }, Alignment->Center
-		   ],
-		   Alignment->Center,
-	       ImageSizeAction->"Scrollable",
-	       ImageSize->Full,
-	       ImageMargins->20
+						 MatrixForm[
+                                 Table[With[{i = i, j = j},
+                                     InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]], {i, 3}, {j, 1}
+                             ]],
+                             Spacer[20],
+						
+						(*premendo il bottone chiama la funzione per il controllo dei coefficienti della matrice*)
+                             Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
+						(*event handler che non permette di inserire "."*)
+				    }], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
+				],
+			    
+			    Spacer[10],
+				If[StringContainsQ[message2, "Congratulazioni"],
+					TextForm@Dynamic@Style[message2, FontColor->RGBColor[0, 0.741, 0]],
+					TextForm@Dynamic@Style[message2, FontColor->Red]]
+			    }, Alignment->Center],
+				""
+		]}, Alignment->Center ],
+	    Alignment->Center,
+        ImageSizeAction->"Scrollable",
+        ImageSize->Full,
+        ImageMargins->20
 	], FontSize->16
-	]],
-	WindowTitle -> "Plot area",
-	WindowSize -> {Scaled[1],Scaled[1]},
-	WindowElements->{"VerticalScrollBar", "StatusArea"}
-];
+]],
 
+WindowTitle -> "Plot area",
+WindowSize -> {Scaled[1],Scaled[1]},
+WindowElements->{"VerticalScrollBar", "StatusArea"}
+];
 
 
 (* ::Text:: *)
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la retta passante per 2 punti*)
 
 
-GuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
+myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
     DynamicModule[{
         m, q, (* Variabili per i coefficienti dell'equazione *)
         realM, realQ, (* Coefficienti reali dell'equazione *)
@@ -229,8 +229,8 @@ GuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per 
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector (* Vettore dei termini noti per il sistema lineare *)
-    },
+        constantVector}, (* Vettore dei termini noti per il sistema lineare *)
+    
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
         (* Genera l'equazione e i coefficienti reali *)
@@ -282,7 +282,7 @@ GuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per 
                                         message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!", (* Visualizza un messaggio di errore *)
                                         {
                                             fun = m*x + q; (* Definisce la funzione inserita dall'utente *)
-                                            message = CheckInput[0, realM, realQ, 0,  m,  q]; (* Controlla se la funzione è corretta *)
+                                            message = myCheckInput[0, realM, realQ, 0,  m,  q]; (* Controlla se la funzione \[EGrave] corretta *)
                                             message3 = ""; (* Azzera eventuali messaggi precedenti *)
                                         }
                                     ]
@@ -327,36 +327,33 @@ GuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per 
                     Spacer[10],
                     If[StringContainsQ[message2, "Congratulazioni"],
                         TextForm@Dynamic@Style[message2, FontColor->RGBColor[0, 0.741, 0]],
-						TextForm@Dynamic@Style[message2, FontColor->Red]]
-				    (*Dynamic@MatrixForm[coefficentMatrix],
-				    Dynamic@MatrixForm[constantVector]*)
-				    }, Alignment->Center],
-					""
-				]
-		   }, Alignment->Center
-		   ],
-		   Alignment->Center,
-	       ImageSizeAction->"Scrollable",
-	       ImageSize->Full,
-	       ImageMargins->20
-	      ], FontSize->16]
-	  ],
-	WindowTitle -> "Plot area",
-	WindowSize -> {Scaled[1],Scaled[1]},
-	WindowElements->{"VerticalScrollBar", "StatusArea"}
+					TextForm@Dynamic@Style[message2, FontColor->Red]]
+			    }, Alignment->Center],
+				""
+			]
+	   }, Alignment->Center
+	   ],
+	   Alignment->Center,
+       ImageSizeAction->"Scrollable",
+       ImageSize->Full,
+       ImageMargins->20
+      ], FontSize->16]
+  ],
+WindowTitle -> "Plot area",
+WindowSize -> {Scaled[1],Scaled[1]},
+WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
 
 
 (* ::Text:: *)
-(* Codice per creare un'interfaccia grafica che permetta di scegliere la modalità di gioco *)
+(* Codice per creare un'interfaccia grafica che permetta di scegliere la modalit\[AGrave] di gioco *)
+
 
 CreateDynamicWindow[] :=
-  DynamicModule[{
-    infoWindow
-    },
+	DynamicModule[{infoWindow},
   
-    seedMessage = ""; (* Messaggio di feedback sul seed *)
-    infoText = "Un seed è un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo è essenziale per la riproducibilità e la coerenza dei risultati degli esercizi.";
+	seedMessage = ""; (* Messaggio di feedback sul seed *)
+    infoText = "Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.";
     
     CreateDialog[ (* Crea una finestra di dialogo *)
 		DialogNotebook[
@@ -364,33 +361,33 @@ CreateDynamicWindow[] :=
 				Column[{ (* Utilizza una colonna per organizzare gli elementi *)
 					Row[{ (* Utilizza una riga per organizzare gli elementi orizzontalmente *)
 						EventHandler[ 
-							Tooltip[Style["ℹ", FontSize -> 16], "Perché inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[infoText]}], (* Icona per informazioni aggiuntive sul seed *)
+							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[infoText]}], (* Icona per informazioni aggiuntive sul seed *)
 						Spacer[1],
 						TextCell["Inserire Seed:"], (* Etichetta per il campo di inserimento del seed *)
 						Spacer[5],
 						EventHandler[ (* Gestisce eventi come il click del mouse *)
 							InputField[Dynamic[seed], Number, ContinuousAction->True, FieldSize->Tiny], (* Campo di inserimento del seed *)
 							 {{"KeyDown", "."} :> Null}, (* Ignora il punto per evitare errori di input *)
-							PassEventsDown -> False] (* Passa gli eventi ai livelli più bassi *)
+							PassEventsDown -> False] (* Passa gli eventi ai livelli pi\[UGrave] bassi *)
 							}],
 					Spacer[20],
 					Row[{ (* Altra riga per organizzare gli elementi orizzontalmente *)
-						Button["Retta", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalità "Retta" *)
+						Button["Retta", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
 										{
-											GuessTheFunctionGUI[1]; (* Apre l'interfaccia per indovinare la funzione lineare *)
+											myGuessTheFunctionGUI[1]; (* Apre l'interfaccia per indovinare la funzione lineare *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
 											seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
 										},
-										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed può essere o un intero\n o al più lasciato vuoto." (* Visualizza un messaggio di errore *)
+										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
 									]}],
 						Spacer[20],
-						Button["Parabola", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalità "Parabola" *)
+						Button["Parabola", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
 										{
-											GuessTheFunctionGUI[2]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
+											myGuessTheFunctionGUI[2]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
 											seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
 										},
-										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed può essere o un intero\n o al più lasciato vuoto." (* Visualizza un messaggio di errore *)
+										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
 									]}]
 						}], 
 					Spacer[10],
@@ -405,14 +402,14 @@ CreateDynamicWindow[] :=
 	   WindowSize-> {All, All}, (* Imposta le dimensioni della finestra *)
 	   WindowTitle-> "Scegli esercizio" (* Imposta il titolo della finestra *)
 	]
-  ]
+];
 
 
 (* Codice che gestisce l'apertura di una finestra di informazione per l'utente. *)
 
 CreateInfoWindow[infoText_] :=
   CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Spacer[20], Button[
-    "Close", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perché inserire un seed?"]
+    "Close", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
 (* Dichiarazione di fine del package *)
