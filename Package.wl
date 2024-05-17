@@ -170,25 +170,29 @@ GuessTheFunctionGUI[2] := CreateDialog[
 				Spacer[20],
 				Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
 					TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
-					Row[{
-						MatrixForm[
-						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
-						     {i, 3}, {j, 3}]
-						    ],
-						 Style[DisplayForm[" \[Times] "], FontSize->16],
-						 Style[MatrixForm[{"c", "b", "a"}], FontSize->16],
-						 Style[DisplayForm[" = "], FontSize->16],
-						 MatrixForm[
-						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
-						     {i, 3}, {j, 1}]
-						    ],
-						Spacer[20],
-					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
-				    }],
-					If[message2 === "Matrice corretta",
-						TextForm@Dynamic@Style[message2, FontColor->Green],
+					EventHandler[
+						Row[{
+							MatrixForm[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
+							     {i, 3}, {j, 3}]
+							    ],
+							 Style[DisplayForm[" \[Times] "], FontSize->16],
+							 Style[MatrixForm[{"c", "b", "a"}], FontSize->16],
+							 Style[DisplayForm[" = "], FontSize->16],
+							 MatrixForm[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
+							     {i, 3}, {j, 1}]
+							    ],
+							Spacer[20],
+						    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
+					    }], {{"KeyDown", "."} :> Null},
+							PassEventsDown -> False
+					],
+				    Spacer[10],
+					If[StringContainsQ[message2, "Congratulazioni"],
+						TextForm@Dynamic@Style[message2, FontColor->RGBColor[0, 0.741, 0]],
 						TextForm@Dynamic@Style[message2, FontColor->Red]]
 				    (*Dynamic@MatrixForm[coefficentMatrix],
 				    Dynamic@MatrixForm[constantVector]*)
