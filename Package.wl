@@ -163,18 +163,21 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
                     ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
                     Plot[fun,{x,-10,10}]
                 ],
-                TextForm@Dynamic@Style[message, TextAlignment->Center], (* Visualizza messaggi di feedback *)
+                
+                (* Stampa il messaggio con l'esito dell'esercizio *)
+                TextForm@Dynamic@Style[message, TextAlignment->Center],
+                
+                (* In base all'esito, stampa o il numero degli errori o due pulsanti che permettono di iniziare un nuovo gioco o uscire *)
                 Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
 					Row[{
-						
 						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], CreateDynamicWindow[]}],
 						Spacer[20],
 						Button[TextCell[" Esci ", FontSize->16], DialogReturn[]]
 					}],
-					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *) ]
-                ,
+					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *)
+				],
+				
                 Spacer[20],
-                
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
 				(*l'event handler impedisce all'utente di inserire un punto nell'input field*)
@@ -224,7 +227,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
 	], FontSize->16
 ]],
 
-WindowTitle -> "Plot area",
+WindowTitle -> "SCPARABOLA",
 WindowSize -> {Scaled[1],Scaled[1]},
 WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
@@ -312,8 +315,18 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                     ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
                     Plot[fun,{x,-10,10}]
                 ],
-                Dynamic@TextForm[message], (* Visualizza messaggi di feedback *)
-                Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]], (* Visualizza il numero di errori *)
+                
+                TextForm@Dynamic@Style[message, TextAlignment->Center], (* Visualizza messaggi di feedback *)
+                Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
+					Row[{
+						
+						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], CreateDynamicWindow[]}],
+						Spacer[20],
+						Button[TextCell[" Esci ", FontSize->16], DialogReturn[]]
+					}],
+					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *)
+				],
+				
                 Spacer[20],
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
