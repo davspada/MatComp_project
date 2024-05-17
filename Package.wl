@@ -54,6 +54,12 @@ CheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", conditio
 ]
 
 myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector, solution, tmpSol},
+	If[
+		AllTrue[Flatten[matrix], Head[#] === Integer || Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer || Head[#] =!= Null &],
+		message = "",
+		{message = "Attenzione! Campi vuoti o numeri non interi inseriti!", Return[message]}
+	];
+	
 	{coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
 	solution = LinearSolve[coefficentMatrix, rhsVector];
 	tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
@@ -112,6 +118,8 @@ GuessTheFunctionGUI[2] := CreateDialog[
 		message2 = "";
 		message3 = "";
 		dims = {3, 3};
+		coefficentMatrix = ConstantArray[Null, dims];
+		constantVector =  ConstantArray[Null, {3, 1}];
 		Style[
 		Pane[
 			Column[{
@@ -169,8 +177,6 @@ GuessTheFunctionGUI[2] := CreateDialog[
 				Spacer[20],
 				Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
 					TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
-					coefficentMatrix = ConstantArray[Null, dims];
-					constantVector =  ConstantArray[Null, {3, 1}];
 					Row[{
 						MatrixForm[
 						    Table[With[{i = i, j = j},
@@ -186,15 +192,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 						     {i, 3}, {j, 1}]
 						    ],
 						Spacer[20],
-					    Button["Controlla", 
-							{
-								If[
-									AllTrue[Flatten[coefficentMatrix], Head[#] === Integer &] && AllTrue[Flatten[constantVector], Head[#] === Integer &],
-									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
-									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
-								]
-							}
-						]
+					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
 				    }],
 					If[message2 === "Matrice corretta",
 						TextForm@Dynamic@Style[message2, FontColor->Green],
@@ -246,6 +244,9 @@ GuessTheFunctionGUI[1] := CreateDialog[
 	message2 = "";
 	message3= "";
 	dims = {2, 2};
+	coefficentMatrix = ConstantArray[Null, dims];
+	constantVector =  ConstantArray[Null, {2, 1}];
+	
 	Style[
 		Pane[
 			Column[{
@@ -296,9 +297,9 @@ GuessTheFunctionGUI[1] := CreateDialog[
 				],
 				Dynamic@TextForm[message],
 				Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]],
+				Spacer[20],
 				Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
-					coefficentMatrix = ConstantArray[Null, dims];
-					constantVector =  ConstantArray[Null, {2, 1}];
+					TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
 					Row[{
 						MatrixForm[
 						    Table[With[{i = i, j = j},
@@ -314,14 +315,7 @@ GuessTheFunctionGUI[1] := CreateDialog[
 						     {i, 2}, {j, 1}]
 						    ],
 						Spacer[20],
-					    Button["Controlla", 
-							{ If[
-									AllTrue[Flatten[coefficentMatrix], Head[#] === Integer &] && AllTrue[Flatten[constantVector], Head[#] === Integer &],
-									message2 = myCheckMatrix[coefficentMatrix, constantVector, points],
-									message2 = "Attenzione! Campi vuoti o numeri non interi inseriti!"
-								]
-							}
-						]
+					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
 				    }],
 					Spacer[10],
 					If[message2 === "Matrice corretta",
