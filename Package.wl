@@ -39,7 +39,7 @@ myCheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condit
 	(*Controlla che i punti generati dal kernel siano uguali a quelli dati in input dall'utente*)
     condition = {realA, realB, realC} === {IntegerPart@a, IntegerPart@b, IntegerPart@c};
     If[condition, 
-        {message="Bravo"; myCounterErrori=0;}, 
+        {message="Congratulazioni, hai risolto l'esercizio.\nOra cosa vuoi fare:"; myCounterErrori=0;}, 
         {message = "Hai sbagliato"; myCounterErrori++;}];
     Return[message];
 ]
@@ -163,9 +163,16 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
                     ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
                     Plot[fun,{x,-10,10}]
                 ],
-                TextForm[Dynamic@message], (* Visualizza messaggi di feedback *)
-                
-                Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]], (* Visualizza il numero di errori *)
+                TextForm@Dynamic@Style[message, TextAlignment->Center], (* Visualizza messaggi di feedback *)
+                Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
+					Row[{
+						
+						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], CreateDynamicWindow[]}],
+						Spacer[20],
+						Button[TextCell[" Esci ", FontSize->16], DialogReturn[]]
+					}],
+					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *) ]
+                ,
                 Spacer[20],
                 
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
