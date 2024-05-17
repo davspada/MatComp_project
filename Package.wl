@@ -64,18 +64,11 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
 	solution = LinearSolve[coefficentMatrix, rhsVector];
 	tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
 	
-	Print[coefficentMatrix];
-	Print[matrix];
-	Print[rhsVector];
-	Print[Transpose[constantVector][[1]]];
-	
 	If[solution === tmpSol,
-		message = "Matrice corretta",
-		message = "Matrice sbagliata"
+		message = "Congratulazioni, la matrice \[EGrave] corretta, ora risolvila ed inserisci i coefficienti in alto.",
+		message = "\|01f6ab Matrice sbagliata \|01f6ab"
 	];
 	
-	Print[solution];
-	Print[tmpSol];
 	Return[message]
 ]
 
@@ -180,7 +173,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 					Row[{
 						MatrixForm[
 						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2]],
+						      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
 						     {i, 3}, {j, 3}]
 						    ],
 						 Style[DisplayForm[" \[Times] "], FontSize->16],
@@ -188,7 +181,7 @@ GuessTheFunctionGUI[2] := CreateDialog[
 						 Style[DisplayForm[" = "], FontSize->16],
 						 MatrixForm[
 						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
+						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
 						     {i, 3}, {j, 1}]
 						    ],
 						Spacer[20],
@@ -300,26 +293,30 @@ GuessTheFunctionGUI[1] := CreateDialog[
 				Spacer[20],
 				Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{
 					TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
-					Row[{
-						MatrixForm[
-						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2]],
-						     {i, 2}, {j, 2}]
-						    ],
-						 Style[DisplayForm[" \[Times] "], FontSize->16],
-						 Style[MatrixForm[{"q", "m"}], FontSize->16],
-						 Style[DisplayForm[" = "], FontSize->16],
-						 MatrixForm[
-						    Table[With[{i = i, j = j},
-						      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2]],
-						     {i, 2}, {j, 1}]
-						    ],
-						Spacer[20],
-					    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
-				    }],
+					
+					EventHandler[
+						Row[{
+							MatrixForm[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
+							     {i, 2}, {j, 2}]
+							    ],
+							 Style[DisplayForm[" \[Times] "], FontSize->16],
+							 Style[MatrixForm[{"q", "m"}], FontSize->16],
+							 Style[DisplayForm[" = "], FontSize->16],
+							 MatrixForm[
+							    Table[With[{i = i, j = j},
+							      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
+							     {i, 2}, {j, 1}]
+							    ],
+							Spacer[20],
+						    Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
+					    }], {{"KeyDown", "."} :> Null},
+							PassEventsDown -> False
+					],
 					Spacer[10],
-					If[message2 === "Matrice corretta",
-						TextForm@Dynamic@Style[message2, FontColor->Green],
+					If[StringContainsQ[message2, "Congratulazioni"],
+						TextForm@Dynamic@Style[message2, FontColor->RGBColor[0, 0.741, 0]],
 						TextForm@Dynamic@Style[message2, FontColor->Red]]
 				    (*Dynamic@MatrixForm[coefficentMatrix],
 				    Dynamic@MatrixForm[constantVector]*)
