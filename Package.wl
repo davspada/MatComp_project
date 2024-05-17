@@ -62,7 +62,8 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
     
     (* Verifica se la matrice inserita dall'utente \[EGrave] composta da valori interi non nulli *)
     If[
-        AllTrue[Flatten[matrix], Head[#] === Integer || Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer || Head[#] =!= Null &],,
+        AllTrue[Flatten[matrix], Head[#] === Integer && Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
+        message = message,
         message = "Attenzione! Campi vuoti o numeri non interi inseriti!"
     ];
     
