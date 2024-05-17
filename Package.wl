@@ -21,9 +21,9 @@ SetDirectory[NotebookDirectory[]];
 Get["Backend.wl"];
 
 (* Definisce l'uso delle funzioni definite nel pacchetto *)
-GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[]";
+GuessTheFunctionGUI::usage = "GuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio";
 CreateDynamicWindow::usage = "CreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma";
-CreateInfoWindow::usage = "CreateInfoWindow[]";
+CreateInfoWindow::usage = "CreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori";
 
 Begin["`Private`"];
 
