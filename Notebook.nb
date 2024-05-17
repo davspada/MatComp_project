@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     23802,        400]
-NotebookOptionsPosition[     22292,        367]
-NotebookOutlinePosition[     22727,        384]
-CellTagsIndexPosition[     22684,        381]
+NotebookDataLength[     44220,        960]
+NotebookOptionsPosition[     37279,        846]
+NotebookOutlinePosition[     37769,        865]
+CellTagsIndexPosition[     37726,        862]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -23,7 +23,7 @@ Cell[CellGroupData[{
 Cell["Guess The Function", "Title",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
  CellChangeTimes->{{3.9226067729135513`*^9, 3.9226067852178745`*^9}, 
-   3.922606933733614*^9, {3.922862581026199*^9, 3.9228625815882826`*^9}},
+   3.922606933733614*^9, {3.922862581026199*^9, 3.9228625815882816`*^9}},
  TextAlignment->Center,ExpressionUUID->"63089ab6-e53e-1b4e-b6b2-2e29cf3021c6"],
 
 Cell[TextData[StyleBox["Nome del gruppo",
@@ -33,13 +33,13 @@ Cell[TextData[StyleBox["Nome del gruppo",
    3.922606842535715*^9, 3.9226068656244297`*^9}, 3.922606933733614*^9},
  TextAlignment->Center,ExpressionUUID->"b4a7d940-5297-a945-9b80-539b97fa6e53"],
 
-Cell[TextData[StyleBox["Leonardo Dess\[CapitalATilde]\[Not], Emanuele Grasso, \
-Luca Polese, Davide Spada",
+Cell[TextData[StyleBox["Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, \
+Davide Spada",
  FontSize->24]], "Chapter",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.},
  CellChangeTimes->{{3.9226067729135513`*^9, 3.9226068033475113`*^9}, {
    3.922606842535715*^9, 3.922606933733614*^9}, 3.922606992014269*^9, 
-   3.922860195356987*^9},
+   3.922860195356987*^9, {3.924918843820576*^9, 3.9249188443305683`*^9}},
  TextAlignment->Center,ExpressionUUID->"1ea57c85-88db-f64a-94a1-b047477fde9e"],
 
 Cell[TextData[StyleBox["",
@@ -58,6 +58,707 @@ Cell[TextData[StyleBox["A.A. 2023-2024 - 5898 LM Informatica ",
  TextAlignment->Center,ExpressionUUID->"49a8f94e-ac43-8549-b5a2-f0a3cd058de7"]
 }, Open  ]],
 
+Cell[CellGroupData[{
+
+Cell["Indice", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919674147938*^9}, {
+  3.924920020622721*^9, 3.9249200223579082`*^9}, {3.924924123448513*^9, 
+  3.924924132781708*^9}},ExpressionUUID->"dacfe7dc-2275-be41-9ad9-\
+57254d5ee1fa"],
+
+Cell[TextData[StyleBox["Introduzione",
+ FontSize->20]], "ItemNumbered",
+ CellChangeTimes->{{3.861709040125312*^9, 3.861709063038665*^9}, {
+  3.861709098447483*^9, 3.8617091301358767`*^9}, {3.861709203527754*^9, 
+  3.8617092048552027`*^9}, {3.92492139884681*^9, 3.9249214351132393`*^9}, {
+  3.924926781673361*^9, 3.924926781678919*^9}},
+ FontColor->RGBColor[
+  1, 0.5, 0],ExpressionUUID->"d73a9feb-d5d7-a445-951a-71b4b4a3a329"],
+
+Cell[TextData[StyleBox["Matrice di Vandermonde",
+ FontSize->20]], "ItemNumbered",
+ CellChangeTimes->{{3.861709040125312*^9, 3.861709063038665*^9}, {
+  3.861709098447483*^9, 3.8617091301358767`*^9}, {3.861709203527754*^9, 
+  3.8617092048552027`*^9}, {3.92492139884681*^9, 3.9249214351132393`*^9}, {
+  3.9249267869255753`*^9, 3.924926792803232*^9}},
+ FontColor->RGBColor[
+  1, 0.5, 0],ExpressionUUID->"4943605c-9d50-574b-ae8d-f6d4c72d30ca"],
+
+Cell[TextData[StyleBox["Funzionalit\[AGrave] del Notebook",
+ FontSize->20]], "ItemNumbered",
+ CellChangeTimes->{{3.861709040125312*^9, 3.861709063038665*^9}, {
+  3.861709098447483*^9, 3.8617091301358767`*^9}, {3.861709203527754*^9, 
+  3.8617092048552027`*^9}, {3.92492139884681*^9, 3.92492144048472*^9}, {
+  3.9249262968874245`*^9, 3.924926301655266*^9}},
+ FontColor->RGBColor[
+  1, 0.5, 0],ExpressionUUID->"e185e3b0-5933-8241-ac5e-672b4d7b8c3c"],
+
+Cell[TextData[{
+ StyleBox["Bibliografia",
+  FontSize->20],
+ StyleBox[" e Sitografia",
+  FontSize->20]
+}], "ItemNumbered",
+ CellChangeTimes->{{3.861709040125312*^9, 3.861709063038665*^9}, {
+  3.861709098447483*^9, 3.8617091301358767`*^9}, {3.861709203527754*^9, 
+  3.8617092048552027`*^9}, {3.92492139884681*^9, 3.9249214304055405`*^9}},
+ FontColor->RGBColor[
+  1, 0.5, 0],ExpressionUUID->"456ba66c-c588-f546-9bf8-f08b5e6069ed"],
+
+Cell[TextData[StyleBox["Conclusioni e Sviluppi futuri",
+ FontSize->20]], "ItemNumbered",
+ CellChangeTimes->{{3.861709040125312*^9, 3.861709063038665*^9}, {
+  3.861709098447483*^9, 3.8617091301358767`*^9}, {3.861709203527754*^9, 
+  3.8617092048552027`*^9}, {3.92492139884681*^9, 3.924921407761326*^9}},
+ FontColor->RGBColor[
+  1, 0.5, 0],ExpressionUUID->"81ad00c1-8330-fa42-93e7-0d431e360935"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Introduzione", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 
+  3.924922050695177*^9}},ExpressionUUID->"649ba584-130b-4046-9d32-\
+afc941fd29e6"],
+
+Cell["\<\
+Il nostro progetto prevede la creazione di un notebook interattivo \
+utilizzando Wolfram Mathematica, progettato per aiutare gli utenti a \
+comprendere e risolvere problemi di geometria analitica. Nello specifico, il \
+notebook si focalizza su due problemi fondamentali:\
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.9249220044508266`*^9}, {3.9249232910472794`*^9, 
+  3.9249233798866425`*^9}, {3.924923490194849*^9, 
+  3.9249234904578056`*^9}},ExpressionUUID->"0a2692da-fbeb-b54e-a8d4-\
+4dd56a2b4592"],
+
+Cell["Determinazione di una retta passante per due punti", "Item",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.9249220044508266`*^9}, {3.9249232910472794`*^9, 
+  3.9249233961769123`*^9}},ExpressionUUID->"2441af8f-1bb5-9b4e-925c-\
+66fa74a6e2c0"],
+
+Cell["Determinazione di una parabola passante per tre punti", "Item",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+  3.924923395645664*^9}},ExpressionUUID->"8ffd510d-e39a-1b42-9468-\
+5c038312c7e7"],
+
+Cell[CellGroupData[{
+
+Cell["Obiettivi del Progetto", "Subsection",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+  3.924923405763033*^9}},ExpressionUUID->"be8edfff-b6d9-0346-a78d-\
+77b8ab379b7a"],
+
+Cell["\<\
+Il principale obiettivo del notebook \[EGrave] fornire uno strumento \
+didattico interattivo e coinvolgente, che permetta agli studenti di \
+comprendere risolvere i precedenti problemi. 
+Il notebook offre un ambiente in cui gli utenti possono:\
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923603229044*^9}, 
+   3.924924430555071*^9},ExpressionUUID->"571bae35-471d-0043-81e1-\
+c3c42a31a5e1"],
+
+Cell["\<\
+Calcolare e visualizzare l\[CloseCurlyQuote]equazione di una retta: Dati due \
+punti generati casualmente, il notebook guida l\[CloseCurlyQuote]utente nel \
+trovare l\[CloseCurlyQuote]equazione della retta che li unisce.\
+\>", "Item",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.9249220044508266`*^9}, {3.9249232910472794`*^9, 
+  3.924923381796276*^9}, {3.9249234275041466`*^9, 
+  3.9249236252576084`*^9}},ExpressionUUID->"1c1170ac-3a8a-9045-977a-\
+2a3b6ac4d2d8"],
+
+Cell["\<\
+Calcolare e visualizzare l\[CloseCurlyQuote]equazione di una parabola: Dati \
+tre punti generati casualmente, il notebook assiste l\[CloseCurlyQuote]utente \
+nel determinare l\[CloseCurlyQuote]equazione della parabola che passa per \
+essi.\
+\>", "Item",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.9249220044508266`*^9}, {3.9249232910472794`*^9, 
+  3.924923381796276*^9}, {3.9249234275041466`*^9, 
+  3.9249236249763565`*^9}},ExpressionUUID->"063a86fa-6c1c-2f4c-8fb7-\
+2bd637aa72f6"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Risoluzione del problema con la Matrice di Vandermonde", "Section",
+ CellChangeTimes->{
+  3.924926772955551*^9, {3.924926819162134*^9, 3.9249268361374855`*^9}, {
+   3.924928050044714*^9, 
+   3.924928067276705*^9}},ExpressionUUID->"407ebf5a-319c-3347-8e8a-\
+2c03c671d047"],
+
+Cell["\<\
+La matrice di Vandermonde \[EGrave] uno strumento matematico utile per \
+risolvere sistemi di equazioni lineari, come quelli che si incontrano nel \
+determinare le equazioni di rette e parabola passanti per punti specifici. Di \
+seguito viene illustrato come utilizzare la matrice di Vandermonde per \
+risolvere i problemi della retta passante per due punti e della parabola \
+passante per tre punti.\
+\>", "Text",
+ CellChangeTimes->{
+  3.924926772955551*^9, {3.924926819162134*^9, 3.9249268339298325`*^9}, {
+   3.9249280800136604`*^9, 
+   3.924928118550976*^9}},ExpressionUUID->"3254fcbb-7b4f-4d4b-9d2c-\
+f91211ef9255"],
+
+Cell[CellGroupData[{
+
+Cell["Retta passante per due punti", "Subsection",
+ CellChangeTimes->{
+  3.924926772955551*^9, {3.924926819162134*^9, 3.9249268339298325`*^9}, {
+   3.92492808001366*^9, 3.9249281212243214`*^9}, {3.9249285622133064`*^9, 
+   3.924928569342661*^9}},ExpressionUUID->"3cd34099-41af-4148-b4f2-\
+64db4012b279"],
+
+Cell[TextData[{
+ "Supponiamo di avere due punti ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"(", 
+         RowBox[{
+           SubscriptBox[
+            StyleBox["x", "TI"], "1"], ",", 
+           SubscriptBox[
+            StyleBox["y", "TI"], "1"]}], ")"}], TraditionalForm], 
+     "errors" -> {}, "input" -> "(x_1, y_1)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "82cac26c-a3c9-4541-831b-5bfab3727aeb"],
+ " e ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{"(", 
+         RowBox[{
+           SubscriptBox[
+            StyleBox["x", "TI"], "2"], ",", 
+           SubscriptBox[
+            StyleBox["y", "TI"], "2"]}], ")"}], TraditionalForm], 
+     "errors" -> {}, "input" -> "(x_2,y_2)", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "4b5ae8e4-57d1-a94f-a8bd-1d8ebadf3fec"],
+ ". Vogliamo trovare i coefficienti ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["m", "TI"], TraditionalForm], "errors" -> {}, "input" -> "m", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "b14766ab-98fe-d04b-8b0a-3ff510e0f1d9"],
+ " (pendenza) e ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       StyleBox["q", "TI"], TraditionalForm], "errors" -> {}, "input" -> "q", 
+     "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "eb253a5a-8c38-6b4d-98aa-1840636642b6"],
+ " (intercetta) della retta ",
+ Cell[BoxData[
+  FormBox[
+   TemplateBox[<|"boxes" -> FormBox[
+       RowBox[{
+         StyleBox["y", "TI"], "\[LongEqual]", 
+         StyleBox["m", "TI"], 
+         StyleBox["x", "TI"], "+", 
+         StyleBox["b", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+     "y=mx+b", "state" -> "Boxes"|>,
+    "TeXAssistantTemplate"], TraditionalForm]],ExpressionUUID->
+  "c6932de9-da0f-bf45-8c50-ce9e7265391a"],
+ " che passa per questi punti."
+}], "Text",
+ CellChangeTimes->{
+  3.924926772955551*^9, {3.924926819162134*^9, 3.9249268339298325`*^9}, {
+   3.92492808001366*^9, 3.924928136029255*^9}, 3.9249282346894226`*^9, {
+   3.924928348774416*^9, 3.924928478147295*^9}, {3.9249285372005634`*^9, 
+   3.9249285534109*^9}},ExpressionUUID->"61363f36-aa61-0d43-b08c-\
+15ef06179648"],
+
+Cell[CellGroupData[{
+
+Cell["Passaggi", "Subsubsection",
+ CellChangeTimes->{{3.924928614715311*^9, 3.924928631021044*^9}, 
+   3.9249286691649933`*^9},ExpressionUUID->"12d2bf57-92fc-0049-9577-\
+2207f6433748"],
+
+Cell["Scrivi il sistema di equazioni:", "Text",
+ CellChangeTimes->{{3.924928614715311*^9, 3.924928631021044*^9}, {
+   3.924928681315485*^9, 3.924928693663227*^9}, 3.9249288023033466`*^9, {
+   3.9249290324890137`*^9, 3.9249290329737015`*^9}, {3.9249295170397034`*^9, 
+   3.9249295474640064`*^9}, {3.924929629256401*^9, 3.9249297588316555`*^9}, {
+   3.9249299334466248`*^9, 3.9249299489653053`*^9}, 3.9249301396911182`*^9, {
+   3.9249302023512*^9, 
+   3.9249302959999332`*^9}},ExpressionUUID->"439020ca-b57f-0e45-bdbe-\
+85812e7f81ba"],
+
+Cell[BoxData[
+ RowBox[{"{", GridBox[{
+    {
+     TemplateBox[<|"boxes" -> FormBox[
+         RowBox[{
+           SubscriptBox[
+            StyleBox["y", "TI"], "1"], "\[LongEqual]", 
+           StyleBox["m", "TI"], 
+           SubscriptBox[
+            StyleBox["x", "TI"], "1"], "+", 
+           StyleBox["q", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+       "y_1 =mx_1+q", "state" -> "Boxes"|>,
+      "TeXAssistantTemplate"]},
+    {
+     TemplateBox[<|"boxes" -> FormBox[
+         RowBox[{
+           SubscriptBox[
+            StyleBox["y", "TI"], "2"], "\[LongEqual]", 
+           StyleBox["m", "TI"], 
+           SubscriptBox[
+            StyleBox["x", "TI"], "2"], "+", 
+           StyleBox["q", "TI"]}], TraditionalForm], "errors" -> {}, "input" -> 
+       "y_2 =mx_2+q", "state" -> "Boxes"|>,
+      "TeXAssistantTemplate"]}
+   }]}]], "DisplayFormula",
+ CellChangeTimes->{{3.924928614715311*^9, 3.924928631021044*^9}, {
+   3.924928681315485*^9, 3.924928693663227*^9}, 3.9249288023033466`*^9, {
+   3.9249290324890137`*^9, 3.9249290329737015`*^9}, {3.9249295170397034`*^9, 
+   3.9249295474640064`*^9}, {3.924929629256401*^9, 3.9249297588316555`*^9}, {
+   3.9249299334466248`*^9, 3.9249299489653053`*^9}, 3.9249301396911182`*^9, {
+   3.9249302023512*^9, 
+   3.9249303032623672`*^9}},ExpressionUUID->"d7c93481-f91c-2342-b42e-\
+a4f9c83ab3e2"],
+
+Cell[TextData[{
+ "Forma la matrice di Vandermonde:\n",
+ Cell[BoxData[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"\[Placeholder]", "\[Placeholder]"}
+    }], "\[NoBreak]", ")"}]],ExpressionUUID->
+  "ecdaa1cd-72bb-154b-b3f8-54e2c05bb282"]
+}], "Text",
+ CellChangeTimes->{{3.924928614715311*^9, 3.924928631021044*^9}, {
+   3.924928681315485*^9, 3.924928693663227*^9}, 3.9249288023033466`*^9, {
+   3.9249290324890137`*^9, 3.9249290329737015`*^9}, {3.9249295170397034`*^9, 
+   3.9249295474640064`*^9}, {3.924929629256401*^9, 3.9249297588316555`*^9}, {
+   3.9249299334466248`*^9, 3.9249299489653053`*^9}, 3.9249301396911182`*^9, {
+   3.9249302023512*^9, 3.9249302791635685`*^9}, {3.9249303157595234`*^9, 
+   3.9249304371528873`*^9}},ExpressionUUID->"7f971468-7c4d-9d41-b3ec-\
+dc2175cdd7da"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Funzionalit\[AGrave] del Notebook", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+  3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, {
+  3.924923787314436*^9, 
+  3.924923792287813*^9}},ExpressionUUID->"e253d399-d243-5e44-b59d-\
+eea885b565ca"],
+
+Cell[CellGroupData[{
+
+Cell["Generazione e Risoluzione della Retta per Due Punti", "Subsection",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 
+   3.924923927337412*^9}},ExpressionUUID->"755adbf3-3347-d34a-8110-\
+fe7b9900c3a3"],
+
+Cell["\<\
+Il notebook include una sezione dedicata alla generazione e risoluzione del \
+problema della retta passante per due punti generati casualmente. Le \
+funzionalit\[AGrave] includono:\
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924923965234709*^9}, 
+   3.92492402705295*^9, 3.924924455275984*^9, 
+   3.924924689248184*^9},ExpressionUUID->"b4543c37-a2da-1e44-9ed8-\
+1a04bc6edee8"],
+
+Cell[TextData[{
+ StyleBox["Generazione Casuale dei Punti",
+  FontWeight->"Bold"],
+ ": utilizzando un seed specificato dall\[CloseCurlyQuote]utente, vengono \
+generati due punti sul piano cartesiano."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924923965234709*^9}, 
+   3.92492402705295*^9, 3.924924455275984*^9, {3.924924692062895*^9, 
+   3.9249246980662136`*^9}, {3.9249252703579006`*^9, 
+   3.924925273853136*^9}},ExpressionUUID->"66b40b6e-69b2-cf44-b85c-\
+3d1d1d0f4c58"],
+
+Cell[TextData[{
+ StyleBox["Inserimento Manuale dei Coefficienti",
+  FontWeight->"Bold"],
+ ": l\[CloseCurlyQuote]utente deve inserire i coefficienti della retta: \
+\|01d466 = \|01d45a\|01d465 + \|01d44f"
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924923965234709*^9}, 
+   3.92492402705295*^9, 3.924924455275984*^9, {3.924924692062895*^9, 
+   3.92492470024061*^9}, {3.9249247342608643`*^9, 3.924924735311363*^9}, {
+   3.9249252766673813`*^9, 
+   3.924925279154417*^9}},ExpressionUUID->"5c18ac5f-2cb3-8642-b9ab-\
+b0b9dabc4309"],
+
+Cell[TextData[{
+ StyleBox["Feedback Interattivo",
+  FontWeight->"Bold"],
+ ": se l\[CloseCurlyQuote]utente inserisce i coefficienti corretti, viene \
+fornito un feedback positivo. Dopo tre tentativi errati, il notebook \
+suggerisce l\[CloseCurlyQuote]uso della matrice di Vandermonde per trovare i \
+coefficienti corretti."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.9249239766780853`*^9}, {
+   3.92492459059293*^9, 3.924924601068777*^9}, {3.924925281765103*^9, 
+   3.9249252949305367`*^9}, 
+   3.9249301848882446`*^9},ExpressionUUID->"5134029f-70b8-b84f-90b5-\
+d13a8b950a51"],
+
+Cell[TextData[{
+ StyleBox["Calcolo della Matrice di Vandermonde",
+  FontWeight->"Bold"],
+ ": se necessario, l\[CloseCurlyQuote]utente pu\[OGrave] compilare la matrice \
+di Vandermonde per risolvere il problema."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924923990419201*^9}, {
+   3.924925303123926*^9, 
+   3.924925309814554*^9}},ExpressionUUID->"dcf0d3ba-4879-744d-a15d-\
+575d6d94f71c"],
+
+Cell[TextData[{
+ StyleBox["Visualizzazione grafica",
+  FontWeight->"Bold"],
+ ": la retta viene plottata sul piano cartesiano, permettendo all\
+\[CloseCurlyQuote]utente di vedere il risultato."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, 3.924924810433422*^9, {
+   3.9249253461641846`*^9, 
+   3.9249253501825447`*^9}},ExpressionUUID->"a28df77a-8394-bf40-808f-\
+5c52e55856d6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Generazione e Risoluzione della Parabola per Tre Punti", "Subsection",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, 
+   3.924924814968569*^9},ExpressionUUID->"c0b0cdff-b635-b64c-bd6a-\
+1fa678073047"],
+
+Cell["\<\
+Un\[CloseCurlyQuote]altra sezione del notebook \[EGrave] dedicata alla \
+generazione e risoluzione del problema della parabola passante per tre punti \
+generati casualmente.  Le funzionalit\[AGrave] includono:\
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.9249250291386127`*^9, 
+   3.9249250497010155`*^9}, {3.9249253676300907`*^9, 
+   3.9249253682561073`*^9}},ExpressionUUID->"083b35bb-8a30-e245-96e2-\
+6f4959a95fea"],
+
+Cell[TextData[{
+ StyleBox["Generazione Casuale dei Punti",
+  FontWeight->"Bold"],
+ ": utilizzando un seed specificato dall\[CloseCurlyQuote]utente, vengono \
+generati tre punti sul piano cartesiano."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.9249250291386127`*^9, 
+   3.9249250573723106`*^9}, {3.9249253740405235`*^9, 
+   3.9249253771991463`*^9}},ExpressionUUID->"6f650e33-cfbf-0546-8961-\
+3481fe1a500d"],
+
+Cell[TextData[{
+ StyleBox["Inserimento Manuale dei Coefficienti",
+  FontWeight->"Bold"],
+ ": l\[CloseCurlyQuote]utente deve inserire i coefficienti della parabola  \
+\|01d466 = \|01d44e",
+ Cell[BoxData[
+  FormBox[
+   SuperscriptBox["\|01d465", "2"], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "d34d226b-1c89-c84b-b65e-13d711f19f27"],
+ " + \|01d44f\|01d465 + c "
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, 3.9249250328583527`*^9, {3.9249253919405956`*^9, 
+   3.924925393970989*^9}},ExpressionUUID->"f4dd6de2-cbfc-cd49-b1f5-\
+fde45d94563e"],
+
+Cell[TextData[{
+ StyleBox["Feedback Interattivo",
+  FontWeight->"Bold"],
+ ": se l\[CloseCurlyQuote]utente inserisce i coefficienti corretti, viene \
+fornito un feedback positivo. Dopo tre tentativi errati, il notebook \
+suggerisce l\[CloseCurlyQuote]uso della matrice di Vandermonde per trovare i \
+coefficienti corretti."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925106058964*^9}, {
+   3.9249254083398438`*^9, 
+   3.9249254125917377`*^9}},ExpressionUUID->"4f886d9f-9093-ea4e-b9ed-\
+e2b1d0a7dc22"],
+
+Cell[TextData[{
+ StyleBox["Calcolo della Matrice di Vandermonde",
+  FontWeight->"Bold"],
+ ": se necessario, l\[CloseCurlyQuote]utente pu\[OGrave] compilare la matrice \
+di Vandermonde per risolvere il problema."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925157476757*^9}, {
+   3.9249254334620934`*^9, 3.9249254337896194`*^9}, {3.9249254694673615`*^9, 
+   3.9249254697332153`*^9}},ExpressionUUID->"3f1ef976-2cff-7b4f-953b-\
+2c6abc82c05d"],
+
+Cell[TextData[{
+ StyleBox["Visualizzazione Grafica",
+  FontWeight->"Bold"],
+ ": la parabola viene plottata sul piano cartesiano, permettendo all\
+\[CloseCurlyQuote]utente di vedere il risultato."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 
+   3.9249254665093784`*^9}},ExpressionUUID->"127f4532-9847-8f41-a621-\
+5e6d5f9b3684"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Processo di Risoluzione", "Subsection",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 
+   3.9249254450451374`*^9}},ExpressionUUID->"3de62983-9d28-004a-af28-\
+85620f9f6772"],
+
+Cell[TextData[{
+ StyleBox["Generazione dei Punti",
+  FontWeight->"Bold"],
+ ": Il notebook genera automaticamente due o tre punti casuali in base al \
+seed fornito."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.9249261922496033`*^9},ExpressionUUID->"7dbe9135-1720-3340-adbf-\
+508f1d521fdb"],
+
+Cell[TextData[{
+ StyleBox["Inserimento dei Coefficienti",
+  FontWeight->"Bold"],
+ ": L\[CloseCurlyQuote]utente tenta di risolvere l\[CloseCurlyQuote]esercizio \
+inserendo i coefficienti della retta o della parabola."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.924926193641897*^9},ExpressionUUID->"aa324fca-0427-2347-a7f7-\
+2e1af3bf035a"],
+
+Cell[TextData[{
+ StyleBox["Verifica e Feedback",
+  FontWeight->"Bold"],
+ ": Il notebook verifica i coefficienti inseriti e fornisce un feedback \
+immediato. Dopo tre tentativi errati, viene mostrata una sezione per \
+compilare la matrice di Vandermonde."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.9249261968967686`*^9},ExpressionUUID->"eaedf96d-d6d6-1d47-87cd-\
+99032c89c47d"],
+
+Cell[TextData[{
+ StyleBox["Matrice di Vandermonde",
+  FontWeight->"Bold"],
+ ": L\[CloseCurlyQuote]utente compila la matrice di Vandermonde per trovare i \
+coefficienti corretti. Una volta completata correttamente, \
+l\[CloseCurlyQuote]utente deve risolvere l\[CloseCurlyQuote]operazione \
+matriciale."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.9249262001340237`*^9},ExpressionUUID->"b65efecb-2237-1a43-b5dd-\
+b0640f82fa9f"],
+
+Cell[TextData[{
+ StyleBox["Test dei Coefficienti",
+  FontWeight->"Bold"],
+ ": L\[CloseCurlyQuote]utente inserisce i coefficienti ottenuti nella sezione \
+superiore per verificare la correttezza e visualizzare il grafico risultante."
+}], "ItemNumbered",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.9249262024024563`*^9},ExpressionUUID->"6a6c072b-94a2-4640-8955-\
+ca6e46f6146a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Benefici Educativi", "Subsection",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, 
+   3.924926205041008*^9},ExpressionUUID->"6d2ebf5e-f552-684b-99b4-\
+f0133c5996ae"],
+
+Cell["\<\
+Questo notebook rappresenta per noi uno strumento educativo, che ha lo scopo \
+di facilitare l\[CloseCurlyQuote]apprendimento dei concetti di geometria \
+analitica attraverso un approccio interattivo. Gli studenti possono \
+sperimentare con diverse configurazioni di punti e coefficienti, sviluppando \
+una comprensione pi\[UGrave] profonda e intuitiva della matematica dietro le \
+rette e le parabole. Il feedback immediato e la guida passo-passo aiutano a \
+consolidare le competenze matematiche in modo pratico e coinvolgente.\
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922004450826*^9}, {3.92492329104728*^9, 
+   3.924923381796276*^9}, {3.9249234275041466`*^9, 3.924923589346342*^9}, 
+   3.924923787314436*^9, {3.9249239171591854`*^9, 3.924924009214569*^9}, {
+   3.924924522642975*^9, 3.9249245235664177`*^9}, {3.9249248430806904`*^9, 
+   3.9249249935065384`*^9}, {3.924925104058401*^9, 3.924925135136059*^9}, {
+   3.924925432101118*^9, 3.9249254423248158`*^9}, {3.924926223679003*^9, 
+   3.924926239448124*^9}, {3.924926281489641*^9, 
+   3.924926282286915*^9}},ExpressionUUID->"9d8bf77b-5185-a246-9383-\
+e562fd482a63"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Bibliografia e Sitografia", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922012986038*^9}, {3.924922500670601*^9, 
+  3.924922513874777*^9}},ExpressionUUID->"1f5ffa4b-07b5-0a4d-a3f7-\
+3086fc6cc35e"],
+
+Cell["\<\
+[1] https://www.sbai.uniroma1.it/~valentina.pepe/rank_circulant.pdf
+[2] https://www.youmath.it/domande-a-risposte/view/4888-parabola-per-tre-\
+punti.html
+[3]  \
+\>", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922012986038*^9}, {3.924922500670601*^9, 
+  3.9249225634216595`*^9}, {3.9249229400301266`*^9, 3.9249229432921753`*^9}, {
+  3.9249264900234184`*^9, 
+  3.92492649207152*^9}},ExpressionUUID->"2990bc39-0ea4-7840-bd1f-\
+4028529c35cb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Conclusioni e Sviluppi futuri", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+  3.924921995538044*^9, 3.924922023741678*^9}, {3.9249263091441746`*^9, 
+  3.9249263113003597`*^9}},ExpressionUUID->"b0c05188-c2d1-bf48-b107-\
+c9f439c2950c"],
+
+Cell["", "Text",
+ CellChangeTimes->{{3.924919666579851*^9, 3.924919669050432*^9}, {
+   3.924921995538044*^9, 3.924922023741678*^9}, 
+   3.9249263091441746`*^9},ExpressionUUID->"1c1c1a8b-1ffc-aa4e-aabc-\
+9db04b6ef8c0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "Section",
+ CellChangeTimes->{{3.924919666579851*^9, 
+  3.924919669050432*^9}},ExpressionUUID->"755e8904-6865-ef4a-af15-\
+2935707e00e1"],
+
 Cell[BoxData[{
  RowBox[{
   RowBox[{"SetDirectory", "[", 
@@ -69,267 +770,45 @@ Cell[BoxData[{
    3.922860684222404*^9, 3.9237306234292355`*^9, 3.923731501790295*^9, 
    3.923731682502554*^9, 3.923732936381592*^9, 3.923733184310541*^9},
  CellLabel->
-  "In[163]:=",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
+  "In[140]:=",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{
-  RowBox[{"ButtonBox", "[", 
-   RowBox[{"\"\<Inizia\>\"", ",", 
-    RowBox[{"Appearance", "->", "Automatic"}], ",", 
-    RowBox[{"ButtonFunction", ":>", 
-     RowBox[{"FrontEndExecute", "[", 
-      RowBox[{"FrontEndToken", "[", "\"\<EvaluateNotebook\>\"", "]"}], 
-      "]"}]}], ",", 
-    RowBox[{"Evaluator", "->", "Automatic"}], ",", 
-    RowBox[{"Method", "->", "\"\<Preemptive\>\""}]}], "]"}], "//", 
-  "DisplayForm"}]], "Input",
- CellChangeTimes->{{3.922523492456673*^9, 3.922523518036743*^9}, {
-   3.922860684222404*^9, 3.922860706254389*^9}, {3.922860861809234*^9, 
-   3.92286093514333*^9}, {3.922860967185098*^9, 3.922860999151977*^9}, {
-   3.922861064058958*^9, 3.922861157342438*^9}, 3.9228611981115913`*^9, 
-   3.922861305153114*^9, {3.923729440069828*^9, 3.923729440791039*^9}, {
-   3.9237294938801346`*^9, 3.923729496061985*^9}, {3.923729605678869*^9, 
-   3.923729606638119*^9}, {3.92372964722159*^9, 3.9237296743198147`*^9}, 
-   3.92372973405513*^9},
+ RowBox[{"Button", "[", 
+  RowBox[{
+   RowBox[{"Style", "[", 
+    RowBox[{"\"\<Inizia\>\"", ",", " ", "Bold", ",", " ", 
+     RowBox[{"FontSize", "\[Rule]", "14"}]}], "]"}], ",", 
+   RowBox[{"FrontEndExecute", "[", 
+    RowBox[{"FrontEndToken", "[", "\"\<EvaluateNotebook\>\"", "]"}], "]"}], 
+   ",", 
+   RowBox[{"ImageSize", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"200", ",", " ", "100"}], "}"}]}]}], "]"}]], "Input",
+ CellOpen->False,
+ CellChangeTimes->{{3.924919527284683*^9, 3.924919557264525*^9}, {
+  3.9249200453879385`*^9, 3.924920047136977*^9}},
  CellLabel->
-  "In[165]:=",ExpressionUUID->"0cd77527-376c-6644-aa8e-d4d11f8fefa4"],
+  "In[142]:=",ExpressionUUID->"604fe8d5-3dcd-7547-a9e9-b0c4bd149b53"],
 
 Cell[BoxData[
- TagBox[
-  ButtonBox["Inizia",
-   Appearance->Automatic,
-   ButtonFunction:>FrontEndExecute[
-     FrontEndToken["EvaluateNotebook"]],
-   Evaluator->Automatic,
-   Method->"Preemptive"],
-  DisplayForm]], "Output",
- CellChangeTimes->{{3.9228611135379543`*^9, 3.9228611620156994`*^9}, {
-   3.9228611928796673`*^9, 3.922861198419948*^9}, 3.922861305514145*^9, 
-   3.923131520056834*^9, 3.923131860624268*^9, 3.923131910969651*^9, 
-   3.923131982011738*^9, {3.923133216608343*^9, 3.923133275570938*^9}, 
-   3.92313341176277*^9, 3.923133487280279*^9, 3.923140124197548*^9, 
-   3.9231422965324802`*^9, {3.9231424816847363`*^9, 3.923142503231636*^9}, 
-   3.923143211743437*^9, 3.923143312768358*^9, 3.923143508382426*^9, {
-   3.923143551744673*^9, 3.923143589462366*^9}, {3.923143632362416*^9, 
-   3.923143656449241*^9}, {3.923194241733513*^9, 3.923194256399411*^9}, 
-   3.92319481294507*^9, 3.923194855237546*^9, 3.923194886728894*^9, {
-   3.923194958019429*^9, 3.923194987832096*^9}, {3.923195047536145*^9, 
-   3.923195061061613*^9}, 3.923195376350619*^9, 3.923195426305619*^9, 
-   3.923195456886553*^9, {3.923195491379034*^9, 3.923195518974776*^9}, 
-   3.923195550978052*^9, {3.9231958433916*^9, 3.923195876648926*^9}, {
-   3.92319590854405*^9, 3.923195920756481*^9}, 3.9231959724275*^9, 
-   3.923196088122955*^9, 3.923196119532629*^9, 3.923196283841732*^9, 
-   3.923196390910214*^9, 3.923729005512882*^9, 3.9237290557803*^9, 
-   3.923729169748188*^9, 3.923729371056778*^9, 3.9237294708817005`*^9, {
-   3.923729510182818*^9, 3.92372951755008*^9}, 3.923729565732916*^9, 
-   3.923729609358135*^9, 3.92372964962236*^9, {3.92372970442207*^9, 
-   3.9237297044486256`*^9}, {3.92372977852198*^9, 3.92372977879303*^9}, 
-   3.923729871064556*^9, 3.923730663323363*^9, 3.923730695404078*^9, 
-   3.923730803717863*^9, 3.923730937791985*^9, 3.923731029355097*^9, 
-   3.92407495149312*^9, {3.924075425828901*^9, 3.92407543194998*^9}, {
-   3.924075466153211*^9, 3.924075507701147*^9}, {3.9240755473108826`*^9, 
-   3.924075559357453*^9}, 3.92407563922176*^9, {3.924075759326155*^9, 
-   3.924075760263735*^9}, {3.924075813374002*^9, 3.924075840910013*^9}, 
-   3.924075950792715*^9, {3.924075997764848*^9, 3.924076066087229*^9}, {
-   3.9240761002013474`*^9, 3.9240761434257507`*^9}, 3.924076188607401*^9, 
-   3.9240762305174446`*^9, {3.924076265590653*^9, 3.924076302562178*^9}, 
-   3.9240765381700897`*^9, {3.924076625643711*^9, 3.9240766538504906`*^9}, {
-   3.924076685730001*^9, 3.924076693701439*^9}, {3.924076724954408*^9, 
-   3.924076760587996*^9}, {3.9240768133444347`*^9, 3.924076844034668*^9}, {
-   3.92407689640732*^9, 3.924076903218727*^9}, 3.924076984542967*^9, {
-   3.924077306393823*^9, 3.924077330222212*^9}, {3.924077368447523*^9, 
-   3.9240773859256153`*^9}, {3.924077417076273*^9, 3.92407745818729*^9}, 
-   3.924077513267323*^9, {3.924077628086897*^9, 3.924077646642874*^9}, 
-   3.92407769514135*^9, 3.924077728421282*^9, 3.924077763829405*^9, 
-   3.924078064853475*^9, 3.92407810225737*^9, 3.924078141274185*^9, {
-   3.924078178340657*^9, 3.924078186071575*^9}, {3.924078241748234*^9, 
-   3.9240782748506393`*^9}, 3.92407845480627*^9, {3.9240784976927357`*^9, 
-   3.9240785293606777`*^9}, 3.9240786062133675`*^9, {3.924078654553854*^9, 
-   3.924078728927248*^9}, 3.924078824667045*^9, 3.924078865739769*^9, {
-   3.9240789183508987`*^9, 3.924078945098938*^9}, 3.924079297237456*^9, {
-   3.924079329014524*^9, 3.924079396194792*^9}, {3.924079449023964*^9, 
-   3.92407946225906*^9}, 3.9240797642178993`*^9, {3.9240798298572025`*^9, 
-   3.924079854645504*^9}, 3.924079954956856*^9, 3.924080041451744*^9, {
-   3.924080093874845*^9, 3.924080113645006*^9}, {3.924080281839369*^9, 
-   3.924080339902687*^9}, 3.924080443062613*^9, {3.924080532876505*^9, 
-   3.924080594119213*^9}, {3.924080761552332*^9, 3.9240807849242115`*^9}, {
-   3.924080876337335*^9, 3.9240809029964695`*^9}, 3.924080946016464*^9, {
-   3.9240809806505985`*^9, 3.924080994485182*^9}, {3.924081092766754*^9, 
-   3.924081106800308*^9}, {3.924081156231039*^9, 3.924081181483761*^9}, {
-   3.924081220137879*^9, 3.924081224673221*^9}, {3.924081326262738*^9, 
-   3.924081335653684*^9}, 3.92414788218553*^9, {3.924147915205656*^9, 
-   3.9241479439564056`*^9}, 3.9241479939985123`*^9, {3.924148037898428*^9, 
-   3.924148050547632*^9}, {3.9241481751716537`*^9, 3.924148269456421*^9}, {
-   3.9241483322121754`*^9, 3.924148346336695*^9}, {3.92414839452693*^9, 
-   3.924148412573459*^9}, 3.924148612553688*^9, 3.924148808042719*^9, 
-   3.9241491924789753`*^9, 3.9241493996394577`*^9, {3.924149942211258*^9, 
-   3.924149980643251*^9}, 3.924150017549187*^9, {3.924150056830382*^9, 
-   3.924150143377476*^9}, {3.924150223842804*^9, 3.924150246428046*^9}, 
-   3.924150287722508*^9, 3.9241504984802666`*^9, {3.9241505315397587`*^9, 
-   3.924150545951561*^9}, {3.924150702850621*^9, 3.924150719822356*^9}, 
-   3.924150948708422*^9, {3.9241511866701603`*^9, 3.924151195920595*^9}, 
-   3.92415135238036*^9, 3.924151385357916*^9, {3.924151431465454*^9, 
-   3.924151449070364*^9}, 3.924151483852495*^9, 3.924151527064377*^9, 
-   3.924151663741764*^9, 3.924151851455967*^9, {3.924152269011881*^9, 
-   3.92415229474325*^9}, {3.924152331136535*^9, 3.9241523818400536`*^9}, 
-   3.9241525104105473`*^9, 3.924152543440907*^9, 3.924330030085745*^9, 
-   3.924330132947676*^9, {3.924330236446764*^9, 3.924330398125382*^9}, 
-   3.924330465232308*^9, {3.924330498761524*^9, 3.9243305141338425`*^9}, 
-   3.924330663793833*^9, {3.924330700699345*^9, 3.924330745167622*^9}, 
-   3.9243309545278053`*^9, 3.924331014138499*^9, 3.924331337767342*^9, 
-   3.924331398339544*^9, 3.924331487137606*^9, {3.924331575121448*^9, 
-   3.924331583855595*^9}, 3.924331634233988*^9, 3.924331765960717*^9, 
-   3.924331947929058*^9, 3.9243319945277653`*^9, 3.9243324770897865`*^9, 
-   3.92433275223917*^9, 3.9243329120195675`*^9, {3.924332961139134*^9, 
-   3.924332986164268*^9}, {3.924333019348961*^9, 3.924333037172935*^9}, 
-   3.924333071511818*^9, {3.92433327854335*^9, 3.924333291903672*^9}, {
-   3.924333367844193*^9, 3.924333429460264*^9}, 3.924333630546717*^9, 
-   3.924333811824196*^9, 3.924334863961067*^9, 3.92433489576408*^9, {
-   3.924334976362721*^9, 3.924334994886652*^9}, 3.924335100781704*^9, {
-   3.9243351830544357`*^9, 3.9243352113855*^9}, 3.92433530191041*^9, 
-   3.924335404872227*^9, 3.924335460355314*^9, 3.924335505251322*^9, 
-   3.924335566261582*^9, 3.924335680224358*^9, {3.924335879127676*^9, 
-   3.924335901477659*^9}, 3.924335955718048*^9, 3.924335997620405*^9, {
-   3.924336051404169*^9, 3.924336055680406*^9}, 3.924336134535122*^9, {
-   3.9243361712931995`*^9, 3.9243361838722153`*^9}, 3.924336223370039*^9, 
-   3.924336299384991*^9, 3.924336409761125*^9, 3.92433652434289*^9, 
-   3.924336571832279*^9, 3.924336612471031*^9, 3.924336851684864*^9, 
-   3.9243369081145*^9, 3.924336938919831*^9, 3.924336971746516*^9, 
-   3.92433704745305*^9, 3.924337863253687*^9, 3.924337917309613*^9, 
-   3.9243379951677036`*^9, 3.924338264714113*^9, {3.924338313309395*^9, 
-   3.924338331102684*^9}, 3.92433836359074*^9, 3.924338410151708*^9, 
-   3.924338440823332*^9, {3.924338481651476*^9, 3.924338493487507*^9}, 
-   3.924338704576971*^9, {3.924339021128132*^9, 3.924339054191889*^9}, {
-   3.9243392251410255`*^9, 3.924339300273318*^9}, {3.9243393673089952`*^9, 
-   3.924339377823744*^9}, 3.924339957985604*^9, 3.924340200675955*^9, 
-   3.924340522554053*^9, 3.924340624060772*^9, 3.924340693231025*^9, 
-   3.924340985289917*^9, 3.924341092138615*^9, 3.9243411914955196`*^9, 
-   3.924344558577598*^9, 3.924344716890759*^9, 3.924344790051529*^9, 
-   3.924344858411972*^9, 3.9243449302190514`*^9, 3.92434510232098*^9, 
-   3.924345176019247*^9, 3.924345309355835*^9, 3.92434534491488*^9, 
-   3.9243454849523335`*^9, 3.924345587238069*^9, 3.924345630133688*^9, 
-   3.924345673499265*^9, {3.924345730652449*^9, 3.9243457593967113`*^9}, 
-   3.924345855354627*^9, 3.92434593021001*^9, 3.924345993298547*^9, 
-   3.924346370068208*^9, 3.9243464857314873`*^9, {3.924346566294775*^9, 
-   3.9243465843430824`*^9}, {3.924346624030075*^9, 3.924346650295597*^9}, 
-   3.9243470495195694`*^9, 3.924347210381375*^9, {3.924347243092425*^9, 
-   3.924347283822506*^9}, 3.924347329093862*^9, 3.924347379931477*^9, {
-   3.92434744033074*^9, 3.924347453184084*^9}, 3.924347507405243*^9, {
-   3.924423186374897*^9, 3.924423215061304*^9}, 3.92442325131251*^9, 
-   3.924423383681614*^9, 3.924423428743971*^9, 3.924423509165867*^9, 
-   3.924423561707072*^9, 3.924423611552008*^9, {3.924423746705238*^9, 
-   3.924423758474846*^9}, {3.924423850527519*^9, 3.924423863686369*^9}, {
-   3.924423910149814*^9, 3.924423929289854*^9}, {3.924424001987709*^9, 
-   3.9244240304900494`*^9}, {3.924424088126061*^9, 3.9244241812639236`*^9}, {
-   3.924424220335371*^9, 3.924424307609497*^9}, 3.924424417551379*^9, 
-   3.9244244902467785`*^9, 3.924424703567016*^9, 3.92442477247436*^9, 
-   3.9244249215101585`*^9, 3.9244249790984955`*^9, 3.924425531660225*^9, 
-   3.9244267000608635`*^9, 3.924427732914482*^9, {3.9244278004078846`*^9, 
-   3.924427833893778*^9}, 3.9244278659758606`*^9, 3.924427967210951*^9, 
-   3.924428259650406*^9, {3.924428725702431*^9, 3.924428759147209*^9}, 
-   3.9244287916930237`*^9, 3.924428882842425*^9, 3.924428917157749*^9, 
-   3.92442896331604*^9, 3.924429076343172*^9, 3.924429113285156*^9, 
-   3.924429170513147*^9, 3.924429247002262*^9, 3.9244293180926857`*^9, 
-   3.92442938489345*^9, {3.92443099741415*^9, 3.924431011421854*^9}, 
-   3.9244310498405*^9, 3.924431136637827*^9, {3.924431276900576*^9, 
-   3.92443130303487*^9}, {3.9244313389858246`*^9, 3.9244313632412605`*^9}, {
-   3.924431394964468*^9, 3.9244314170892105`*^9}, 3.924431453980295*^9, 
-   3.924431513496077*^9, 3.924431574004999*^9, {3.92443163201248*^9, 
-   3.924431640287634*^9}, {3.924431697089377*^9, 3.92443171990736*^9}, 
-   3.924431789697296*^9, {3.92443185996728*^9, 3.924431875911839*^9}, 
-   3.924431937571409*^9, {3.924431969824812*^9, 3.924432002481205*^9}, 
-   3.92443207657246*^9, {3.924432123795351*^9, 3.924432228844265*^9}, 
-   3.924432291152853*^9, {3.9244323554107018`*^9, 3.924432363810507*^9}, {
-   3.924432641684399*^9, 3.924432655893278*^9}, {3.924432751635075*^9, 
-   3.924432788020647*^9}, 3.924432841738779*^9, 3.9244328907587166`*^9, 
-   3.924432923632084*^9, 3.924433032056853*^9, 3.924433063268219*^9, 
-   3.924433114950199*^9, 3.924433167855524*^9, {3.924433257417375*^9, 
-   3.92443328697735*^9}, {3.924433363176885*^9, 3.924433372165541*^9}, 
-   3.9244334457728405`*^9, 3.924433539582016*^9, 3.9245086479632835`*^9, 
-   3.92450868255567*^9, {3.924508783640255*^9, 3.924508800551922*^9}, 
-   3.924508889502655*^9, 3.9245089254421883`*^9, {3.9245089588307*^9, 
-   3.9245089705664215`*^9}, 3.924509051362509*^9, 3.9245091601375694`*^9, {
-   3.9245093731388187`*^9, 3.924509386359167*^9}, {3.9245094211170807`*^9, 
-   3.924509431031046*^9}, 3.9245096166710815`*^9, {3.924509697913519*^9, 
-   3.924509702929545*^9}, {3.924510103358517*^9, 3.924510122275067*^9}, 
-   3.9245102130558186`*^9, 3.924510277247689*^9, 3.924510388522468*^9, 
-   3.924510513534935*^9, 3.9245105704288025`*^9, {3.9245106105480843`*^9, 
-   3.924510647893521*^9}, 3.924510728287936*^9, 3.924510948421833*^9, {
-   3.924510986193945*^9, 3.924511069937765*^9}, {3.9245111172182045`*^9, 
-   3.9245111492931614`*^9}, 3.92451119796661*^9, 3.924511861946338*^9, {
-   3.9245119107388954`*^9, 3.9245119297227*^9}, 3.924512489593345*^9, 
-   3.924512911369301*^9, 3.924513233831982*^9, 3.9245135312364216`*^9, 
-   3.924513584192555*^9, 3.924513683250918*^9, 3.924514379503847*^9, 
-   3.924514471157543*^9, 3.924514549157732*^9, 3.924514708781349*^9, {
-   3.924515058605814*^9, 3.924515074267363*^9}, {3.924515140165207*^9, 
-   3.924515210787518*^9}, {3.9245153568774576`*^9, 3.9245154189074516`*^9}, {
-   3.9245155990813465`*^9, 3.924515673719036*^9}, {3.924515714722739*^9, 
-   3.9245157366586113`*^9}, 3.924515770006071*^9, 3.924515816246912*^9, 
-   3.924515945773079*^9, 3.924515975776905*^9, 3.9245161847434425`*^9, 
-   3.9245162201338024`*^9, 3.924516311240017*^9, {3.924516355152924*^9, 
-   3.924516379427508*^9}, {3.924516428720059*^9, 3.924516433685772*^9}, 
-   3.924516470209629*^9, 3.924516502058752*^9, 3.924516580382929*^9, 
-   3.924672325364711*^9, 3.924672429702537*^9, 3.924672482798811*^9, {
-   3.924672657727808*^9, 3.924672735134447*^9}, 3.92467286326354*^9, 
-   3.924672909404962*^9, {3.924673027517504*^9, 3.924673041548834*^9}, {
-   3.924673161107731*^9, 3.92467316651178*^9}, {3.924677788628754*^9, 
-   3.9246778598480663`*^9}, {3.9246779077715244`*^9, 
-   3.9246779169666805`*^9}, {3.92467800667975*^9, 3.924678031473423*^9}, 
-   3.924678118826563*^9, 3.9246781658037567`*^9, 3.924678207225312*^9, 
-   3.924678318211725*^9, 3.924678549399624*^9, 3.9246786565098743`*^9, {
-   3.924678787714417*^9, 3.924678806620617*^9}, 3.9246788761661663`*^9, 
-   3.924678915850803*^9, 3.9246791635443077`*^9, 3.9246792427148666`*^9, 
-   3.924679305539236*^9, 3.924679692560318*^9, 3.924679785690878*^9, 
-   3.9246798370149097`*^9, 3.924679878124157*^9, 3.92467993391938*^9, 
-   3.92468000458189*^9, 3.9246800544694405`*^9, 3.924680197818123*^9, {
-   3.924680328091215*^9, 3.9246804086866035`*^9}, {3.924680516659073*^9, 
-   3.924680582071774*^9}, 3.924680613617676*^9, {3.924680668217722*^9, 
-   3.924680683153465*^9}, 3.9246808930861607`*^9, {3.924680939639805*^9, 
-   3.924680961040764*^9}, 3.9246810147090435`*^9, 3.924681421902933*^9, 
-   3.924681455523868*^9, 3.924681512918906*^9, {3.924681580045819*^9, 
-   3.9246816046049824`*^9}, 3.924681718106327*^9, {3.924681758810169*^9, 
-   3.9246818121691875`*^9}, {3.924681894275484*^9, 3.924681936622195*^9}, 
-   3.924682061744091*^9, {3.924682133775116*^9, 3.9246823690101566`*^9}, {
-   3.924682420082546*^9, 3.924682431042759*^9}, 3.92468251338698*^9, 
-   3.924682571452452*^9, 3.92468260373872*^9, 3.924682644094244*^9, 
-   3.924682675091772*^9, 3.9246827735490704`*^9, 3.924682810627142*^9, 
-   3.924682841486231*^9, 3.924682908616558*^9, 3.924683034515562*^9, 
-   3.9246831030123653`*^9, 3.924683274885397*^9, {3.924683318567295*^9, 
-   3.924683348235941*^9}, {3.924683392820165*^9, 3.9246834458286133`*^9}, 
-   3.9246834764912777`*^9, 3.924683540564173*^9, 3.9246835782190857`*^9, 
-   3.924683643560766*^9, 3.924683742770628*^9, 3.924683904315302*^9, {
-   3.9246841014500318`*^9, 3.924684111247948*^9}, 3.9246841990990925`*^9, 
-   3.924684295270499*^9, {3.9246843582524567`*^9, 3.9246843722968426`*^9}, 
-   3.9246844904375687`*^9, 3.924684600326575*^9, 3.924684680889757*^9, 
-   3.924684861260306*^9, 3.924684921521311*^9, 3.924685054351412*^9, 
-   3.9246853112790375`*^9, 3.924685393313225*^9, 3.924685513355955*^9, 
-   3.924685643669691*^9, 3.9246856880242233`*^9, 3.924685729656317*^9, {
-   3.924685808179093*^9, 3.924685827153614*^9}, 3.9246860501607265`*^9, 
-   3.92468609032102*^9, {3.924686208203308*^9, 3.924686214265768*^9}, 
-   3.924686296887657*^9, 3.924686358627905*^9, 3.924686413006088*^9, {
-   3.924686458711151*^9, 3.924686469512951*^9}, 3.924686647983745*^9, 
-   3.924686692016051*^9, 3.92468678549716*^9, {3.9246869150343018`*^9, 
-   3.924686951941756*^9}, {3.924687013314369*^9, 3.9246870947379875`*^9}, {
-   3.924687137213913*^9, 3.92468715768524*^9}, {3.924687524434315*^9, 
-   3.924687541298638*^9}, 3.924687584640627*^9, {3.924687689505722*^9, 
-   3.924687713262675*^9}, 3.924687800783438*^9, 3.924838922357028*^9, 
-   3.924839221073621*^9, 3.92483936875128*^9, 3.924839407922266*^9, 
-   3.924839477384937*^9, 3.924839509334298*^9, 3.924839609215464*^9, {
-   3.924839658213451*^9, 3.924839680181345*^9}, {3.924839724560747*^9, 
-   3.924839756710785*^9}, {3.9248398209142027`*^9, 3.924839826781187*^9}, 
-   3.92484003765247*^9, 3.924840118562317*^9, {3.924840152351513*^9, 
-   3.924840169995461*^9}, 3.924840383579383*^9, 3.92484096798118*^9, 
-   3.924841020479891*^9, {3.924841052365424*^9, 3.924841062768649*^9}, {
-   3.9248411159611673`*^9, 3.9248411361508102`*^9}, {3.924841418879244*^9, 
-   3.9248414378739023`*^9}, 3.924841483549049*^9, {3.924841552168501*^9, 
-   3.924841568270969*^9}, {3.9248416017074633`*^9, 3.924841607221324*^9}, {
-   3.924841666173777*^9, 3.924841684669828*^9}, {3.924841775393601*^9, 
-   3.924841790724023*^9}, 3.92484195569872*^9, 3.924841999290246*^9},
+ ButtonBox[
+  StyleBox["\<\"Inizia\"\>",
+   StripOnInput->False,
+   FontSize->14,
+   FontWeight->Bold],
+  Appearance->Automatic,
+  ButtonFunction:>FrontEndExecute[
+    FrontEndToken["EvaluateNotebook"]],
+  Evaluator->Automatic,
+  ImageSize->{200, 100},
+  Method->"Preemptive"]], "Output",
+ CellChangeTimes->{{3.924919557621144*^9, 3.924919571415165*^9}, {
+   3.924920911742052*^9, 3.924920944667841*^9}, 3.924923145097492*^9, 
+   3.9249231789530544`*^9},
  CellLabel->
-  "Out[165]//DisplayForm=",ExpressionUUID->"6244f435-ef4b-41e9-9c38-\
-96b2dd835b93"]
+  "Out[142]=",ExpressionUUID->"b0600e42-c9fa-b147-860f-4648eacddded"]
 }, Open  ]],
 
 Cell[BoxData[
@@ -362,13 +841,15 @@ Cell[BoxData[
    3.9240773266416893`*^9, 3.924078060809608*^9, 3.92433002473197*^9, 
    3.924341188360428*^9, {3.92451144204046*^9, 3.92451145876067*^9}, 
    3.9246723210959263`*^9},
- CellLabel->
-  "In[166]:=",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd"]
+ CellLabel->"In[4]:=",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd"]
+}, Open  ]]
 },
-WindowSize->{575.25, 573.75},
-WindowMargins->{{168.75, Automatic}, {76.5, Automatic}},
+WindowSize->{951, 468.25},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+ShowCellBracket->True,
+DefaultNaturalLanguage->"Italian",
 Magnification:>1. Inherited,
-FrontEndVersion->"14.0 for Linux x86 (64-bit) (December 12, 2023)",
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
 StyleDefinitions->"Default.nb",
 ExpressionUUID->"eaba09e4-a9bb-d94e-bf0d-9e12c3af181c"
 ]
@@ -388,23 +869,100 @@ Cell[580, 22, 313, 4, 98, "Title",ExpressionUUID->"63089ab6-e53e-1b4e-b6b2-2e29c
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
 Cell[896, 28, 370, 5, 69, "Chapter",ExpressionUUID->"b4a7d940-5297-a945-9b80-539b97fa6e53",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[1269, 35, 437, 7, 91, "Chapter",ExpressionUUID->"1ea57c85-88db-f64a-94a1-b047477fde9e",
+Cell[1269, 35, 472, 7, 56, "Chapter",ExpressionUUID->"1ea57c85-88db-f64a-94a1-b047477fde9e",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[1709, 44, 330, 5, 56, "Chapter",ExpressionUUID->"ae0a513c-0bd6-1f46-aa63-96a19cdc9a29",
+Cell[1744, 44, 330, 5, 56, "Chapter",ExpressionUUID->"ae0a513c-0bd6-1f46-aa63-96a19cdc9a29",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}],
-Cell[2042, 51, 394, 6, 53, "Subtitle",ExpressionUUID->"49a8f94e-ac43-8549-b5a2-f0a3cd058de7",
+Cell[2077, 51, 394, 6, 53, "Subtitle",ExpressionUUID->"49a8f94e-ac43-8549-b5a2-f0a3cd058de7",
  CellGroupingRules->{"GroupTogetherGrouping", 10000.}]
 }, Open  ]],
-Cell[2451, 60, 511, 11, 50, "Input",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
 Cell[CellGroupData[{
-Cell[2987, 75, 1071, 21, 110, "Input",ExpressionUUID->"0cd77527-376c-6644-aa8e-d4d11f8fefa4"],
-Cell[4061, 98, 16344, 233, 55, "Output",ExpressionUUID->"6244f435-ef4b-41e9-9c38-96b2dd835b93"]
+Cell[2508, 62, 248, 4, 67, "Section",ExpressionUUID->"dacfe7dc-2275-be41-9ad9-57254d5ee1fa"],
+Cell[2759, 68, 426, 7, 38, "ItemNumbered",ExpressionUUID->"d73a9feb-d5d7-a445-951a-71b4b4a3a329"],
+Cell[3188, 77, 438, 7, 38, "ItemNumbered",ExpressionUUID->"4943605c-9d50-574b-ae8d-f6d4c72d30ca"],
+Cell[3629, 86, 446, 7, 38, "ItemNumbered",ExpressionUUID->"e185e3b0-5933-8241-ac5e-672b4d7b8c3c"],
+Cell[4078, 95, 427, 10, 38, "ItemNumbered",ExpressionUUID->"456ba66c-c588-f546-9bf8-f08b5e6069ed"],
+Cell[4508, 107, 392, 6, 38, "ItemNumbered",ExpressionUUID->"81ad00c1-8330-fa42-93e7-0d431e360935"]
 }, Open  ]],
-Cell[20420, 334, 1868, 31, 66, "Input",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd",
+Cell[CellGroupData[{
+Cell[4937, 118, 206, 4, 67, "Section",ExpressionUUID->"649ba584-130b-4046-9d32-afc941fd29e6"],
+Cell[5146, 124, 572, 10, 58, "Text",ExpressionUUID->"0a2692da-fbeb-b54e-a8d4-4dd56a2b4592"],
+Cell[5721, 136, 293, 4, 32, "Item",ExpressionUUID->"2441af8f-1bb5-9b4e-925c-66fa74a6e2c0"],
+Cell[6017, 142, 289, 4, 32, "Item",ExpressionUUID->"8ffd510d-e39a-1b42-9468-5c038312c7e7"],
+Cell[CellGroupData[{
+Cell[6331, 150, 264, 4, 54, "Subsection",ExpressionUUID->"be8edfff-b6d9-0346-a78d-77b8ab379b7a"],
+Cell[6598, 156, 563, 10, 81, "Text",ExpressionUUID->"571bae35-471d-0043-81e1-c3c42a31a5e1"],
+Cell[7164, 168, 522, 9, 53, "Item",ExpressionUUID->"1c1170ac-3a8a-9045-977a-2a3b6ac4d2d8"],
+Cell[7689, 179, 541, 10, 53, "Item",ExpressionUUID->"063a86fa-6c1c-2f4c-8fb7-2bd637aa72f6"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[8279, 195, 277, 5, 67, "Section",ExpressionUUID->"407ebf5a-319c-3347-8e8a-2c03c671d047"],
+Cell[8559, 202, 630, 12, 81, "Text",ExpressionUUID->"3254fcbb-7b4f-4d4b-9d2c-f91211ef9255"],
+Cell[CellGroupData[{
+Cell[9214, 218, 303, 5, 54, "Subsection",ExpressionUUID->"3cd34099-41af-4148-b4f2-64db4012b279"],
+Cell[9520, 225, 2358, 62, 60, "Text",ExpressionUUID->"61363f36-aa61-0d43-b08c-15ef06179648"],
+Cell[CellGroupData[{
+Cell[11903, 291, 184, 3, 45, "Subsubsection",ExpressionUUID->"12d2bf57-92fc-0049-9577-2207f6433748"],
+Cell[12090, 296, 532, 8, 35, "Text",ExpressionUUID->"439020ca-b57f-0e45-bdbe-85812e7f81ba"],
+Cell[12625, 306, 1355, 32, 49, "DisplayFormula",ExpressionUUID->"d7c93481-f91c-2342-b42e-a4f9c83ab3e2"],
+Cell[13983, 340, 785, 15, 52, "Text",ExpressionUUID->"7f971468-7c4d-9d41-b3ec-dc2175cdd7da"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14829, 362, 372, 6, 67, "Section",ExpressionUUID->"e253d399-d243-5e44-b59d-eea885b565ca"],
+Cell[CellGroupData[{
+Cell[15226, 372, 421, 6, 54, "Subsection",ExpressionUUID->"755adbf3-3347-d34a-8110-fe7b9900c3a3"],
+Cell[15650, 380, 621, 11, 58, "Text",ExpressionUUID->"b4543c37-a2da-1e44-9ed8-1a04bc6edee8"],
+Cell[16274, 393, 714, 13, 32, "ItemNumbered",ExpressionUUID->"66b40b6e-69b2-cf44-b85c-3d1d1d0f4c58"],
+Cell[16991, 408, 766, 14, 32, "ItemNumbered",ExpressionUUID->"5c18ac5f-2cb3-8642-b9ab-b0b9dabc4309"],
+Cell[17760, 424, 817, 15, 53, "ItemNumbered",ExpressionUUID->"5134029f-70b8-b84f-90b5-d13a8b950a51"],
+Cell[18580, 441, 629, 12, 53, "ItemNumbered",ExpressionUUID->"dcf0d3ba-4879-744d-a15d-575d6d94f71c"],
+Cell[19212, 455, 688, 13, 32, "ItemNumbered",ExpressionUUID->"a28df77a-8394-bf40-808f-5c52e55856d6"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[19937, 473, 498, 7, 54, "Subsection",ExpressionUUID->"c0b0cdff-b635-b64c-bd6a-1fa678073047"],
+Cell[20438, 482, 791, 13, 58, "Text",ExpressionUUID->"083b35bb-8a30-e245-96e2-6f4959a95fea"],
+Cell[21232, 497, 777, 14, 32, "ItemNumbered",ExpressionUUID->"6f650e33-cfbf-0546-8961-3481fe1a500d"],
+Cell[22012, 513, 932, 19, 32, "ItemNumbered",ExpressionUUID->"f4dd6de2-cbfc-cd49-b1f5-fde45d94563e"],
+Cell[22947, 534, 896, 16, 53, "ItemNumbered",ExpressionUUID->"4f886d9f-9093-ea4e-b9ed-e2b1d0a7dc22"],
+Cell[23846, 552, 835, 14, 53, "ItemNumbered",ExpressionUUID->"3f1ef976-2cff-7b4f-953b-2c6abc82c05d"],
+Cell[24684, 568, 767, 14, 32, "ItemNumbered",ExpressionUUID->"127f4532-9847-8f41-a621-5e6d5f9b3684"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[25488, 587, 597, 9, 54, "Subsection",ExpressionUUID->"3de62983-9d28-004a-af28-85620f9f6772"],
+Cell[26088, 598, 760, 14, 32, "ItemNumbered",ExpressionUUID->"7dbe9135-1720-3340-adbf-508f1d521fdb"],
+Cell[26851, 614, 810, 14, 32, "ItemNumbered",ExpressionUUID->"aa324fca-0427-2347-a7f7-2e1af3bf035a"],
+Cell[27664, 630, 850, 15, 53, "ItemNumbered",ExpressionUUID->"eaedf96d-d6d6-1d47-87cd-99032c89c47d"],
+Cell[28517, 647, 897, 16, 53, "ItemNumbered",ExpressionUUID->"b65efecb-2237-1a43-b5dd-b0640f82fa9f"],
+Cell[29417, 665, 828, 14, 53, "ItemNumbered",ExpressionUUID->"6a6c072b-94a2-4640-8955-ca6e46f6146a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30282, 684, 614, 9, 54, "Subsection",ExpressionUUID->"6d2ebf5e-f552-684b-99b4-f0133c5996ae"],
+Cell[30899, 695, 1201, 18, 104, "Text",ExpressionUUID->"9d8bf77b-5185-a246-9383-e562fd482a63"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32149, 719, 265, 4, 67, "Section",ExpressionUUID->"1f5ffa4b-07b5-0a4d-a3f7-3086fc6cc35e"],
+Cell[32417, 725, 509, 11, 81, "Text",ExpressionUUID->"2990bc39-0ea4-7840-bd1f-4028529c35cb"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[32963, 741, 273, 4, 67, "Section",ExpressionUUID->"b0c05188-c2d1-bf48-b107-c9f439c2950c"],
+Cell[33239, 747, 217, 4, 35, "Text",ExpressionUUID->"1c1c1a8b-1ffc-aa4e-aabc-9db04b6ef8c0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[33493, 756, 145, 3, 67, "Section",ExpressionUUID->"755e8904-6865-ef4a-af15-2935707e00e1"],
+Cell[33641, 761, 511, 11, 48, "Input",ExpressionUUID->"b41b9ddc-8228-9443-a555-9d5ffaff3cff"],
+Cell[CellGroupData[{
+Cell[34177, 776, 654, 16, 19, "Input",ExpressionUUID->"604fe8d5-3dcd-7547-a9e9-b0c4bd149b53",
+ CellOpen->False],
+Cell[34834, 794, 551, 16, 119, "Output",ExpressionUUID->"b0600e42-c9fa-b147-860f-4648eacddded"]
+}, Open  ]],
+Cell[35400, 813, 1863, 30, 64, "Input",ExpressionUUID->"148ac50e-a8b1-994b-a94c-83b238f757cd",
  InitializationCell->True]
+}, Open  ]]
 }
 ]
 *)
-
-(* End of internal cache information *)
 
