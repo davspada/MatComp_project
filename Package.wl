@@ -186,14 +186,19 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
                              Style[DisplayForm[" = "], FontSize->16],
                              
                              (*vettore dei termini noti*)
-						 MatrixForm[
+						     MatrixForm[
                                  Table[With[{i = i, j = j},
                                      InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]], {i, 3}, {j, 1}
                              ]],
                              Spacer[20],
 						
-						(*premendo il bottone chiama la funzione per il controllo dei coefficienti della matrice*)
-                             Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
+						(* Premendo il bottone si effettua un iniziale controllo della matrice per verificare che non siano presenti righe formate solo da valori ugualia 0 *)
+                          Button["Controlla", {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],
+                                (* Creazione del messaggio di errore *)
+                                message2 = "Attenzione! Il sistema non \[EGrave] risolvibile con coefficienti pari a 0",
+                                (* Controlla la matrice dei coefficienti *) 
+                                message2 = myCheckMatrix[coefficentMatrix, constantVector, points]]}]
+                                
 						(*event handler che non permette di inserire "."*)
 				    }], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
 				],
@@ -322,7 +327,9 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                                  {i, 2}, {j, 1}]
                                 ],
                             Spacer[20],
-                            Button["Controlla", {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}] (* Controlla la matrice dei coefficienti *)
+                            Button["Controlla", {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],
+                                message2 = "Attenzione! Il sistema non \[EGrave] risolvibile con coefficienti pari a 0", 
+                                message2 = myCheckMatrix[coefficentMatrix, constantVector, points]]}] (* Controlla la matrice dei coefficienti *)
                         }], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                     ],
                     Spacer[10],
@@ -340,7 +347,7 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
        ImageMargins->20
       ], FontSize->16]
   ],
-WindowTitle -> "Plot area",
+WindowTitle -> "SCPARABOLA",
 WindowSize -> {Scaled[1],Scaled[1]},
 WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
@@ -373,7 +380,7 @@ CreateDynamicWindow[] :=
 							}],
 					Spacer[20],
 					Row[{ (* Altra riga per organizzare gli elementi orizzontalmente *)
-						Button["Retta", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
+						Button["Retta", {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
 										{
 											myGuessTheFunctionGUI[1]; (* Apre l'interfaccia per indovinare la funzione lineare *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
@@ -382,7 +389,7 @@ CreateDynamicWindow[] :=
 										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
 									]}],
 						Spacer[20],
-						Button["Parabola", {If[Head[seed] === Integer || Head[seed] === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
+						Button["Parabola", {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
 										{
 											myGuessTheFunctionGUI[2]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
@@ -410,7 +417,7 @@ CreateDynamicWindow[] :=
 
 CreateInfoWindow[infoText_] :=
   CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Spacer[20], Button[
-    "Close", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
+    "Chiudi", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
 (* Dichiarazione di fine del package *)
