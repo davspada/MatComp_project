@@ -2,9 +2,9 @@
 
 (* :Title: Guess the function *)
 (* :Context: Gioco di geometria analitica con lo scopo di permettere al giocatore di indentificare i coefficienti di una funzione (retta o parabola)*)
-(* :Author: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada *)
+(* :Author: Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada *)
 (* :Summary: Package per giocare con Mathematica *)
-(* :Copyright: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
+(* :Copyright: Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
 (* :Package Version: 1.0.0 *)
 (* :Mathematica Version: 14 *)
 (* :History: \\ *)
@@ -68,7 +68,7 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
     ];
     
     (* Restituisce il messaggio da stampare a schermo *)
-    Return[message]
+    Throw[message]
 ]
 
 (* Dichiarazione di una funzione per generare una visualizzazione dei punti nella schermata principale*)
@@ -123,7 +123,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
                 Row[{
                     TextCell["Guess the function", "Title"],
                     Spacer[20],
-                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->10] (* Visualizza il seed attuale *)
+                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *)
                 }],
                 (* Descrizione del gioco e dei punti *)
                 TextCell["In questo esercizio dovrai trovare la funzione della parabola che passa per i seguenti tre punti:"],
@@ -271,7 +271,7 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                 Row[{
                     TextCell["Guess the function", "Title"],
                     Spacer[20],
-                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->10] (* Visualizza il seed attuale *)
+                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *)
                 }],
                 (* Descrizione del gioco e dei punti *)
                 TextCell["In questo esercizio dovrai trovare la funzione della retta che passa per i seguenti due punti:", TextAlignment->Left],

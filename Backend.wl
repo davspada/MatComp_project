@@ -1,10 +1,12 @@
+(* ::Package:: *)
+
 (* Package Backend *)
 
 (* Titolo e contesto del package *)
 (* :Title: Backend *)
 (* :Context: Backend` *)
 (* :Summary: Questo package contiene le funzioni per la generazione di espressioni, punti e sistemi di equazioni. *)
-(* :Copyright: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
+(* :Copyright: Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
 (* :Package Version: 1.0.0*)
 (* :Mathematica Version: 14 *)
 (* :History: \\ *)
@@ -50,8 +52,8 @@ myGenerateEquation[2, seed_] := Module[{a, b, c},
     Return[{expr, a, b, c}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
 ]
 
-(* Funzione per gestire l'errore se il grado dell'equazione non è 1 o 2 *)
-myGenerateEquation[_] := (Print["Grade must be 1 or 2"]; Return[])
+(* Funzione per gestire l'errore se il grado dell'equazione non \[EGrave] 1 o 2 *)
+myGenerateEquation[_] := Module[{}, Print["Grade must be 1 or 2"]; Return[]]
 
 (* Funzione per generare punti su una retta o una parabola *)
 myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points, xList},
