@@ -96,8 +96,9 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector,
-        dims}, (* Vettore dei termini noti per il sistema lineare *)
+        constantVector,(* Vettore dei termini noti per il sistema lineare *)
+        dims,
+        points}, 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
@@ -246,8 +247,9 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector,
-        dims}, (* Vettore dei termini noti per il sistema lineare *)
+        constantVector,(* Vettore dei termini noti per il sistema lineare *)
+        dims,
+        points}, 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
@@ -383,15 +385,13 @@ CreateDynamicWindow[] :=
 	DynamicModule[{infoWindow},
   
 	seedMessage = ""; (* Messaggio di feedback sul seed *)
-    infoText = "Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.";
-    
     CreateDialog[ (* Crea una finestra di dialogo *)
 		DialogNotebook[
 			Pane[ (* Utilizza un riquadro per contenere il layout *)
 				Column[{ (* Utilizza una colonna per organizzare gli elementi *)
 					Row[{ (* Utilizza una riga per organizzare gli elementi orizzontalmente *)
 						EventHandler[ 
-							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[infoText]}], (* Icona per informazioni aggiuntive sul seed *)
+							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[]}], (* Icona per informazioni aggiuntive sul seed *)
 						Spacer[1],
 						TextCell["Inserire Seed:"], (* Etichetta per il campo di inserimento del seed *)
 						Spacer[5],
@@ -437,8 +437,9 @@ CreateDynamicWindow[] :=
 
 (* Codice che gestisce l'apertura di una finestra di informazione per l'utente. *)
 
-CreateInfoWindow[infoText_] :=
-  CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Spacer[20], Button[
+CreateInfoWindow[] :=
+  CreateDialog[Column[{TextCell["Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi."
+  , "Text", FontSize -> 12], Spacer[20], Button[
     "Chiudi", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
