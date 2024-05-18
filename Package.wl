@@ -396,7 +396,7 @@ myCreateDynamicWindow[] :=
 						EventHandler[ 
 							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> myCreateInfoWindow[]}], (* Icona per informazioni aggiuntive sul seed *)
 						Spacer[1],
-						TextCell["Inserire Seed:"], (* Etichetta per il campo di inserimento del seed *)
+						TextCell["Inserire Seed:", FontSize->16], (* Etichetta per il campo di inserimento del seed *)
 						Spacer[5],
 						EventHandler[ (* Gestisce eventi come il click del mouse *)
 							InputField[Dynamic[seed], Number, ContinuousAction->True, FieldSize->Tiny], (* Campo di inserimento del seed *)
@@ -405,7 +405,7 @@ myCreateDynamicWindow[] :=
 							}],
 					Spacer[20],
 					Row[{ (* Altra riga per organizzare gli elementi orizzontalmente *)
-						Button["Retta", {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
+						Button[TextCell["Retta", FontSize->16], {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
 										{
 											myGuessTheFunctionGUI[1]; (* Apre l'interfaccia per indovinare la funzione lineare *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
@@ -414,7 +414,7 @@ myCreateDynamicWindow[] :=
 										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
 									]}],
 						Spacer[20],
-						Button["Parabola", {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
+						Button[TextCell["Parabola", FontSize->16], {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
 										{
 											myGuessTheFunctionGUI[2]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
 											DialogReturn[]; (* Chiude la finestra di dialogo *)
@@ -424,7 +424,7 @@ myCreateDynamicWindow[] :=
 									]}]
 						}], 
 					Spacer[10],
-					TextForm@Dynamic@Style[seedMessage, FontColor->RGBColor[0.9, 0.3, 0], TextAlignment->Center, Bold] (* Visualizza il messaggio di feedback sul seed *)
+					TextForm@Dynamic@Style[seedMessage, FontColor->RGBColor[0.9, 0.3, 0], TextAlignment->Center, Bold, FontSize->16] (* Visualizza il messaggio di feedback sul seed *)
 					}, Center], (* Allinea il contenuto al centro *)
 			    Alignment->{Center}, (* Allinea il riquadro al centro *)
 				ImageSizeAction->"Scrollable", (* Consente lo scorrimento nel caso in cui la finestra sia troppo piccola *)
@@ -442,8 +442,9 @@ myCreateDynamicWindow[] :=
 
 myCreateInfoWindow[] :=
   CreateDialog[Column[{TextCell["Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali.\nImpostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed.\nQuesto \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.\n\nRicorda che lasciare il campo del seed vuoto comporter\[AGrave] la generazione randomica dello stesso.\n"
-  , "Text", FontSize -> 16], Spacer[20], Button[
-    TextCell["Chiudi", FontSize->16], DialogReturn[]]}], WindowSize -> {400, 350}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
+  , "Text", FontSize -> 16],
+  Spacer[20],
+  Button[TextCell["Chiudi", FontSize->16], DialogReturn[]]}], WindowSize -> {400, 350}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
 (* Dichiarazione di fine del package *)
