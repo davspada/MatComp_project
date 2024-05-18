@@ -21,9 +21,9 @@ SetDirectory[NotebookDirectory[]];
 Get["Backend.wl"];
 
 (* Definisce l'uso delle funzioni definite nel pacchetto *)
-myGuessTheFunctionGUI::usage = "myGuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio";
-CreateDynamicWindow::usage = "CreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma";
-CreateInfoWindow::usage = "CreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori";
+(* myGuessTheFunctionGUI::usage = "myGuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio"; *)
+myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma";
+(* myCreateInfoWindow::usage = "myCreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori"; *)
 
 Begin["`Private`"];
 
@@ -68,7 +68,7 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
     ];
     
     (* Restituisce il messaggio da stampare a schermo *)
-    Throw[message]
+    Return[message]
 ]
 
 (* Dichiarazione di una funzione per generare una visualizzazione dei punti nella schermata principale*)
@@ -95,6 +95,8 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         x, (* Variabile indipendente *)
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
+        points,
+        fun,
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
         constantVector}, (* Vettore dei termini noti per il sistema lineare *)
     
@@ -108,7 +110,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         ];
             
 		
-      points = Backend`myGeneratePointsOnLineOrParabola[3]; (* Genera tre punti casuali *)
+        points = Backend`myGeneratePointsOnLineOrParabola[3]; (* Genera tre punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
         message3 = ""; (* Inizializza un altro messaggio di feedback *)
@@ -170,7 +172,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
                 (* In base all'esito, stampa o il numero degli errori o due pulsanti che permettono di iniziare un nuovo gioco o uscire *)
                 Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
 					Row[{
-						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], CreateDynamicWindow[]}],
+						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], myCreateDynamicWindow[]}],
 						Spacer[20],
 						Button[TextCell[" Esci ", FontSize->16], DialogReturn[]]
 					}],
@@ -320,7 +322,7 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                 Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
 					Row[{
 						
-						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], CreateDynamicWindow[]}],
+						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], myCreateDynamicWindow[]}],
 						Spacer[20],
 						Button[TextCell[" Esci ", FontSize->16], DialogReturn[]]
 					}],
@@ -377,19 +379,20 @@ WindowElements->{"VerticalScrollBar", "StatusArea"}
 (* Codice per creare un'interfaccia grafica che permetta di scegliere la modalit\[AGrave] di gioco *)
 
 
-CreateDynamicWindow[] :=
-	DynamicModule[{infoWindow},
-  
+myCreateDynamicWindow[] :=
+	CreateDialog[ (* Crea una finestra di dialogo *)
+		DialogNotebook[
+	
+	DynamicModule[{infoWindow, infoText, seedMessage},
+	
 	seedMessage = ""; (* Messaggio di feedback sul seed *)
     infoText = "Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.";
     
-    CreateDialog[ (* Crea una finestra di dialogo *)
-		DialogNotebook[
-			Pane[ (* Utilizza un riquadro per contenere il layout *)
+    		Pane[ (* Utilizza un riquadro per contenere il layout *)
 				Column[{ (* Utilizza una colonna per organizzare gli elementi *)
 					Row[{ (* Utilizza una riga per organizzare gli elementi orizzontalmente *)
 						EventHandler[ 
-							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> CreateInfoWindow[infoText]}], (* Icona per informazioni aggiuntive sul seed *)
+							Tooltip[Style["\:2139", FontSize -> 16], "Perch\[EAcute] inserire un seed?"], {"MouseClicked" :> myCreateInfoWindow[infoText]}], (* Icona per informazioni aggiuntive sul seed *)
 						Spacer[1],
 						TextCell["Inserire Seed:"], (* Etichetta per il campo di inserimento del seed *)
 						Spacer[5],
@@ -435,7 +438,7 @@ CreateDynamicWindow[] :=
 
 (* Codice che gestisce l'apertura di una finestra di informazione per l'utente. *)
 
-CreateInfoWindow[infoText_] :=
+myCreateInfoWindow[infoText_] :=
   CreateDialog[Column[{TextCell[infoText, "Text", FontSize -> 12], Spacer[20], Button[
     "Chiudi", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
