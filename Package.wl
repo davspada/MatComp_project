@@ -99,8 +99,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         fun,
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
         constantVector,(* Vettore dei termini noti per il sistema lineare *)
-        dims,
-        points}, 
+        dims}, 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
@@ -251,6 +250,7 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
         constantVector,(* Vettore dei termini noti per il sistema lineare *)
         dims,
+        fun,
         points}, 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
@@ -440,10 +440,10 @@ myCreateDynamicWindow[] :=
 
 (* Codice che gestisce l'apertura di una finestra di informazione per l'utente. *)
 
-CreateInfoWindow[] :=
-  CreateDialog[Column[{TextCell["Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali. Impostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed. Questo \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi."
+myCreateInfoWindow[] :=
+  CreateDialog[Column[{TextCell["Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali.\nImpostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed.\nQuesto \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.\n\nRicorda che lasciare il campo del seed vuoto comporter\[AGrave] la generazione randomica dello stesso.\n"
   , "Text", FontSize -> 16], Spacer[20], Button[
-    "Chiudi", DialogReturn[]]}], WindowSize -> {400, 150}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
+    TextCell["Chiudi", FontSize->16], DialogReturn[]]}], WindowSize -> {400, 350}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
 
 
 (* Dichiarazione di fine del package *)
