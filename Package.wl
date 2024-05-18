@@ -103,6 +103,7 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         fun, (*Variabile che rappresenta la funzione*)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
         constantVector,(* Vettore dei termini noti per il sistema lineare *)
+        callouts, (* Lista di etichette di punti utilizzata per inserire i punti nel grafico *)
         dims}(*dimensioni della matrice*), 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
@@ -258,6 +259,7 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
         constantVector,(* Vettore dei termini noti per il sistema lineare *)
         dims, (*Dimensioni della matrice*)
+        callouts, (* Lista di etichette di punti utilizzata per inserire i punti nel grafico *)
         fun, (*Variabile che rappresenta la funzione*)
         points (* Punti generati dal backend*)}, 
     
