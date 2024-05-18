@@ -17,10 +17,10 @@
 BeginPackage["Backend`"];
 
 (* Dichiarazione delle funzioni esportate *)
-myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
-myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
-myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
-x::usage = "x rappresenta la variabile indipendente";
+(* myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
+   myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
+   myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
+   x::usage = "x rappresenta la variabile indipendente"; *)
 
 Begin["Private`"];
 
@@ -52,8 +52,10 @@ myGenerateEquation[2, seed_] := Module[{a, b, c},
     Return[{expr, a, b, c}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
 ]
 
-(* Funzione per gestire l'errore se il grado dell'equazione non \[EGrave] 1 o 2 *)
-myGenerateEquation[_] := Module[{}, Print["Grade must be 1 or 2"]; Return[]]
+(* Funzione per gestire l'errore se il grado dell'equazione non \[EGrave] 1 o 2 
+   Questa funzione \[EGrave] commentata in quanto rappresenta una funzione da utilizzare 
+   per eventuali estensioni del package *)
+(* myGenerateEquation[_] := Module[{}, Print["Grade must be 1 or 2"]; Return[]] *)
 
 (* Funzione per generare punti su una retta o una parabola *)
 myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points, xList},
