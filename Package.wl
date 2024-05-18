@@ -27,7 +27,11 @@ myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'int
 
 Begin["`Private`"];
 
-(* Inizializza le variabili *)
+(* Inizializza le variabili di package*)
+(*  Le variabili sono dichiarate a livello di package per evitare ridondanze e il passaggio superfluo di valori.
+ Questo permette di ridurre ripetizioni, condividere dati tra funzioni senza passaggio esplicito di parametri,
+ facilitare la manutenzione e aggiornamenti del codice, e migliorare l'efficienza e la praticit\[AGrave] nello sviluppo.
+*)
 myCounterErrori = 0;
 seed = 0;
 
@@ -88,7 +92,7 @@ myGeneratePointDisplay[points_] := Module[{},
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la parabola passante per 3 punti*)
 
 
-myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
+myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della parabola *)
     DynamicModule[{
         a, b, c, (* Variabili per i coefficienti dell'equazione *)
         realA, realB, realC, (* Coefficienti reali dell'equazione *)
@@ -240,7 +244,11 @@ WindowElements->{"VerticalScrollBar", "StatusArea"}
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la retta passante per 2 punti*)
 
 
-myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco *)
+(* N.B. I commenti per la seguente funzione sono stati ridotti in quanto simile alla funzione precedente.
+ L'uso di due funzioni separate si \[EGrave] rivelato una scelta migliore sia sintatticamente che per leggibilit\[AGrave],
+ evitando lo sviluppo di controlli e funzioni di inizializzazione non strettamente necessari.
+*)
+myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della retta *)
     DynamicModule[{
         m, q, (* Variabili per i coefficienti dell'equazione *)
         realM, realQ, (* Coefficienti reali dell'equazione *)
