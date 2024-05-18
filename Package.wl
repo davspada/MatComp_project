@@ -2,9 +2,9 @@
 
 (* :Title: Guess the function *)
 (* :Context: Gioco di geometria analitica con lo scopo di permettere al giocatore di indentificare i coefficienti di una funzione (retta o parabola)*)
-(* :Author: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada *)
+(* :Author: Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada *)
 (* :Summary: Package per giocare con Mathematica *)
-(* :Copyright: Leonardo Dessì, Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
+(* :Copyright: Leonardo Dess\[IGrave], Emanuele Grasso, Luca Polese, Davide Spada - 2023 *)
 (* :Package Version: 1.0.0 *)
 (* :Mathematica Version: 14 *)
 (* :History: \\ *)
@@ -96,7 +96,8 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector}, (* Vettore dei termini noti per il sistema lineare *)
+        constantVector,
+        dims}, (* Vettore dei termini noti per il sistema lineare *)
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
@@ -245,7 +246,8 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
         coefficentMatrix, (* Matrice dei coefficienti per il sistema lineare *)
-        constantVector}, (* Vettore dei termini noti per il sistema lineare *)
+        constantVector,
+        dims}, (* Vettore dei termini noti per il sistema lineare *)
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
 
