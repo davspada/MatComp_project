@@ -53,22 +53,21 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
     (* Invocazione della funzione per la generazione dei coefficienti della matrice di Vandermonde e del vettore dei termini noti *)
     {coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
     
-    (* Risoluzione della matrice *)
-    solution = LinearSolve[coefficentMatrix, rhsVector];
-    (* Calcolo della matrice con i dati inseriti dall'utente *)
-    tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
-    
-    (* Verifica dell'uguaglianza delle soluzioni *)
-    If[solution === tmpSol,
-        message = "Congratulazioni, la matrice \[EGrave] corretta, ora risolvila ed inserisci i coefficienti in alto.",
-        message = "\|01f6ab Matrice sbagliata \|01f6ab"
-    ];
-    
     (* Verifica se la matrice inserita dall'utente \[EGrave] composta da valori interi non nulli *)
-    If[
-        AllTrue[Flatten[matrix], Head[#] === Integer && Head[#] =!= Null &] && AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
-        message = message,
-        message = "Attenzione! Campi vuoti o numeri non interi inseriti!"
+    Which[
+        !AllTrue[Flatten[matrix], Head[#] === Integer && Head[#] =!= Null &] || 
+        !AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
+        message = "Attenzione! Campi vuoti o numeri non interi inseriti!",
+        True,
+        (* Risoluzione della matrice *)
+	    solution = LinearSolve[coefficentMatrix, rhsVector];
+	    (* Calcolo della matrice con i dati inseriti dall'utente *)
+	    tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
+        (* Verifica dell'uguaglianza delle soluzioni *)
+	    message = If[solution === tmpSol,
+	        "Congratulazioni, la matrice \[EGrave] corretta, ora risolvila ed inserisci i coefficienti in alto.",
+	        "\|01f6ab Matrice sbagliata \|01f6ab"
+	    ]
     ];
     
     (* Restituisce il messaggio da stampare a schermo *)
