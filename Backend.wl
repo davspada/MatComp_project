@@ -17,21 +17,19 @@
 BeginPackage["Backend`"];
 
 (* Dichiarazione delle funzioni esportate *)
-(* myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
-   myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
-   myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
-   x::usage = "x rappresenta la variabile indipendente"; *)
+(* Queste funzioni necessitano di essere dichiarate per permettere
+   la comunicazione con il package principale, rendendo le funzioni
+   locali si incapperebbe in errori di comunicazione che sfociano
+   in grafica mal renderizzata e popup di messaggi di errore *)
+myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
+myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
+myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
+x::usage = "x rappresenta la variabile indipendente";
 
 Begin["Private`"];
 
-(* Set seed for random number generator *)
+(* Inizializzazione della variabile che conterr\[AGrave] l'equazione *)
 expr = None;
-
-(* Funzione per impostare il seed del generatore di numeri casuali *)
-setSeed[seed_] := Module[{},
-    Print[seed]; (* Stampa il seed per debug *)
-    SeedRandom[seed];
-]
 
 (* Funzione per generare un'equazione di primo grado *)
 myGenerateEquation[1, seed_] := Module[{a, b},
