@@ -27,16 +27,12 @@ myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera
 
 Begin["Private`"];
 
-(* Inizializzazione della variabile che conterr\[AGrave] l'equazione *)
-expr = None;
-
 (* Funzione per generare un'equazione di primo grado *)
 myGenerateEquation[1, seed_] := Module[{a, b},
     SeedRandom[seed];	
     a = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
     b = RandomInteger[{-10, 10}]; (* Genera un numero intero tra -10 e 10 *)
-    expr = a*x + b; (* Costruisce l'equazione di primo grado ax + b *)
-    Return[{expr, a, b}]; (* Restituisce l'equazione e i coefficienti a e b *)
+    Return[{a*x + b, a, b}]; (* Restituisce l'equazione e i coefficienti a e b *)
 ]
 
 (* Funzione per generare un'equazione di secondo grado *)
@@ -45,8 +41,7 @@ myGenerateEquation[2, seed_] := Module[{a, b, c},
     a = RandomChoice[{1, -1}]; (* Sceglie casualmente 1 o -1 *)
     b = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
     c = RandomInteger[{-10, 10}]; (* Genera un numero intero tra -10 e 10 *)
-    expr = a*x^2 + b*x + c; (* Costruisce l'equazione di secondo grado ax^2 + bx + c *)
-    Return[{expr, a, b, c}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
+    Return[{a*x^2 + b*x + c, a, b, c}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
 ]
 
 (* Funzione per gestire l'errore se il grado dell'equazione non \[EGrave] 1 o 2 
@@ -55,7 +50,7 @@ myGenerateEquation[2, seed_] := Module[{a, b, c},
 (* myGenerateEquation[_] := Module[{}, Print["Grade must be 1 or 2"]; Return[]] *)
 
 (* Funzione per generare punti su una retta o una parabola *)
-myGeneratePointsOnLineOrParabola[nPoints_] := Module[{points, xList},
+myGeneratePointsOnLineOrParabola[nPoints_, expr_] := Module[{points, xList},
     xList = RandomInteger[{-10, 10}, nPoints]; (* Genera una lista di numeri casuali per le ascisse *)
 
     (* Assicura che non ci siano duplicati nelle ascisse *)
@@ -85,6 +80,7 @@ myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector, myP
 End[];
 
 EndPackage[];
+
 
 
 
