@@ -34,8 +34,8 @@ expr = None;
 (* Funzione per generare un'equazione di primo grado *)
 myGenerateEquation[1, seed_] := Module[{a, b},
     SeedRandom[seed];	
-    a = RandomChoice[{1, -1}]; (* Sceglie casualmente 1 o -1 *)
-    b = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
+    a = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
+    b = RandomInteger[{-10, 10}]; (* Genera un numero intero tra -10 e 10 *)
     expr = a*x + b; (* Costruisce l'equazione di primo grado ax + b *)
     Return[{expr, a, b}]; (* Restituisce l'equazione e i coefficienti a e b *)
 ]
