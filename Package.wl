@@ -39,10 +39,9 @@ seed = 0;
 SetDirectory[NotebookDirectory[]];
 
 (* Dichiarazione di una funzione per controllare l'input *)
-myCheckInput[realA_, realB_, realC_, a_, b_, c_] := Module[{message = "", condition},
+myCheckInput[correctCoefficent_, coefficentInput_] := Module[{message = "", condition},
 	(*Controlla che i punti generati dal kernel siano uguali a quelli dati in input dall'utente*)
-    condition = {realA, realB, realC} === {IntegerPart@a, IntegerPart@b, IntegerPart@c};
-    If[condition, 
+    If[correctCoefficent === coefficentInput, 
         {message="Congratulazioni, hai risolto l'esercizio.\nOra cosa vuoi fare:"; myCounterErrori=0;}, 
         {message = "Hai sbagliato"; myCounterErrori++;}];
     Return[message];
@@ -91,6 +90,7 @@ myGeneratePointDisplay[points_] := Module[{},
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la parabola passante per 3 punti*)
 
 
+(*
 myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della parabola *)
     DynamicModule[{
         a, b, c, (* Variabili per i coefficienti dell'equazione *)
@@ -238,20 +238,15 @@ WindowTitle -> "SCPARABOLA",
 WindowSize -> {Scaled[1],Scaled[1]},
 WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
+*)
 
 
 (* ::Text:: *)
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la retta passante per 2 punti*)
 
 
-(* N.B. I commenti per la seguente funzione sono stati ridotti in quanto simile alla funzione precedente.
- L'uso di due funzioni separate si \[EGrave] rivelato una scelta migliore sia sintatticamente che per leggibilit\[AGrave],
- evitando lo sviluppo di controlli e funzioni di inizializzazione non strettamente necessari.
-*)
-myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della retta *)
+myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della retta *)
     DynamicModule[{
-        m, q, (* Variabili per i coefficienti dell'equazione *)
-        realM, realQ, (* Coefficienti reali dell'equazione *)
         x, (* Variabile indipendente *)
         message, message2, message3, (* Messaggi di feedback *)
         expr, (* Espressione dell'equazione *)
@@ -260,24 +255,28 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
         dims, (*Dimensioni della matrice*)
         callouts, (* Lista di etichette di punti utilizzata per inserire i punti nel grafico *)
         fun, (*Variabile che rappresenta la funzione*)
-        points (* Punti generati dal backend*)}, 
+        points, (* Punti generati dal backend*)
+        coefficentList,
+        coefficentListInput}, 
     
         myCounterErrori = 0; (* Inizializza il contatore degli errori *)
-
+		
+		coefficentList = ConstantArray[Null, {grade + 1, 1}];
+		coefficentListInput = ConstantArray[Null, {grade + 1, 1}];
         (* Genera l'equazione e i coefficienti reali *)
         If[Head[seed] === Integer, 
-            {expr, realM, realQ} = Backend`myGenerateEquation[1, seed],
+            {expr, coefficentList} = Backend`myGenerateEquation[grade, seed],
             (* Genera pseudorandomicamente un numero intero da 0 a 9999 *)
-            {seed = RandomInteger[9999], {expr, realM, realQ} = Backend`myGenerateEquation[1, seed]}
+            {seed = RandomInteger[9999], {expr, coefficentList} = Backend`myGenerateEquation[grade, seed]}
         ];
-        
-        points = Backend`myGeneratePointsOnLineOrParabola[2]; (* Genera due punti casuali *)
+        coefficentList = Reverse[coefficentList];
+        points = Backend`myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
         message3= ""; (* Inizializza un altro messaggio di feedback *)
-        dims = {2, 2}; (* Dimensioni della matrice dei coefficienti *)
+        dims = {grade+1, grade+1}; (* Dimensioni della matrice dei coefficienti *)
         coefficentMatrix = ConstantArray[Null, dims]; (* Inizializza la matrice dei coefficienti *)
-        constantVector =  ConstantArray[Null, {2, 1}]; (* Inizializza il vettore dei termini noti *)
+        constantVector =  ConstantArray[Null, {grade+1, 1}]; (* Inizializza il vettore dei termini noti *)
 
         (* Crea la grafica dell'interfaccia utente *)
         Style[Pane[
@@ -302,20 +301,29 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                         {
                             DisplayForm["y ="],
                             Spacer[10],
-                            InputField[Dynamic[m], Number, FieldHint->"m", FieldSize->3, Alignment->Center],
-                            DisplayForm["x  +  "],
-                            InputField[Dynamic[q], Number, FieldHint->"q", FieldSize->3, Alignment->Center],
+                            InputField[Dynamic@coefficentListInput[[1]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 0]]],
+                            DisplayForm["  +  "], 
+                            InputField[Dynamic@coefficentListInput[[2]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 1]]],
+                            DisplayForm["x"],
+                            If[grade > 1,
+								Row[{
+									DisplayForm["  +  "]
+									InputField[Dynamic@coefficentListInput[[3]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 2]]],
+									TextCell[StringForm["\*SuperscriptBox[x, ``]", 2]]
+								}],
+                                Row[{}]
+                            ],
                             Spacer[30],
                             Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], 
                                 {
-                                    If[
-                                        m === Null || Head[m] =!= Integer || q === Null || Head[q] =!= Integer,
-                                        message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!", (* Visualizza un messaggio di errore *)
+                                    If[ AllTrue[coefficentListInput, # =!= Null &] && AllTrue[coefficentListInput, Head[#] === Integer &],
                                         {
-                                            fun = m*x + q; (* Definisce la funzione inserita dall'utente *)
-                                            message = myCheckInput[0, realM, realQ, 0,  m,  q]; (* Controlla se la funzione \[EGrave] corretta *)
+                                            fun = Sum[coefficentListInput[[i]]*x^(i-1), {i, 1, grade+1}],
+                                            message = myCheckInput[coefficentList, coefficentListInput]; (* Controlla se la funzione \[EGrave] corretta *)
                                             message3 = ""; (* Azzera eventuali messaggi precedenti *)
-                                        }
+                                        },
+                                        {
+                                        message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!" (* Visualizza un messaggio di errore *)}
                                     ]
                                 }
                             ]
@@ -345,21 +353,20 @@ myGuessTheFunctionGUI[1] := CreateDialog[(* Definisce una finestra di dialogo pe
                 Spacer[20],
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
-                    
                     EventHandler[
                         Row[{
                             MatrixForm[
                                 Table[With[{i = i, j = j},
                                   InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
-                                 {i, 2}, {j, 2}]
+                                 {i, grade+1}, {j, grade+1}]
                                 ],
                              Style[DisplayForm[" \[Times] "], FontSize->16],
                              Style[MatrixForm[{"q", "m"}], FontSize->16],
                              Style[DisplayForm[" = "], FontSize->16],
                              MatrixForm[
-                                Table[With[{i = i, j = j},
-                                  InputField[Dynamic@constantVector[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
-                                 {i, 2}, {j, 1}]
+                                Table[With[{i = i},
+                                  InputField[Dynamic@constantVector[[i]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
+                                 {i, grade+1}]
                                 ],
                             Spacer[20],
                             Button["Controlla", {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],

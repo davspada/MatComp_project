@@ -32,7 +32,7 @@ myGenerateEquation[1, seed_] := Module[{a, b},
     SeedRandom[seed];	
     a = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
     b = RandomInteger[{-10, 10}]; (* Genera un numero intero tra -10 e 10 *)
-    Return[{a*x + b, a, b}]; (* Restituisce l'equazione e i coefficienti a e b *)
+    Return[{a*x + b, {a, b}}]; (* Restituisce l'equazione e i coefficienti a e b *)
 ]
 
 (* Funzione per generare un'equazione di secondo grado *)
@@ -41,7 +41,7 @@ myGenerateEquation[2, seed_] := Module[{a, b, c},
     a = RandomChoice[{1, -1}]; (* Sceglie casualmente 1 o -1 *)
     b = RandomInteger[{-5, 5}]; (* Genera un numero intero tra -5 e 5 *)
     c = RandomInteger[{-10, 10}]; (* Genera un numero intero tra -10 e 10 *)
-    Return[{a*x^2 + b*x + c, a, b, c}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
+    Return[{a*x^2 + b*x + c, {a, b, c}}]; (* Restituisce l'equazione e i coefficienti a, b e c *)
 ]
 
 (* Funzione per gestire l'errore se il grado dell'equazione non \[EGrave] 1 o 2 
@@ -80,7 +80,5 @@ myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector, myP
 End[];
 
 EndPackage[];
-
-
 
 
