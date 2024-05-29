@@ -27,19 +27,11 @@ myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'int
 
 Begin["`Private`"];
 
-(* Inizializza le variabili di package*)
-(*  Le variabili sono dichiarate a livello di package per evitare ridondanze e il passaggio superfluo di valori.
- Questo permette di ridurre ripetizioni, condividere dati tra funzioni senza passaggio esplicito di parametri,
- facilitare la manutenzione e aggiornamenti del codice, e migliorare l'efficienza e la praticit\[AGrave] nello sviluppo.
-*)
-myCounterErrori = 0;
-seed = 0;
-
 (* Imposta la directory di lavoro al percorso del notebook corrente *)
 SetDirectory[NotebookDirectory[]];
 
 (* Dichiarazione di una funzione per controllare l'input *)
-myCheckInput[correctCoefficent_, coefficentInput_] := Module[{message = "", condition},
+myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition},
 	(*Controlla che i punti generati dal kernel siano uguali a quelli dati in input dall'utente*)
     If[correctCoefficent === coefficentInput, 
         {message="Congratulazioni, hai risolto l'esercizio.\nOra cosa vuoi fare:"; myCounterErrori=0;}, 
@@ -245,7 +237,7 @@ WindowElements->{"VerticalScrollBar", "StatusArea"}
 (*Codice per creare un'interfaccia grafica che permette di eseguire l'esercizio per trovare la retta passante per 2 punti*)
 
 
-myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della retta *)
+myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra di dialogo per l'interfaccia grafica del gioco, nel caso della retta *)
     DynamicModule[{
         x, (* Variabile indipendente *)
         message, message2, message3, (* Messaggi di feedback *)
@@ -256,19 +248,13 @@ myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialo
         callouts, (* Lista di etichette di punti utilizzata per inserire i punti nel grafico *)
         fun, (*Variabile che rappresenta la funzione*)
         points, (* Punti generati dal backend*)
-        coefficentList,
-        coefficentListInput}, 
-    
-        myCounterErrori = 0; (* Inizializza il contatore degli errori *)
+        coefficentList = ConstantArray[Null, {grade + 1, 1}],
+        coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
+        myCounterErrori = 0}, (* Inizializza il contatore degli errori *)
 		
-		coefficentList = ConstantArray[Null, {grade + 1, 1}];
-		coefficentListInput = ConstantArray[Null, {grade + 1, 1}];
         (* Genera l'equazione e i coefficienti reali *)
-        If[Head[seed] === Integer, 
-            {expr, coefficentList} = Backend`myGenerateEquation[grade, seed],
-            (* Genera pseudorandomicamente un numero intero da 0 a 9999 *)
-            {seed = RandomInteger[9999], {expr, coefficentList} = Backend`myGenerateEquation[grade, seed]}
-        ];
+        {expr, coefficentList} = Backend`myGenerateEquation[grade, seed];
+        
         coefficentList = Reverse[coefficentList];
         points = Backend`myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
@@ -320,7 +306,7 @@ myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialo
                                     If[ AllTrue[coefficentListInput, # =!= Null &] && AllTrue[coefficentListInput, Head[#] === Integer &],
                                         {
                                             fun = Sum[coefficentListInput[[i]]*x^(i-1), {i, 1, grade+1}],
-                                            message = myCheckInput[coefficentList, coefficentListInput]; (* Controlla se la funzione \[EGrave] corretta *)
+                                            message = myCheckInput[coefficentList, coefficentListInput, myCounterErrori]; (* Controlla se la funzione \[EGrave] corretta *)
                                             message3 = ""; (* Azzera eventuali messaggi precedenti *)
                                         },
                                         {
@@ -403,9 +389,9 @@ WindowElements->{"VerticalScrollBar", "StatusArea"}
 
 myCreateDynamicWindow[] :=
 	CreateDialog[ (* Crea una finestra di dialogo *)
-		DialogNotebook[
+	DialogNotebook[
 	  
-      DynamicModule[{infoWindow, seedMessage},
+      DynamicModule[{infoWindow, seedMessage, seed = 0},
       seedMessage = ""; (* Messaggio di feedback sul seed *)
       
 			Pane[ (* Utilizza un riquadro per contenere il layout *)
@@ -423,24 +409,32 @@ myCreateDynamicWindow[] :=
 							}],
 					Spacer[20],
 					Row[{ (* Altra riga per organizzare gli elementi orizzontalmente *)
-						Button[TextCell["Retta", FontSize->16], {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
-										{
-											myGuessTheFunctionGUI[1]; (* Apre l'interfaccia per indovinare la funzione lineare *)
-											DialogReturn[]; (* Chiude la finestra di dialogo *)
-											seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
-										},
-										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
-									]}],
+						Button[TextCell["Retta", FontSize->16], {
+						    (* Controlliamo se il seed \[EGrave] Null e cos\[IGrave] gli impostiamo un valore randomico da 0 a 9999 *)
+						    If[seed === Null, seed = RandomInteger[9999], {}],
+						    
+						    If[Head[seed] === Integer, (* Bottone per selezionare la modalit\[AGrave] "Retta" *)
+								{
+									myGuessTheFunctionGUI[1, seed]; (* Apre l'interfaccia per indovinare la funzione lineare *)
+									DialogReturn[]; (* Chiude la finestra di dialogo *)
+									seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
+								},
+									seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
+						]}],
 						Spacer[20],
-						Button[TextCell["Parabola", FontSize->16], {If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
-										{
-											myGuessTheFunctionGUI[2]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
-											DialogReturn[]; (* Chiude la finestra di dialogo *)
-											seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
-										},
-										seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
-									]}]
-						}], 
+						Button[TextCell["Parabola", FontSize->16], {
+							(* Controlliamo se il seed \[EGrave] Null e cos\[IGrave] gli impostiamo un valore randomico da 0 a 9999 *)
+						    If[seed === Null, seed = RandomInteger[9999], Return[seed]],
+						    
+							If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
+								{
+									myGuessTheFunctionGUI[2, seed]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
+									DialogReturn[]; (* Chiude la finestra di dialogo *)
+									seedMessage = ""; (* Azzera il messaggio di feedback sul seed *)
+								},
+								seedMessage = "\:26a0\:fe0f Attenzione \:26a0\:fe0f\nIl seed pu\[OGrave] essere o un intero\n o al pi\[UGrave] lasciato vuoto." (* Visualizza un messaggio di errore *)
+						]}]
+					}], 
 					Spacer[10],
 					TextForm@Dynamic@Style[seedMessage, FontColor->RGBColor[0.9, 0.3, 0], TextAlignment->Center, Bold, FontSize->16] (* Visualizza il messaggio di feedback sul seed *)
 					}, Center], (* Allinea il contenuto al centro *)
