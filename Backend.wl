@@ -24,7 +24,6 @@ BeginPackage["Backend`"];
 myGenerateEquation::usage = "myGenerateEquation[grade] genera un'equazione di grado grade";
 myGeneratePointsOnLineOrParabola::usage = "myGeneratePointsOnLineOrParabola[nPoints] genera nPoints punti su una retta o una parabola";
 myGenerateVandermondeMatrix::usage = "myGenerateVandermondeMatrix[points] genera la matrice di Vandermonde a partire da una lista di punti";
-x::usage = "x rappresenta la variabile indipendente";
 
 Begin["Private`"];
 
@@ -86,3 +85,6 @@ myGenerateVandermondeMatrix[points_] := Module[{coefficentMatrix, rhsVector, myP
 End[];
 
 EndPackage[];
+
+
+
