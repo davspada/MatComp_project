@@ -61,7 +61,7 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
         (* Risoluzione della matrice *)
 	    solution = LinearSolve[coefficentMatrix, rhsVector];
 	    (* Calcolo della matrice con i dati inseriti dall'utente *)
-	    tmpSol = LinearSolve[matrix, Transpose[constantVector][[1]]];
+	    tmpSol = LinearSolve[matrix, Transpose[constantVector]];
         (* Verifica dell'uguaglianza delle soluzioni *)
 	    message = If[solution === tmpSol,
 	        "Congratulazioni, la matrice \[EGrave] corretta, ora risolvila ed inserisci i coefficienti in alto.",
@@ -301,18 +301,19 @@ myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialo
                         {
                             DisplayForm["y ="],
                             Spacer[10],
-                            InputField[Dynamic@coefficentListInput[[1]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 0]]],
-                            DisplayForm["  +  "], 
-                            InputField[Dynamic@coefficentListInput[[2]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 1]]],
-                            DisplayForm["x"],
-                            If[grade > 1,
+                            If[grade == 2,
 								Row[{
-									DisplayForm["  +  "]
 									InputField[Dynamic@coefficentListInput[[3]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 2]]],
-									TextCell[StringForm["\*SuperscriptBox[x, ``]", 2]]
+									TextCell[StringForm["\*SuperscriptBox[x, ``]", 2]],
+									DisplayForm["  +  "]
 								}],
                                 Row[{}]
                             ],
+                            InputField[Dynamic@coefficentListInput[[2]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 1]]],
+                            DisplayForm["x + "],
+                            InputField[Dynamic@coefficentListInput[[1]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 0]]],
+                            
+                            
                             Spacer[30],
                             Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], 
                                 {
@@ -371,7 +372,8 @@ myGuessTheFunctionGUI[grade_] := CreateDialog[(* Definisce una finestra di dialo
                             Spacer[20],
                             Button["Controlla", {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],
                                 message2 = "Attenzione! Il sistema non \[EGrave] risolvibile con coefficienti pari a 0", 
-                                message2 = myCheckMatrix[coefficentMatrix, constantVector, points]]}] (* Controlla la matrice dei coefficienti *)
+                                {message2 = myCheckMatrix[coefficentMatrix, constantVector, points], Print[constantVector]}]
+                                }] (* Controlla la matrice dei coefficienti *)
                         }], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                     ],
                     Spacer[10],
