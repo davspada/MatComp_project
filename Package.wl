@@ -31,12 +31,13 @@ Begin["`Private`"];
 SetDirectory[NotebookDirectory[]];
 
 (* Dichiarazione di una funzione per controllare l'input *)
-myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition},
+myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition, localCounterErrori},
+	localCounterErrori = myCounterErrori;
 	(*Controlla che i punti generati dal kernel siano uguali a quelli dati in input dall'utente*)
     If[correctCoefficent === coefficentInput, 
-        {message="Congratulazioni, hai risolto l'esercizio.\nOra cosa vuoi fare:"; myCounterErrori=0;}, 
-        {message = "Hai sbagliato"; myCounterErrori++;}];
-    Return[message];
+        {message="Congratulazioni, hai risolto l'esercizio.\nOra cosa vuoi fare:"; localCounterErrori = 0;}, 
+        {message = "Hai sbagliato"; localCounterErrori++;}];
+    Return[{message, localCounterErrori}];
 ]
 
 (* Dichiarazione di una funzione per controllare una matrice *)
@@ -250,7 +251,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         points, (* Punti generati dal backend*)
         coefficentList = ConstantArray[Null, {grade + 1, 1}],
         coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
-        myCounterErrori = 0}, (* Inizializza il contatore degli errori *)
+        myCounterErrori}, (* Inizializza il contatore degli errori *)
 		
         (* Genera l'equazione e i coefficienti reali *)
         {expr, coefficentList} = Backend`myGenerateEquation[grade, seed];
@@ -263,6 +264,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         dims = {grade+1, grade+1}; (* Dimensioni della matrice dei coefficienti *)
         coefficentMatrix = ConstantArray[Null, dims]; (* Inizializza la matrice dei coefficienti *)
         constantVector =  ConstantArray[Null, {grade+1, 1}]; (* Inizializza il vettore dei termini noti *)
+        myCounterErrori = 0;
 
         (* Crea la grafica dell'interfaccia utente *)
         Style[Pane[
@@ -271,7 +273,8 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                 Row[{
                     TextCell["Guess the function", "Title"],
                     Spacer[20],
-                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *)
+                    TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *),
+                    Button["Cambia seed",{DialogReturn[], myCreateDynamicWindow[]}]
                 }],
                 (* Descrizione del gioco e dei punti *)
                 TextCell["In questo esercizio dovrai trovare la funzione della retta che passa per i seguenti due punti:", TextAlignment->Left],
@@ -306,14 +309,25 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                     If[ AllTrue[coefficentListInput, # =!= Null &] && AllTrue[coefficentListInput, Head[#] === Integer &],
                                         {
                                             fun = Sum[coefficentListInput[[i]]*x^(i-1), {i, 1, grade+1}],
-                                            message = myCheckInput[coefficentList, coefficentListInput, myCounterErrori]; (* Controlla se la funzione \[EGrave] corretta *)
+                                            {message, myCounterErrori} = myCheckInput[coefficentList, coefficentListInput, myCounterErrori]; (* Controlla se la funzione \[EGrave] corretta *)
                                             message3 = ""; (* Azzera eventuali messaggi precedenti *)
                                         },
                                         {
                                         message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!" (* Visualizza un messaggio di errore *)}
                                     ]
                                 }
+                            ],
+                            Button[TextCell[" Pulisci ", FontSize->16],
+								{
+								Table[coefficentListInput[[i]] = Null, {i,1, grade+1}],
+								fun = Null,
+								message = "",
+								message2 = "",
+								message3 = "",
+								myCounterErrori = 0
+								}
                             ]
+                            
                         }
                     ], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                 ],
@@ -378,8 +392,8 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
       ], FontSize->16]
   ],
 WindowTitle -> "SCPARABOLA",
-WindowSize -> {Scaled[1],Scaled[1]},
-WindowElements->{"VerticalScrollBar", "StatusArea"}
+WindowSize -> {All,All},
+WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"}
 ];
 
 
