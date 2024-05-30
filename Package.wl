@@ -14,21 +14,23 @@
 
 BeginPackage["Package`"];
 
-(* Imposta la directory di lavoro al percorso del notebook corrente *)
-SetDirectory[NotebookDirectory[]];
-
 (* Carica un file di supporto chiamato "Backend.wl" *)
 Get["Backend.wl"];
 
 (* Definisce l'uso delle funzioni definite nel pacchetto *)
 (* myGuessTheFunctionGUI::usage = "myGuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio"; *)
-myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma";
+(* myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma"; *)
 (* myCreateInfoWindow::usage = "myCreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori"; *)
 
 Begin["`Private`"];
 
-(* Imposta la directory di lavoro al percorso del notebook corrente *)
-SetDirectory[NotebookDirectory[]];
+(* Inizializza le variabili di package*)
+(*  Le variabili sono dichiarate a livello di package per evitare ridondanze e il passaggio superfluo di valori.
+ Questo permette di ridurre ripetizioni, condividere dati tra funzioni senza passaggio esplicito di parametri,
+ facilitare la manutenzione e aggiornamenti del codice, e migliorare l'efficienza e la praticit\[AGrave] nello sviluppo.
+*)
+myCounterErrori = 0;
+seed = 0;
 
 (* Dichiarazione di una funzione per controllare l'input *)
 myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition},
@@ -42,7 +44,7 @@ myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{
 (* Dichiarazione di una funzione per controllare una matrice *)
 myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coefficentMatrix, rhsVector, solution, tmpSol},
     (* Invocazione della funzione per la generazione dei coefficienti della matrice di Vandermonde e del vettore dei termini noti *)
-    {coefficentMatrix, rhsVector} = Backend`myGenerateVandermondeMatrix[points];
+    {coefficentMatrix, rhsVector} = myGenerateVandermondeMatrix[points];
     
     (* Verifica se la matrice inserita dall'utente \[EGrave] composta da valori interi non nulli *)
     Which[
@@ -101,13 +103,13 @@ myGuessTheFunctionGUI[2] := CreateDialog[(* Definisce una finestra di dialogo pe
 
         (* Genera l'equazione e i coefficienti reali *)
         If[Head[seed] === Integer, 
-            {expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed],
+            {expr, realA, realB, realC} = myGenerateEquation[2, seed],
             (* Genera pseudorandomicamente un numero intero da 0 a 9999 *)
-            {seed = RandomInteger[9999], {expr, realA, realB, realC} = Backend`myGenerateEquation[2, seed]}
+            {seed = RandomInteger[9999], {expr, realA, realB, realC} = myGenerateEquation[2, seed]}
         ];
             
 		
-        points = Backend`myGeneratePointsOnLineOrParabola[3]; (* Genera tre punti casuali *)
+        points = myGeneratePointsOnLineOrParabola[3]; (* Genera tre punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
         message3 = ""; (* Inizializza un altro messaggio di feedback *)
@@ -253,10 +255,13 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         myCounterErrori = 0}, (* Inizializza il contatore degli errori *)
 		
         (* Genera l'equazione e i coefficienti reali *)
-        {expr, coefficentList} = Backend`myGenerateEquation[grade, seed];
-        
+        If[Head[seed] === Integer, 
+            {expr, coefficentList} = myGenerateEquation[grade, seed],
+            (* Genera pseudorandomicamente un numero intero da 0 a 9999 *)
+            {seed = RandomInteger[9999], {expr, coefficentList} = myGenerateEquation[grade, seed]}
+        ];
         coefficentList = Reverse[coefficentList];
-        points = Backend`myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
+        points = myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
         message3= ""; (* Inizializza un altro messaggio di feedback *)
@@ -348,7 +353,8 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                  {i, grade+1}, {j, grade+1}]
                                 ],
                              Style[DisplayForm[" \[Times] "], FontSize->16],
-                             Style[MatrixForm[{"q", "m"}], FontSize->16],
+                             MatrixForm@Reverse[Table[With[{i = i}, ToString[StringForm["\*SubscriptBox[c, ``]", i-1]]],{i, grade+1}
+                             ]],
                              Style[DisplayForm[" = "], FontSize->16],
                              MatrixForm[
                                 Table[With[{i = i},
@@ -462,6 +468,11 @@ myCreateInfoWindow[] :=
 (* Dichiarazione di fine del package *)
 
 End[];
+
+(* Chiamata alla funzione che avviene all'inizio dell'esercizio
+   dichiararla qui ci permette di evitare creazione di funzioni Shadowed
+   In questo modo la chiamata rimane nello scope del Package ed il suo funzionamento è totalmente trasparente all'utente.*)
+myCreateDynamicWindow[];
 
 EndPackage[];
 
