@@ -24,13 +24,8 @@ Get["Backend.wl"];
 
 Begin["`Private`"];
 
-(* Inizializza le variabili di package*)
-(*  Le variabili sono dichiarate a livello di package per evitare ridondanze e il passaggio superfluo di valori.
- Questo permette di ridurre ripetizioni, condividere dati tra funzioni senza passaggio esplicito di parametri,
- facilitare la manutenzione e aggiornamenti del codice, e migliorare l'efficienza e la praticit\[AGrave] nello sviluppo.
-*)
-myCounterErrori = 0;
-seed = 0;
+(* Imposta la directory di lavoro al percorso del notebook corrente *)
+SetDirectory[NotebookDirectory[]];
 
 (* Dichiarazione di una funzione per controllare l'input *)
 myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition, localCounterErrori},
@@ -234,6 +229,7 @@ WindowSize -> {Scaled[1],Scaled[1]},
 WindowElements->{"VerticalScrollBar", "StatusArea"}
 ];
 *)
+myEquationForm /: MakeBoxes[myEquationForm[eqs_], TraditionalForm] := RowBox[{"\[Piecewise]", GridBox[{MakeBoxes[#, TraditionalForm]} & /@ {##} & @@ eqs]}];
 
 
 (* ::Text:: *)
@@ -253,15 +249,14 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         points, (* Punti generati dal backend*)
         coefficentList = ConstantArray[Null, {grade + 1, 1}],
         coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
-        myCounterErrori}, (* Inizializza il contatore degli errori *)
+        myCounterErrori,(* Contatore degli errori commessi dall'utente *)
+        visualizzaAiutoFlag = False
+        }, 
 		
         (* Genera l'equazione e i coefficienti reali *)
-        If[Head[seed] === Integer, 
-            {expr, coefficentList} = myGenerateEquation[grade, seed],
-            (* Genera pseudorandomicamente un numero intero da 0 a 9999 *)
-            {seed = RandomInteger[9999], {expr, coefficentList} = myGenerateEquation[grade, seed]}
-        ];
-        coefficentList = Reverse[coefficentList];
+        {expr, coefficentList} = myGenerateEquation[grade, seed];
+        
+         coefficentList = Reverse[coefficentList];
         points = myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
@@ -322,14 +317,17 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                     ]
                                 }
                             ],
-                            Button[TextCell[" Pulisci ", FontSize->16],
+                            Button[TextCell[" Pulisci interfaccia", FontSize->16],
 								{
 								Table[coefficentListInput[[i]] = Null, {i,1, grade+1}],
 								fun = Null,
 								message = "",
 								message2 = "",
 								message3 = "",
-								myCounterErrori = 0
+								myCounterErrori = 0,
+								visualizzaAiutoFlag = False,
+								coefficentMatrix = ConstantArray[Null, dims],
+								constantVector =  ConstantArray[Null, {grade+1, 1}] 
 								}
                             ]
                             
@@ -355,11 +353,11 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 					}],
 					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *)
 				],
-				
                 Spacer[20],
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
                     EventHandler[
+                        Column[{
                         Row[{
                             MatrixForm[
                                 Table[With[{i = i, j = j},
@@ -376,11 +374,33 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                  {i, grade+1}]
                                 ],
                             Spacer[20],
-                            Button["Controlla", {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],
+                            Button[TextCell[" Controlla ", FontSize->16], {If[ContainsAny[Table[AllTrue[coefficentMatrix[[i]], #==0 &],{i, Length[coefficentMatrix]}], {True}],
                                 message2 = "Attenzione! Il sistema non \[EGrave] risolvibile con coefficienti pari a 0", 
-                                {message2 = myCheckMatrix[coefficentMatrix, constantVector, points], Print[constantVector]}]
+                                {message2 = myCheckMatrix[coefficentMatrix, constantVector, points]}]
                                 }] (* Controlla la matrice dei coefficienti *)
-                        }], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
+                        }],
+                        Row[{
+                        Button[TextCell[" Aiuto ", FontSize->16], visualizzaAiutoFlag= True],
+                        Button[TextCell[" Mostra soluzione ", FontSize->16]]
+                        }],
+                        If[visualizzaAiutoFlag,
+							Column[{
+	                         TextCell["Il seguente sistema lineare descrive la curva che passa per i punti dati.\nRisolvi il sistema di equazioni per trovare la soluzione, ovvero i parametri della curva.", TextAlignment->Center],
+							Spacer[1],
+							Row[{
+									eqs = ConstantArray[Null, {grade + 1, 1}];
+									Table[
+										eqs[[i]] = ToString@StringForm["`` = ",points[[i,2]]]<>
+												If[grade==2, ToString@StringForm["\*SuperscriptBox[``, 2]\*SubscriptBox[c, 2] + ", points[[i,1]]], ""] <>
+												ToString@StringForm["``\*SubscriptBox[c, 1] + ``\*SubscriptBox[c, 0]", points[[i,1]], points[[i,1]]];
+								        ,{i, grade + 1}];
+									TraditionalForm@myEquationForm[eqs]
+								}]
+							}, Alignment->Center],
+							Row[{}]
+                        ]
+                        }, Alignment->Center]
+                        , {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                     ],
                     Spacer[10],
                     If[StringContainsQ[message2, "Congratulazioni"],
@@ -401,6 +421,19 @@ WindowTitle -> "SCPARABOLA",
 WindowSize -> {All,All},
 WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"}
 ];
+
+
+(*
+Row[{
+	eqs = ConstantArray[Null, {grade + 1, 1}];
+	Table[
+		eqs[[i]] = ToString@StringForm["`` = ",points[[i,2]]]<>
+				If[grade==2, ToString@StringForm["\*SuperscriptBox[``, 2]\*SubscriptBox[c, 2] + ", points[[i,1]]], ""] <>
+				ToString@StringForm["``\*SubscriptBox[c, 1] + ``\*SubscriptBox[c, 0]", points[[i,1]], points[[i,1]]];
+        ,{i, grade + 1}];
+	TraditionalForm@myEquationForm[eqs]
+}]
+*)
 
 
 (* ::Text:: *)
@@ -485,7 +518,7 @@ End[];
 
 (* Chiamata alla funzione che avviene all'inizio dell'esercizio
    dichiararla qui ci permette di evitare creazione di funzioni Shadowed
-   In questo modo la chiamata rimane nello scope del Package ed il suo funzionamento è totalmente trasparente all'utente.*)
+   In questo modo la chiamata rimane nello scope del Package ed il suo funzionamento \[EGrave] totalmente trasparente all'utente.*)
 myCreateDynamicWindow[];
 
 EndPackage[];
