@@ -250,13 +250,14 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         coefficentList = ConstantArray[Null, {grade + 1, 1}],
         coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
         myCounterErrori,(* Contatore degli errori commessi dall'utente *)
-        visualizzaAiutoFlag = False
+        visualizzaAiutoFlag = False,
+        correctFunction = False
         }, 
 		
         (* Genera l'equazione e i coefficienti reali *)
         {expr, coefficentList} = myGenerateEquation[grade, seed];
         
-         coefficentList = Reverse[coefficentList];
+        coefficentList = Reverse[coefficentList];
         points = myGeneratePointsOnLineOrParabola[grade+1, expr]; (* Genera due punti casuali *)
         message = ""; (* Inizializza il messaggio di feedback *)
         message2 = ""; (* Inizializza un altro messaggio di feedback *)
@@ -274,7 +275,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                     TextCell["Guess the function", "Title"],
                     Spacer[20],
                     TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *),
-                    Button["Cambia seed",{DialogReturn[], myCreateDynamicWindow[]}]
+                    Button["Torna alla pagina precedente",{DialogReturn[], myCreateDynamicWindow[]}]
                 }],
                 (* Descrizione del gioco e dei punti *)
                 TextCell["In questo esercizio dovrai trovare la funzione della retta che passa per i seguenti due punti:", TextAlignment->Left],
@@ -315,7 +316,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                         {
                                         message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!" (* Visualizza un messaggio di errore *)}
                                     ]
-                                }
+                                }, Enabled -> Dynamic[!correctFunction]
                             ],
                             Button[TextCell[" Pulisci interfaccia", FontSize->16],
 								{
@@ -345,6 +346,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                 
                 TextForm@Dynamic@Style[message, TextAlignment->Center], (* Visualizza messaggi di feedback *)
                 Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
+                    correctFunction = True;
 					Row[{
 						
 						Button[TextCell[" Nuovo esercizio ", FontSize->16],{DialogReturn[], myCreateDynamicWindow[]}],
