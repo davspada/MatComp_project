@@ -320,6 +320,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                             ],
                             Button[TextCell[" Pulisci interfaccia", FontSize->16],
 								{
+                                correctFunction = False,
 								Table[coefficentListInput[[i]] = Null, {i,1, grade+1}],
 								fun = Null,
 								message = "",
