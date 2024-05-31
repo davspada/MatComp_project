@@ -251,7 +251,9 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
         coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
         myCounterErrori,(* Contatore degli errori commessi dall'utente *)
         visualizzaAiutoFlag = False,
-        correctFunction = False
+        correctFunction = False,
+        eqs,
+        prompt
         }, 
 		
         (* Genera l'equazione e i coefficienti reali *)
@@ -321,7 +323,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                             Button[TextCell[" Pulisci interfaccia", FontSize->16],
 								{
                                 correctFunction = False,
-								Table[coefficentListInput[[i]] = Null, {i,1, grade+1}],
+								coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
 								fun = Null,
 								message = "",
 								message2 = "",
@@ -332,7 +334,6 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 								constantVector =  ConstantArray[Null, {grade+1, 1}] 
 								}
                             ]
-                            
                         }
                     ], {{"KeyDown", "."} :> Null}, PassEventsDown -> False
                 ],
@@ -344,7 +345,6 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                     ListPlot[callouts, ImageSize->Medium, ImageMargins->20, PlotRange->{{-10,10},Automatic}],
                     Plot[fun,{x,-10,10}]
                 ],
-                
                 TextForm@Dynamic@Style[message, TextAlignment->Center], (* Visualizza messaggi di feedback *)
                 Dynamic@DisplayForm@If[StringContainsQ[message, "Congratulazioni"],
                     correctFunction = True;
@@ -357,6 +357,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 					Dynamic@DisplayForm["Numero errori: " <> ToString[myCounterErrori]] (* Visualizza il numero di errori *)
 				],
                 Spacer[20],
+                
                 Dynamic@DisplayForm@If[myCounterErrori >= 3, Column[{(* Visualizza la matrice dei coefficienti e il vettore dei termini noti *)
                     TextCell["Completa e risolvi la matrice di Vandermonde per trovare i coefficienti:", "Subsubsection"],
                     EventHandler[
@@ -383,8 +384,31 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                 }] (* Controlla la matrice dei coefficienti *)
                         }],
                         Row[{
-                        Button[TextCell[" Aiuto ", FontSize->16], visualizzaAiutoFlag= True],
-                        Button[TextCell[" Mostra soluzione ", FontSize->16]]
+                        Button[TextCell[" Aiuto ", FontSize->16], {visualizzaAiutoFlag= True}],
+                        Button[TextCell[" Mostra soluzione ", FontSize->16], 
+							CreateDialog[
+								Pane[
+									Row[{
+										If[grade == 2,
+											prompt = ToString@StringForm["solution to the system `` == ``c_2 + ``c_1 + c_0, `` == ``c_2 + ``c_1 + c_0, `` == ``c_2 + ``c_1 + c_0", points[[1,2]], points[[1,1]]^2, points[[1,1]], points[[2,2]], points[[2,1]]^2, points[[2,1]], points[[3,2]], points[[3,1]]^2, points[[3,1]]],
+											prompt = ToString@StringForm["solution to the system `` == ``c_1 + c_0, `` == ``c_1 + c_0", points[[1,2]], points[[1,1]], points[[2,2]], points[[2,1]]]
+										];
+										WolframAlpha[prompt,
+											IncludePods->"Result",
+											AppearanceElements->{"Pods"},
+											TimeConstraint->{20,Automatic,Automatic,Automatic},
+											PodStates->{"Result__Step-by-step solution","Result__Use Gaussian elimination"}
+										]
+									}],
+									Alignment->Center,
+									ImageSizeAction->"Scrollable",
+									ImageSize->{All, All},
+									ImageMargins->20
+								], 
+								WindowSize -> Large, 
+								WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"}
+							]
+						]
                         }],
                         If[visualizzaAiutoFlag,
 							Column[{
@@ -395,7 +419,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 									Table[
 										eqs[[i]] = ToString@StringForm["`` = ",points[[i,2]]]<>
 												If[grade==2, ToString@StringForm["\*SuperscriptBox[``, 2]\*SubscriptBox[c, 2] + ", points[[i,1]]], ""] <>
-												ToString@StringForm["``\*SubscriptBox[c, 1] + ``\*SubscriptBox[c, 0]", points[[i,1]], points[[i,1]]];
+												ToString@StringForm["``\*SubscriptBox[c, 1] + \*SubscriptBox[c, 0]", points[[i,1]]];
 								        ,{i, grade + 1}];
 									TraditionalForm@myEquationForm[eqs]
 								}]
@@ -481,7 +505,6 @@ myCreateDynamicWindow[] :=
 						Button[TextCell["Parabola", FontSize->16], {
 							(* Controlliamo se il seed \[EGrave] Null e cos\[IGrave] gli impostiamo un valore randomico da 0 a 9999 *)
 						    If[seed === Null, seed = RandomInteger[9999], Return[seed]],
-						    
 							If[Head[seed] === Integer || seed === Null, (* Bottone per selezionare la modalit\[AGrave] "Parabola" *)
 								{
 									myGuessTheFunctionGUI[2, seed]; (* Apre l'interfaccia per indovinare la funzione parabolica *)
