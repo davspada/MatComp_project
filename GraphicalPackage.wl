@@ -21,8 +21,14 @@ Get["Backend.wl"];
 (* myGuessTheFunctionGUI::usage = "myGuessTheFunctionGUI[] Genera l'interfaccia per l'esercizio"; *)
 (* myCreateDynamicWindow::usage = "myCreateDynamicWindow[] permette di creare l'interfaccia grafica con cui l'utente interagisce per poter avviare il programma"; *)
 (* myCreateInfoWindow::usage = "myCreateInfoWindow[] permette di generare la finestra di info per settare il seed per la generazione randomica dei valori"; *)
+startGame::usage = "startGame[] routine principale che permette di nascondere all'utente le chiamate per l'avvio del gioco. L'utente visualizzer\[AGrave] solo l'interfaccia grafica del gioco";
 
 Begin["`Private`"];
+
+(* Chiamata alla funzione myCreateDynamicWindow[] che avviene all'avvio dell'esercizio.
+   Fare questa chiamata ci permette di evitare la creazione di funzioni Shadowed nel Tutorial.
+   In questo modo la chiamata rimane nello scope del Package ed il suo funzionamento \[EGrave] totalmente trasparente all'utente.*)
+startGame[] := myCreateDynamicWindow[];
 
 (* Dichiarazione di una funzione per controllare l'input *)
 myCheckInput[correctCoefficent_, coefficentInput_, myCounterErrori_] := Module[{message = "", condition, localCounterErrori},
@@ -382,11 +388,6 @@ myCreateInfoWindow[] :=
 (* Dichiarazione di fine del package *)
 
 End[];
-
-(* Chiamata alla funzione che avviene all'inizio dell'esercizio
-   dichiararla qui ci permette di evitare creazione di funzioni Shadowed
-   In questo modo la chiamata rimane nello scope del Package ed il suo funzionamento \[EGrave] totalmente trasparente all'utente.*)
-myCreateDynamicWindow[];
 
 EndPackage[];
 
