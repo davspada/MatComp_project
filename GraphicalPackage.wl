@@ -279,7 +279,9 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 								], 
 								WindowSize -> Large, 
 								WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
-                                WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"}
+                                WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"},
+                                WindowMargins -> Automatic,
+                                WindowSize -> Full
 							]
 						]
                         }],
@@ -322,7 +324,9 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 WindowTitle -> "SCPARABOLA",
 (* WindowSize -> {All,All}, *)
 WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
-WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"}
+WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"},
+WindowMargins -> Automatic,
+WindowSize -> Full
 ];
 
 
