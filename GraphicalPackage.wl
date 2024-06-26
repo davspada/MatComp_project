@@ -51,7 +51,7 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
         !AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
         message = "Attenzione! Campi vuoti o numeri non interi inseriti!",
         checkMatrixSingular[matrix],
-        message = "Attenzione! La matrice \[EGrave] singolare!",
+        message = "Attenzione! La matrice inserita \[EGrave] singolare (determinante nullo) e non \[EGrave] invertibile!",
         True,
         (* Risoluzione della matrice *)
 	    solution = LinearSolve[coefficentMatrix, rhsVector];
