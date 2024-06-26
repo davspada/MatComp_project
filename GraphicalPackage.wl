@@ -278,7 +278,8 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
 									ImageMargins->20
 								], 
 								WindowSize -> Large, 
-								WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"}
+								WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
+                                WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"}
 							]
 						]
                         }],
@@ -319,8 +320,9 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
       ], FontSize->16]
   ],
 WindowTitle -> "SCPARABOLA",
-WindowSize -> {All,All},
-WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"}
+(* WindowSize -> {All,All}, *)
+WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
+WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"}
 ];
 
 
@@ -384,19 +386,36 @@ myCreateDynamicWindow[] :=
 				ImageMargins->20 (* Imposta i margini della finestra *)
 			]
 	   ], 
-	   WindowSize-> {All, All}, (* Imposta le dimensioni della finestra *)
-	   WindowTitle-> "Scegli esercizio" (* Imposta il titolo della finestra *)
-	]
+	    WindowSize-> {All, All}, (* Imposta le dimensioni della finestra *)
+	    WindowTitle-> "Scegli esercizio", (* Imposta il titolo della finestra *)
+        Resizable->True
+    ]
 ];
 
 
 (* Codice che gestisce l'apertura di una finestra di informazione per l'utente. *)
 
-myCreateInfoWindow[] :=
-  CreateDialog[Column[{TextCell["Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali.\nImpostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed.\nQuesto \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.\n\nRicorda che lasciare il campo del seed vuoto comporter\[AGrave] la generazione randomica dello stesso.\n"
-  , "Text", FontSize -> 16],
-  Spacer[20],
-  Button[TextCell["Chiudi", FontSize->16], DialogReturn[]]}], WindowSize -> {400, 350}, WindowTitle -> "Perch\[EAcute] inserire un seed?"]
+myCreateInfoWindow[] := CreateDialog[
+    Column[
+        {
+            TextCell[
+                "Un seed \[EGrave] un numero di partenza utilizzato dagli algoritmi che generano numeri casuali.\nImpostare un seed garantisce che l'algoritmo generi la stessa sequenza di esercizi ogni volta che viene eseguito con lo stesso seed.\nQuesto \[EGrave] essenziale per la riproducibilit\[AGrave] e la coerenza dei risultati degli esercizi.\n\nRicorda che lasciare il campo del seed vuoto comporter\[AGrave] la generazione randomica dello stesso.\n", 
+                "Text", 
+                FontSize -> 16
+            ],
+            Spacer[20],
+            Button[
+                TextCell[
+                    "Chiudi", 
+                    FontSize->16
+                ], 
+                DialogReturn[]
+            ]
+        }], 
+    WindowSize -> {400, 350}, 
+    WindowTitle -> "Perch\[EAcute] inserire un seed?",
+    Resizable->True
+]
 
 
 (* Dichiarazione di fine del package *)
