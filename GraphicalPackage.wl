@@ -50,6 +50,8 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
         !AllTrue[Flatten[matrix], Head[#] === Integer && Head[#] =!= Null &] || 
         !AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
         message = "Attenzione! Campi vuoti o numeri non interi inseriti!",
+        checkMatrixSingular[matrix],
+        message = "Attenzione! La matrice \[EGrave] singolare!",
         True,
         (* Risoluzione della matrice *)
 	    solution = LinearSolve[coefficentMatrix, rhsVector];
@@ -65,6 +67,9 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
     (* Restituisce il messaggio da stampare a schermo *)
     Return[message]
 ]
+
+(* Dichiarazione di una funzione per controllare che la matrice non sia singolare*)
+checkMatrixSingular[matrix_] := Det[matrix] == 0
 
 (* Dichiarazione di una funzione per generare una visualizzazione dei punti nella schermata principale*)
 myGeneratePointDisplay[points_] := Module[{},
