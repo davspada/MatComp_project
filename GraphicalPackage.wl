@@ -138,53 +138,62 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                 TextCell["Cliccando sul bottone \[EGrave] possibile visualizzare la curva sull'asse cartesiano:"],
                 Spacer[10],
                 EventHandler[
-                    Row[
+                    Column[
                         {
-                            DisplayForm["\|01d466 ="],
-                            Spacer[10],
-                            If[grade == 2, (* Controlla se si tratta di una parabola *)
-								Row[{
-									InputField[Dynamic@coefficentListInput[[3]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 2]]],
-									TraditionalForm["\!\(\*SuperscriptBox[\(\|01d465\), \(2\)]\)"],
-									DisplayForm["  +  "]
-								}],
-                                Row[{}]
-                            ],
-                            InputField[Dynamic@coefficentListInput[[2]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 1]]],
-                            TraditionalForm["\|01d465 + "],
-                            InputField[Dynamic@coefficentListInput[[1]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 0]]],
-                            Spacer[30],
-                            Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], 
+                            Row[
                                 {
-                                    If[ AllTrue[coefficentListInput, # =!= Null &] && AllTrue[coefficentListInput, Head[#] === Integer &],
-                                        {
-                                            fun = Sum[coefficentListInput[[i]]*x^(i-1), {i, 1, grade+1}], (*Costruzione della variabile che contiene l'equazione*)
-                                            {message, myCounterErrori} = myCheckInput[coefficentList, coefficentListInput, myCounterErrori]; (* Controlla se la funzione \[EGrave] corretta *)
-                                            message3 = ""; (* Azzera eventuali messaggi precedenti *)
-                                        },
-                                        {
-                                        message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!" (* Visualizza un messaggio di errore *)}
-                                    ]
-                                }, Enabled -> Dynamic[!correctFunction](* Inibisce il "click" sul pulsante quando l'esercizio \[EGrave] risolto correttamente *)
+                                    DisplayForm["\|01d466 ="],
+                                    Spacer[10],
+                                    If[grade == 2, (* Controlla se si tratta di una parabola *)
+                                        Row[{
+                                            InputField[Dynamic@coefficentListInput[[3]], Number, FieldSize->4, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 2]]],
+                                            TraditionalForm["\!\(\*SuperscriptBox[\(\|01d465\), \(2\)]\)"],
+                                            DisplayForm["  +  "]
+                                        }],
+                                        Row[{}]
+                                    ],
+                                    InputField[Dynamic@coefficentListInput[[2]], Number, FieldSize->4, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 1]]],
+                                    TraditionalForm["\|01d465 + "],
+                                    InputField[Dynamic@coefficentListInput[[1]], Number, FieldSize->4, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[c, ``]", 0]]],
+                                    Spacer[30]
+                                }
                             ],
-                            Button[TextCell[" Pulisci interfaccia", FontSize->16], (* Gestisce la pulizia dell'interfaccia, ri-inizializzando le variabili utilizzate *)
-								{
-                                correctFunction = False,
-								coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
-								fun = Null,
-								message = "",
-								message2 = "",
-								message3 = "",
-								myCounterErrori = 0,
-								visualizzaAiutoFlag = False,
-								coefficentMatrix = ConstantArray[Null, dims],
-								constantVector =  ConstantArray[Null, {grade+1, 1}] 
-								}
-                            ]
-                        }
+                            Row[
+                                {
+                                    Button[TextCell[" Inserisci funzione nel grafico ", FontSize->16], 
+                                        {
+                                            If[ AllTrue[coefficentListInput, # =!= Null &] && AllTrue[coefficentListInput, Head[#] === Integer &],
+                                                {
+                                                    fun = Sum[coefficentListInput[[i]]*x^(i-1), {i, 1, grade+1}], (*Costruzione della variabile che contiene l'equazione*)
+                                                    {message, myCounterErrori} = myCheckInput[coefficentList, coefficentListInput, myCounterErrori]; (* Controlla se la funzione \[EGrave] corretta *)
+                                                    message3 = ""; (* Azzera eventuali messaggi precedenti *)
+                                                },
+                                                {
+                                                message3 = "Attenzione! Campi vuoti o numeri non interi inseriti!" (* Visualizza un messaggio di errore *)}
+                                            ]
+                                        }, Enabled -> Dynamic[!correctFunction](* Inibisce il "click" sul pulsante quando l'esercizio \[EGrave] risolto correttamente *)
+                                    ],
+                                    Spacer[10],
+                                    Button[TextCell[" Pulisci interfaccia", FontSize->16], (* Gestisce la pulizia dell'interfaccia, ri-inizializzando le variabili utilizzate *)
+                                        {
+                                        correctFunction = False,
+                                        coefficentListInput = ConstantArray[Null, {grade + 1, 1}],
+                                        fun = Null,
+                                        message = "",
+                                        message2 = "",
+                                        message3 = "",
+                                        myCounterErrori = 0,
+                                        visualizzaAiutoFlag = False,
+                                        coefficentMatrix = ConstantArray[Null, dims],
+                                        constantVector =  ConstantArray[Null, {grade+1, 1}] 
+                                        }
+                                    ]
+                                }
+                            ],    
+                            TextForm@Dynamic@Style[message3, FontColor -> Red], (* Visualizza eventuali messaggi di errore *)
+                        }, Alignment -> Center;
                     ], {{"KeyDown", "."} :> Null}, PassEventsDown -> False (* Impedisce l'inserimento dei punti nei campi input *)
                 ],
-                TextForm@Dynamic@Style[message3, FontColor -> Red], (* Visualizza eventuali messaggi di errore *)
                 (* Grafico dell'equazione inserita *)
                 TextCell["Grafico dell'equazione inserita in input:", "Subsection"],
                 Framed@Dynamic@Show[ (* Gestione della plot della funzione *)
@@ -222,7 +231,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                         Row[{
                             MatrixForm[  (* Generazione degli input field per l'inserimento dei valori della matrice di vandermonde*)
                                 Table[With[{i = i, j = j},
-                                  InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
+                                  InputField[Dynamic@coefficentMatrix[[i, j]], Number, FieldSize->4, Alignment->Center, FieldHint->ToString[StringForm["\*SubsuperscriptBox[x, ``, ``]", i, j-1]]]],
                                  {i, grade+1}, {j, grade+1}]
                                 ],
                              Style[DisplayForm[" \[Times] "], FontSize->16],
@@ -231,7 +240,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                              Style[DisplayForm[" = "], FontSize->16],
                              MatrixForm[  (* Generazione degli input field per l'inserimento dei valori del vettore dei termini noti*)
                                 Table[With[{i = i},
-                                  InputField[Dynamic@constantVector[[i]], Number, FieldSize->2, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
+                                  InputField[Dynamic@constantVector[[i]], Number, FieldSize->4, Alignment->Center, FieldHint->ToString[StringForm["\*SubscriptBox[y, ``]", i]]]],
                                  {i, grade+1}]
                                 ],
                             Spacer[20],
