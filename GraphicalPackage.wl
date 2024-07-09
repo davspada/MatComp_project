@@ -131,15 +131,15 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                     TextCell["Guess the function", "Title"],
                     Spacer[20],
                     TextCell[StringForm["Seed: ``", Dynamic@seed], FontSize->16] (* Visualizza il seed attuale *),
-                    Button["Torna alla pagina precedente",{DialogReturn[], myCreateDynamicWindow[]}]
+                    Button["Torna alla scelta del seed",{DialogReturn[], myCreateDynamicWindow[]}]
                 }],
                 (* Descrizione del gioco e dei punti *)
-                TextCell["In questo esercizio dovrai trovare la funzione della curva che passa per i seguenti punti:", TextAlignment->Left],
+                TextCell["In questo esercizio dovrai trovare l'equazione della funzione passante per i seguenti punti:", TextAlignment->Left],
                 Spacer[1],
                 TextCell[TraditionalForm@myGeneratePointDisplay[points], "Abstract"],
                 Spacer[1],
                 (* Inserimento dei coefficienti dell'equazione *)
-                TextCell[ToString@StringForm["Nella seguente sezione \[EGrave] possibile inserire i `` coefficenti dell'equazione di ``\[Degree] grado", grade + 1, grade]],
+                TextCell["Nella seguente sezione \[EGrave] possibile inserire i coefficenti dell'equazione della funzione."],
                 TextCell["Cliccando sul bottone \[EGrave] possibile visualizzare la curva sull'asse cartesiano:"],
                 Spacer[10],
                 EventHandler[
