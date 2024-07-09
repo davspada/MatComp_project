@@ -195,7 +195,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                                     ]
                                 }
                             ],    
-                            TextForm@Dynamic@Style[message3, FontColor -> Red], (* Visualizza eventuali messaggi di errore *)
+                            TextForm@Dynamic@Style[message3, FontColor -> Red]; (* Visualizza eventuali messaggi di errore *)
                         }, Alignment -> Center;
                     ], {{"KeyDown", "."} :> Null}, PassEventsDown -> False (* Impedisce l'inserimento dei punti nei campi input *)
                 ],
@@ -322,7 +322,6 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
       ], FontSize->16]
   ],
 WindowTitle -> "SCPARABOLA",
-(* WindowSize -> {All,All}, *)
 WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
 WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"},
 WindowMargins -> Automatic,
@@ -392,7 +391,9 @@ myCreateDynamicWindow[] :=
 	   ], 
 	    WindowSize-> {All, All}, (* Imposta le dimensioni della finestra *)
 	    WindowTitle-> "Scegli esercizio", (* Imposta il titolo della finestra *)
-        Resizable->True
+	    WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
+		WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"},
+		WindowMargins -> Automatic
     ]
 ];
 
@@ -418,7 +419,9 @@ myCreateInfoWindow[] := CreateDialog[
         }], 
     WindowSize -> {400, 350}, 
     WindowTitle -> "Perch\[EAcute] inserire un seed?",
-    Resizable->True
+    WindowElements->{"VerticalScrollBar", "StatusArea", "HorizontalScrollBar", "MagnificationPopUp"},
+	WindowFrameElements -> {"CloseBox", "ZoomBox", "MinimizeBox", "ResizeArea"},
+	WindowMargins -> Automatic
 ]
 
 
