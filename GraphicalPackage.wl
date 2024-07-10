@@ -51,7 +51,7 @@ myCheckMatrix[matrix_, constantVector_, points_] := Module[{message = "", coeffi
         !AllTrue[Flatten[constantVector], Head[#] === Integer && Head[#] =!= Null &], 
         message = "Attenzione! Campi vuoti o numeri non interi inseriti!",
         checkMatrixSingular[matrix],
-        message = "Attenzione! La matrice inserita \[EGrave] singolare (determinante nullo) e non \[EGrave] invertibile!",
+        message = "Attenzione! La matrice inserita \[EGrave] singolare",
         True,
         (* Risoluzione della matrice *)
 	    solution = LinearSolve[coefficentMatrix, rhsVector];
@@ -140,7 +140,7 @@ myGuessTheFunctionGUI[grade_, seed_] := CreateDialog[(* Definisce una finestra d
                 Spacer[1],
                 (* Inserimento dei coefficienti dell'equazione *)
                 TextCell["Nella seguente sezione \[EGrave] possibile inserire i coefficenti dell'equazione della funzione."],
-                TextCell["Cliccando sul bottone \[EGrave] possibile visualizzare la curva sull'asse cartesiano:"],
+                TextCell["Cliccando sul bottone \[EGrave] possibile visualizzarne il grafico:"],
                 Spacer[10],
                 EventHandler[
                     Column[
