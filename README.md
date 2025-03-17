@@ -1,6 +1,4 @@
 # Scparabola
-
-## Introduzione
 **Scparabola** è un'esperienza interattiva sviluppata in **Mathematica 14** che sfida gli utenti a determinare i coefficienti di una funzione (retta o parabola) analizzando dati grafici. 
 
 **Obiettivo:** Stimolare l'intuizione matematica e le capacità analitiche attraverso un'interfaccia interattiva.
